@@ -53,18 +53,21 @@ function TodoApp() {
 	};
 
 	// mars todo as completed/uncompleted
-	const handleMarkTodo = (id) => {
-		const updatedTodos = todos.map((todo) => {
-			if (todo.id === id) {
-				return { ...todo, isCompleted: !todo.isCompleted };
-			} else {
-				return { ...todo };
-			};
-		})
+	const handleMarkTodo = (id, isCompleted, title) => {
+		let updatedTodos = todos.map((todo) => {
+			return (todo.id === id) ? { ...todo, isCompleted: !isCompleted } : { ...todo };
+		});
 
-		const sortingTodos = sortTodosByCompletion(updatedTodos);
+		if (!isCompleted) {
+			updatedTodos = sortTodosByCompletion(updatedTodos);
+		} else {
+			updatedTodos = [
+				{ title, id, isCompleted: false },
+				...updatedTodos.filter((todo) => todo.id !== id)
+			];
+		};
 
-		setTodos(sortingTodos);
+		setTodos(updatedTodos);
 	};
 
 	return (
