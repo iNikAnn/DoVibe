@@ -29,7 +29,8 @@
 	right: 0;
 	transform: translateY(-50%);
 	display: flex;
-	gap: 1rem;
+	align-items: center;
+	gap: 0.2rem;
 	height: 100%;
 	background: linear-gradient(
 		to right,
@@ -53,8 +54,28 @@
 .btnWrapper button {
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	background-color: unset;
+	width: 2.5rem;
+	height: 2.5rem;
 	color: #bfbfbf;
+}
+
+.btnWrapper button:hover {
+	background-color: var(--bg-color-secondary);
+	border-radius: 50%;
+}
+
+.btnRename:hover {
+	color: #7fc7ff;
+}
+
+.btnRemove:hover {
+	color: #e4717a;
+}
+
+.btnMark:hover {
+	color: #3eb489;
 }
 
 /* state */

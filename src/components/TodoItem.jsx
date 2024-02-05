@@ -13,9 +13,9 @@ function TodoItem({ title, id, isCompleted, onRenameTodo, onRemoveTodo, onMarkTo
 			</div>
 
 			<div className={styles.btnWrapper}>
-				<button onClick={() => onRenameTodo(id, title)}><FaEdit /></button>
-				<button onClick={() => onRemoveTodo(id)}><FaTrash /></button>
-				<button onClick={() => onMarkTodo(id, isCompleted, title)}><FaCheck /></button>
+				<button title="Rename" className={styles.btnRename} onClick={() => onRenameTodo(id, title)}><FaEdit /></button>
+				<button title='Remove' className={styles.btnRemove} onClick={() => onRemoveTodo(id)}><FaTrash /></button>
+				<button title='Toggle Todo Status' className={styles.btnMark} onClick={() => onMarkTodo(id, isCompleted, title)}><FaCheck /></button>
 			</div>
 		</div>
 	);
