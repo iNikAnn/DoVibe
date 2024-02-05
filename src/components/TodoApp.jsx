@@ -4,7 +4,7 @@ import styles from '../css/TodoApp.module.css';
 import { useEffect, useState } from 'react';
 
 // components
-import SearchBar from './SearchBar';
+import InputBar from './InputBar';
 import TodoList from './TodoList';
 
 function TodoApp() {
@@ -28,6 +28,18 @@ function TodoApp() {
 		setTodos([...todos, newTodo]);
 	};
 
+	const handleRenameTodo = (id) => {
+		const newName = prompt('New title...');
+
+		setTodos(todos.map((todo) => {
+			if (todo.id === id) {
+				return { ...todo, title: newName };
+			} else {
+				return { ...todo };
+			};
+		}));
+	};
+
 	const handleRemoveTodo = (id) => {
 		setTodos(todos.slice().filter((todo) => todo.id !== id));
 	};
@@ -44,12 +56,13 @@ function TodoApp() {
 
 	return (
 		<div className={styles.todoApp}>
-			<SearchBar
+			<InputBar
 				onSubmit={handleAddTodo}
 			/>
 
 			<TodoList
 				list={todos}
+				onRenameTodo={handleRenameTodo}
 				onRemoveTodo={handleRemoveTodo}
 				onMarkTodo={handleMarkTodo}
 			/>

@@ -1,15 +1,18 @@
-import styles from '../css/SearchBar.module.css';
+import styles from '../css/InputBar.module.css';
 
 // react
 import { useState } from 'react';
 
-function SearchBar({ onSubmit }) {
+function InputBar({ onSubmit }) {
 	const [input, setInput] = useState('');
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		onSubmit(input);
-		setInput('');
+
+		if (input) {
+			onSubmit(input);
+			setInput('');
+		};
 	};
 
 	return (
@@ -30,4 +33,4 @@ function SearchBar({ onSubmit }) {
 	);
 }
 
-export default SearchBar;
+export default InputBar;

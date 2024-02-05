@@ -1,9 +1,13 @@
+.todoItemWrapper {
+	position: relative;
+}
+
 .todoItem {
-	height: 2rem;
-	padding: 1rem;
+	position: relative;
+	height: 3rem;
+	padding: 1rem 0.6rem;
 	width: 100%;
 	display: flex;
-	justify-content: space-between;
 	align-items: center;
 
 	background-color: var(--bg-color-tertiary);
@@ -11,18 +15,33 @@
 	border-radius: 0.5rem;
 }
 
-.isCompleted {
-	opacity: 0.25;
+.text {
+	text-align: left;
 }
 
 .btnWrapper {
+	position: absolute;
+	top: 50%;
+	right: 0;
+	transform: translateY(-50%);
 	display: flex;
 	gap: 1rem;
+	height: 100%;
+	background: linear-gradient(
+		to right,
+		transparent,
+		var(--bg-color-tertiary),
+		var(--bg-color-tertiary),
+		var(--bg-color-tertiary)
+	);
+	border-radius: 0 0.5rem 0.5rem 0;
 	opacity: 0;
+	padding: 0 0.6rem 0 3rem;
 	pointer-events: none;
+	z-index: 9;
 }
 
-.todoItem:hover .btnWrapper {
+.todoItemWrapper:hover .btnWrapper {
 	opacity: 1;
 	pointer-events: all;
 }
@@ -32,4 +51,10 @@
 	align-items: center;
 	background-color: unset;
 	color: #bfbfbf;
+}
+
+/* state */
+.isCompleted {
+	opacity: 0.25;
+	text-decoration: line-through;
 }
