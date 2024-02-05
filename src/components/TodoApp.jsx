@@ -28,8 +28,10 @@ function TodoApp() {
 		setTodos([...todos, newTodo]);
 	};
 
-	const handleRenameTodo = (id) => {
-		const newName = prompt('New title...');
+	const handleRenameTodo = (id, title) => {
+		const newName = prompt('New title...', title);
+
+		if (!newName) return;
 
 		setTodos(todos.map((todo) => {
 			if (todo.id === id) {

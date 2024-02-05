@@ -13,7 +13,7 @@ function TodoItem({ title, id, isCompleted, onRenameTodo, onRemoveTodo, onMarkTo
 			</div>
 
 			<div className={styles.btnWrapper}>
-				<button onClick={() => { onRenameTodo(id) }}><FaEdit /></button>
+				<button onClick={() => onRenameTodo(id, title)}><FaEdit /></button>
 				<button onClick={() => onRemoveTodo(id)}><FaTrash /></button>
 				<button onClick={() => onMarkTodo(id)}><FaCheck /></button>
 			</div>

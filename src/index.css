@@ -1,4 +1,6 @@
 :root {
+	--accent-color: cyan;
+
 	--bg-color-primary: #151515;
 	--bg-color-secondary: #181818;
 	--bg-color-tertiary: #202020;

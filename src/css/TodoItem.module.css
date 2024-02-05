@@ -15,6 +15,10 @@
 	border-radius: 0.5rem;
 }
 
+.todoItem:hover {
+	outline: 2px solid var(--accent-color);
+}
+
 .text {
 	text-align: left;
 }
