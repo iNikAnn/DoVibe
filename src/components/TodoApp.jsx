@@ -25,7 +25,7 @@ function TodoApp() {
 			isCompleted: false,
 		};
 
-		setTodos([...todos, newTodo]);
+		setTodos([newTodo, ...todos]);
 	};
 
 	const handleRenameTodo = (id, title) => {

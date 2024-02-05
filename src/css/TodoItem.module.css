@@ -1,5 +1,10 @@
 .todoItemWrapper {
 	position: relative;
+	border-radius: 0.5rem;
+}
+
+.todoItemWrapper:hover {
+	outline: 2px solid var(--accent-color);
 }
 
 .todoItem {
@@ -13,10 +18,6 @@
 	background-color: var(--bg-color-tertiary);
 	border: 2px solid #303030;
 	border-radius: 0.5rem;
-}
-
-.todoItem:hover {
-	outline: 2px solid var(--accent-color);
 }
 
 .text {
