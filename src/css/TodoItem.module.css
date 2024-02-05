@@ -1,0 +1,35 @@
+.todoItem {
+	height: 2rem;
+	padding: 1rem;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	background-color: var(--bg-color-tertiary);
+	border: 2px solid #303030;
+	border-radius: 0.5rem;
+}
+
+.isCompleted {
+	opacity: 0.25;
+}
+
+.btnWrapper {
+	display: flex;
+	gap: 1rem;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.todoItem:hover .btnWrapper {
+	opacity: 1;
+	pointer-events: all;
+}
+
+.btnWrapper button {
+	display: flex;
+	align-items: center;
+	background-color: unset;
+	color: #bfbfbf;
+}

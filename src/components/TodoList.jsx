@@ -1,0 +1,25 @@
+import styles from '../css/TodoList.module.css';
+
+// components
+import TodoItem from './TodoItem';
+
+function TodoList({ list, onRemoveTodo, onMarkTodo }) {
+	return (
+		<>
+			{!!list.length &&
+				<div className={styles.todoList}>
+					{list.map((item) =>
+						<TodoItem
+							key={item.id}
+							{...item}
+							onRemoveTodo={onRemoveTodo}
+							onMarkTodo={onMarkTodo}
+						/>
+					)}
+				</div>
+			}
+		</>
+	);
+}
+
+export default TodoList;
