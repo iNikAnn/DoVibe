@@ -7,7 +7,7 @@ import { FaEdit } from "react-icons/fa";
 
 function TodoItem({ title, id, isCompleted, onRenameTodo, onRemoveTodo, onMarkTodo }) {
 	return (
-		<div className={styles.todoItemWrapper}>
+		<div data-id={id} className={styles.todoItemWrapper}>
 			<div className={`${styles.todoItem} ${isCompleted ? styles.isCompleted : ''}`}>
 				<span className={styles.text}>{title}</span>
 			</div>
