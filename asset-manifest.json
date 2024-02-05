@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/inikann.github.io/DoVibe/static/css/main.da0d1e3b.css",
+    "main.js": "/inikann.github.io/DoVibe/static/js/main.c8076fae.js",
+    "index.html": "/inikann.github.io/DoVibe/index.html",
+    "main.da0d1e3b.css.map": "/inikann.github.io/DoVibe/static/css/main.da0d1e3b.css.map",
+    "main.c8076fae.js.map": "/inikann.github.io/DoVibe/static/js/main.c8076fae.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.da0d1e3b.css",
+    "static/js/main.c8076fae.js"
+  ]
+}
