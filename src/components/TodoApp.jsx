@@ -1,7 +1,8 @@
 import styles from '../css/TodoApp.module.css';
 
-// react
+// react, uuid
 import { useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 // components
 import InputBar from './InputBar';
@@ -28,7 +29,7 @@ function TodoApp() {
 
 		const newTodo = {
 			title: input,
-			id: Math.floor((Math.random() * 999999)),
+			id: uuidv4(),
 			isCompleted: false,
 		};
 
