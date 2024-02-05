@@ -8,6 +8,7 @@ import InputBar from './InputBar';
 import TodoList from './TodoList';
 
 // utils
+import isTodoDuplicate from '../utils/isTodoDuplicate';
 import sortTodosByCompletion from '../utils/sortTodosByCompletion';
 
 function TodoApp() {
@@ -23,6 +24,8 @@ function TodoApp() {
 
 	// add todo
 	const handleAddTodo = (input) => {
+		if (isTodoDuplicate(todos, input)) return;
+
 		const newTodo = {
 			title: input,
 			id: Math.floor((Math.random() * 999999)),
@@ -36,7 +39,7 @@ function TodoApp() {
 	const handleRenameTodo = (id, title) => {
 		const newName = prompt('New title...', title);
 
-		if (!newName) return;
+		if (!newName || isTodoDuplicate(todos, newName)) return;
 
 		setTodos(todos.map((todo) => {
 			if (todo.id === id) {
