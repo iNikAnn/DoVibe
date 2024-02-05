@@ -4,18 +4,19 @@
 }
 
 .todoItemWrapper:hover {
-	outline: 2px solid var(--accent-color);
+	/* outline: 2px solid var(--accent-color); */
+	background-color: var(--bg-color-secondary);
 }
 
 .todoItem {
 	position: relative;
-	height: 3rem;
-	padding: 1rem 0.6rem;
+	/* height: 3rem; */
+	padding: 1rem 1rem;
 	width: 100%;
 	display: flex;
 	align-items: center;
-	background-color: var(--bg-color-tertiary);
-	border: 2px solid #303030;
+	/* background-color: var(--bg-color-tertiary); */
+	/* border: 2px solid #303030; */
 	border-radius: 0.5rem;
 }
 
@@ -35,9 +36,9 @@
 	background: linear-gradient(
 		to right,
 		transparent,
-		var(--bg-color-tertiary),
-		var(--bg-color-tertiary),
-		var(--bg-color-tertiary)
+		var(--bg-color-secondary),
+		var(--bg-color-secondary),
+		var(--bg-color-secondary)
 	);
 	border-radius: 0 0.5rem 0.5rem 0;
 	opacity: 0;
@@ -62,7 +63,7 @@
 }
 
 .btnWrapper button:hover {
-	background-color: var(--bg-color-secondary);
+	background-color: var(--bg-color-tertiary);
 	border-radius: 50%;
 }
 

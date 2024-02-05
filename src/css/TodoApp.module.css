@@ -1,9 +1,10 @@
 .todoApp {
-	width: 400px;
-	background-color: var(--bg-color-primary);
-	border: 2px solid #303030;
-	border-radius: 1rem;
-	padding: 1rem;
+	width: 500px;
+	margin: 2rem 0;
+}
 
-	margin-top: 2rem;
+.todoApp h1 {
+	margin-bottom: 1rem;
+	font-size: 3rem;
+	font-weight: 900;
 }
