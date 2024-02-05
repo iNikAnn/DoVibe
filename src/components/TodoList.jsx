@@ -6,7 +6,7 @@ import TodoItem from './TodoItem';
 function TodoList({ list, onRenameTodo, onRemoveTodo, onMarkTodo, }) {
 	return (
 		<>
-			{!!list.length &&
+			{list &&
 				<div className={styles.todoList}>
 					{list.map((item) =>
 						<TodoItem
