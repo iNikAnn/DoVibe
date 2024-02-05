@@ -7,6 +7,9 @@ import { useEffect, useState } from 'react';
 import InputBar from './InputBar';
 import TodoList from './TodoList';
 
+// utils
+import sortTodosByCompletion from '../utils/sortTodosByCompletion';
+
 function TodoApp() {
 	const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || []);
 
@@ -18,6 +21,7 @@ function TodoApp() {
 		};
 	}, [todos]);
 
+	// add todo
 	const handleAddTodo = (input) => {
 		const newTodo = {
 			title: input,
@@ -28,6 +32,7 @@ function TodoApp() {
 		setTodos([newTodo, ...todos]);
 	};
 
+	// rename todo
 	const handleRenameTodo = (id, title) => {
 		const newName = prompt('New title...', title);
 
@@ -42,18 +47,24 @@ function TodoApp() {
 		}));
 	};
 
+	// remove todo
 	const handleRemoveTodo = (id) => {
 		setTodos(todos.slice().filter((todo) => todo.id !== id));
 	};
 
+	// mars todo as completed/uncompleted
 	const handleMarkTodo = (id) => {
-		setTodos(todos.map((todo) => {
+		const updatedTodos = todos.map((todo) => {
 			if (todo.id === id) {
 				return { ...todo, isCompleted: !todo.isCompleted };
 			} else {
 				return { ...todo };
 			};
-		}));
+		})
+
+		const sortingTodos = sortTodosByCompletion(updatedTodos);
+
+		setTodos(sortingTodos);
 	};
 
 	return (
