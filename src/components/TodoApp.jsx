@@ -18,25 +18,22 @@ function TodoApp() {
 	const [date, setDate] = useState(today);
 	const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || {});
 
-	// console.log(todos);
-	// console.log(date);
-
 	useEffect(() => {
 		localStorage.setItem('todos', JSON.stringify(todos));
 	}, [todos]);
 
 	// add todo
 	const handleAddTodo = (input) => {
-		if (isTodoDuplicate(todos[date], input)) return;
-		const updatedTodos = { ...todos };
+		if (isTodoDuplicate(todos[date], input) || !date) return;
 
+		const updatedTodos = { ...todos };
 		const newTodo = {
 			title: input,
 			id: uuidv4(),
 			isCompleted: false,
 		};
 
-		if (!updatedTodos[date]) {
+		if (!Array.isArray(updatedTodos[date])) {
 			updatedTodos[date] = [];
 		};
 
@@ -52,7 +49,6 @@ function TodoApp() {
 		if (!newName || isTodoDuplicate(todos[date], newName)) return;
 
 		const updatedTodos = { ...todos };
-
 		const updatedDailyTodos = updatedTodos[date].map((todo) => {
 			if (todo.id === id) {
 				return { ...todo, title: newName };
@@ -69,33 +65,31 @@ function TodoApp() {
 	// remove todo
 	const handleRemoveTodo = (id) => {
 		const updatedTodos = { ...todos };
-		const updatedDailyTodos = updatedTodos[date].filter((todo) => todo.id !== id);
+		updatedTodos[date] = updatedTodos[date].filter((todo) => todo.id !== id);
 
-		updatedTodos[date] = updatedDailyTodos;
+		if (updatedTodos[date].length === 0) {
+			delete updatedTodos[date];
+		};
 
 		setTodos(updatedTodos);
-
-		// setTodos(todos.slice().filter((todo) => todo.id !== id));
 	};
 
 	// mars todo as completed/uncompleted
 	const handleMarkTodo = (id, isCompleted, title) => {
 		const updatedTodos = { ...todos };
 
-		let updatedDailyTodos = updatedTodos[date].map((todo) => {
+		updatedTodos[date] = updatedTodos[date].map((todo) => {
 			return (todo.id === id) ? { ...todo, isCompleted: !isCompleted } : { ...todo };
 		});
 
 		if (!isCompleted) {
-			updatedDailyTodos = sortTodosByCompletion(updatedDailyTodos);
+			updatedTodos[date] = sortTodosByCompletion(updatedTodos[date]);
 		} else {
-			updatedDailyTodos = [
+			updatedTodos[date] = [
 				{ title, id, isCompleted: false },
-				...updatedDailyTodos.filter((todo) => todo.id !== id)
+				...updatedTodos[date].filter((todo) => todo.id !== id)
 			];
 		};
-
-		updatedTodos[date] = updatedDailyTodos;
 
 		setTodos(updatedTodos);
 	};
