@@ -3,7 +3,7 @@ import styles from '../css/InputBar.module.css';
 // react
 import { useState } from 'react';
 
-function InputBar({ onSubmit }) {
+function InputBar({ inputBarRef, onSubmit }) {
 	const [input, setInput] = useState('');
 
 	const handleSubmit = (e) => {
@@ -22,6 +22,7 @@ function InputBar({ onSubmit }) {
 				onSubmit={(e) => handleSubmit(e)}
 			>
 				<input
+					ref={inputBarRef}
 					className={styles.input}
 					type="text"
 					value={input}

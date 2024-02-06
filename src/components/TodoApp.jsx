@@ -1,7 +1,7 @@
 import styles from '../css/TodoApp.module.css';
 
 // react, uuid
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 // components
@@ -14,6 +14,7 @@ import isTodoDuplicate from '../utils/isTodoDuplicate';
 import sortTodosByCompletion from '../utils/sortTodosByCompletion';
 
 function TodoApp() {
+	const inputBarRef = useRef(null);
 	const today = new Date().toISOString().slice(0, 10);
 
 	const [date, setDate] = useState(today);
@@ -28,10 +29,10 @@ function TodoApp() {
 		const handleChangeDate = (e) => {
 			if (e.ctrlKey && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
 				setDate(modifyDateByOneDay(date, e.key));
-				document.querySelector('input[type="text"]').focus();
 			};
 		};
 
+		inputBarRef.current.focus(); // highlight the input after loading or changing the date
 		window.addEventListener('keydown', handleChangeDate);
 
 		return () => window.removeEventListener('keydown', handleChangeDate);
@@ -113,7 +114,7 @@ function TodoApp() {
 
 	return (
 		<div className={styles.todoApp}>
-			<InputBar onSubmit={handleAddTodo} />
+			<InputBar inputBarRef={inputBarRef} onSubmit={handleAddTodo} />
 
 			<div>
 				<input type="date" value={date} onChange={(e) => setDate(e.target.value)} name="date" id="date" />
