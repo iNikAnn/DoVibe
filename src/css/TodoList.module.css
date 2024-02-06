@@ -3,3 +3,8 @@
 	flex-direction: column;
 	margin-top: 1rem;
 }
+
+.binTitle {
+	text-align: left;
+	margin-top: 1rem;
+}
