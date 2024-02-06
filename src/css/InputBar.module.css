@@ -1,18 +1,31 @@
+.formWrapper {
+	position: sticky;
+	top: 1rem;
+	left: 0;
+	z-index: 99;
+}
+
 .form {
 	position: relative;
 }
 
 .input {
+	/* outline: 1px solid tomato; */
 	height: 3rem;
 	width: 100%;
 	padding: 1rem;
 
 	background-color: var(--bg-color-secondary);
+	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
 	border-radius: 3rem;
 	border: none;
-	color: #bfbfbf;
+	color: var(--text-color-primary);
 	font-size: 1rem;
 	font-weight: 600;
+}
+
+.input::placeholder {
+	color: var(--text-color-dimmed);
 }
 
 .input:focus {

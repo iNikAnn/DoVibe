@@ -20,7 +20,7 @@ function InputBar({ inputBarRef, onSubmit }) {
 	};
 
 	return (
-		<div>
+		<div className={styles.formWrapper}>
 			<form
 				className={styles.form}
 				action="submit"
