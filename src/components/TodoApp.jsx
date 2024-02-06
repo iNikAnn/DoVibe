@@ -31,7 +31,8 @@ function TodoApp() {
 			title: input,
 			id: uuidv4(),
 			isCompleted: false,
-			date: Date.now()
+			date: Date.now(),
+			bin: date
 		};
 
 		if (!Array.isArray(updatedTodos[date])) {
@@ -44,13 +45,13 @@ function TodoApp() {
 	};
 
 	// rename todo
-	const handleRenameTodo = (id, title) => {
+	const handleRenameTodo = (bin, id, title) => {
 		const newName = prompt('New title...', title);
 
-		if (!newName || isTodoDuplicate(todos[date], newName)) return;
+		if (!newName || isTodoDuplicate(todos[bin], newName)) return;
 
 		const updatedTodos = { ...todos };
-		const updatedDailyTodos = updatedTodos[date].map((todo) => {
+		const updatedDailyTodos = updatedTodos[bin].map((todo) => {
 			if (todo.id === id) {
 				return { ...todo, title: newName };
 			} else {
@@ -58,43 +59,32 @@ function TodoApp() {
 			};
 		});
 
-		updatedTodos[date] = updatedDailyTodos;
+		updatedTodos[bin] = updatedDailyTodos;
 
 		setTodos(updatedTodos);
 	};
 
 	// remove todo
-	const handleRemoveTodo = (id) => {
+	const handleRemoveTodo = (bin, id) => {
 		const updatedTodos = { ...todos };
-		updatedTodos[date] = updatedTodos[date].filter((todo) => todo.id !== id);
+		updatedTodos[bin] = updatedTodos[bin].filter((todo) => todo.id !== id);
 
-		if (updatedTodos[date].length === 0) {
-			delete updatedTodos[date];
-		};
+		if (updatedTodos[bin].length === 0) delete updatedTodos[bin];
 
 		setTodos(updatedTodos);
 	};
 
 	// mars todo as completed/uncompleted
-	const handleMarkTodo = (id) => {
+	const handleMarkTodo = (bin, id) => {
 		const updatedTodos = { ...todos };
 
-		updatedTodos[date] = updatedTodos[date].map((todo) => {
+		updatedTodos[bin] = updatedTodos[bin].map((todo) => {
 			return (todo.id === id)
 				? { ...todo, isCompleted: !todo.isCompleted, date: Date.now() }
 				: { ...todo };
 		});
 
-		// if (!isCompleted) {
-		// 	updatedTodos[date] = sortTodosByCompletion(updatedTodos[date]);
-		// } else {
-		// 	updatedTodos[date] = [
-		// 		{ title, id, isCompleted: false },
-		// 		...updatedTodos[date].filter((todo) => todo.id !== id)
-		// 	];
-		// };
-
-		updatedTodos[date] = sortTodosByCompletion(updatedTodos[date]);
+		updatedTodos[bin] = sortTodosByCompletion(updatedTodos[bin]);
 
 		setTodos(updatedTodos);
 	};
@@ -108,7 +98,6 @@ function TodoApp() {
 			<input type="date" value={date} onChange={(e) => setDate(e.target.value)} name="date" id="date" />
 
 			<TodoList
-				// list={date ? todos[date] : Object.values(todos).map((todos) => todos.reverse()).flat().reverse()}
 				list={date ? todos[date] : sortTodosByCompletion(Object.values(todos).flat())}
 				onRenameTodo={handleRenameTodo}
 				onRemoveTodo={handleRemoveTodo}
