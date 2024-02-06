@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 // components
 import InputBar from './InputBar';
 import TodoList from './TodoList';
+import Footer from './Footer';
 
 // utils
 import modifyDateByOneDay from '../utils/modifyDateByOneDay';
@@ -132,6 +133,8 @@ function TodoApp() {
 				onRemoveTodo={handleRemoveTodo}
 				onMarkTodo={handleMarkTodo}
 			/>
+
+			<Footer />
 		</div>
 	);
 }
