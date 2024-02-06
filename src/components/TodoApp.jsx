@@ -59,7 +59,7 @@ function TodoApp() {
 		};
 
 		if (!Array.isArray(updatedTodos[day])) {
-			updatedTodos[day] = [];
+			updatedTodos[day] = []; // If it's the initial todo for the day, an empty array will be generated
 		};
 
 		updatedTodos[day] = [newTodo, ...updatedTodos[day]];
@@ -75,11 +75,7 @@ function TodoApp() {
 
 		const updatedTodos = { ...todos };
 		const updatedDailyTodos = updatedTodos[bin].map((todo) => {
-			if (todo.id === id) {
-				return { ...todo, title: newName };
-			} else {
-				return { ...todo };
-			};
+			return (todo.id === id) ? { ...todo, title: newName } : { ...todo };
 		});
 
 		updatedTodos[bin] = updatedDailyTodos;
@@ -124,6 +120,7 @@ function TodoApp() {
 
 			<TodoList
 				list={
+					// displaying daily todos; if no date is selected, show all todos
 					date
 						? todos[date]
 						: Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse()

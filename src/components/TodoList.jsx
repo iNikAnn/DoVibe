@@ -1,5 +1,8 @@
 import styles from '../css/TodoList.module.css';
 
+// react
+import { Fragment } from 'react';
+
 // components
 import TodoItem from './TodoItem';
 
@@ -12,14 +15,16 @@ function TodoList({ list, onRenameTodo, onRemoveTodo, onMarkTodo, }) {
 				<div className={styles.todoList}>
 					{list.map((item) => {
 						const currDate = item.bin;
+
+						// The date is added only once for each day
 						const binTitle = (currDate !== prevDate)
-							? <span className={styles.binTitle}>{currDate}</span>
+							? <span key={item.bin} className={styles.binTitle}>{currDate}</span>
 							: null;
 
 						prevDate = currDate;
 
 						return (
-							<>
+							<Fragment key={'fragment' + item.id}>
 								{binTitle}
 
 								<TodoItem
@@ -29,7 +34,7 @@ function TodoList({ list, onRenameTodo, onRemoveTodo, onMarkTodo, }) {
 									onRemoveTodo={onRemoveTodo}
 									onMarkTodo={onMarkTodo}
 								/>
-							</>
+							</Fragment>
 						)
 					})}
 				</div>
