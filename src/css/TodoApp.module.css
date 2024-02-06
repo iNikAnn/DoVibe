@@ -5,6 +5,7 @@
 
 .todoApp h1 {
 	margin-bottom: 1rem;
-	font-size: 3rem;
+	font-size: 4rem;
 	font-weight: 900;
+	color: var(--text-color-primary);
 }

@@ -3,7 +3,7 @@ import styles from '../css/InputBar.module.css';
 // react
 import { useState } from 'react';
 
-function InputBar({ inputBarRef, onSubmit }) {
+function InputBar({ inputBarRef, date, setDate, onSubmit }) {
 	const [input, setInput] = useState('');
 
 	const handleSubmit = (e) => {
@@ -35,7 +35,22 @@ function InputBar({ inputBarRef, onSubmit }) {
 					onChange={(e) => handleChange(e)}
 				/>
 
+				<div>
+
+
+					{/* <button onClick={handleToggleViewMode}>View all</button> */}
+				</div>
+
 				<div className={styles.btnWrapper}>
+					<input
+						className={`${styles.calendar} ${input ? styles.calendarHidden : ''}`}
+						type="date"
+						value={date} onChange={(e) => setDate(e.target.value)}
+						title="Selecting the date for a new todo"
+						name="date"
+						id="date"
+					/>
+
 					<button className={styles.btn}>Submit</button>
 				</div>
 			</form>

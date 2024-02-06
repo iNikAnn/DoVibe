@@ -113,13 +113,13 @@ function TodoApp() {
 		<div className={styles.todoApp}>
 			<h1>DoVibe</h1>
 
-			<InputBar inputBarRef={inputBarRef} onSubmit={handleAddTodo} />
+			<InputBar inputBarRef={inputBarRef} onSubmit={handleAddTodo} date={date} setDate={setDate} />
 
-			<div>
+			{/* <div>
 				<input type="date" value={date} onChange={(e) => setDate(e.target.value)} name="date" id="date" />
 
 				<button onClick={handleToggleViewMode}>View all</button>
-			</div>
+			</div> */}
 
 			<TodoList
 				list={
