@@ -31,6 +31,7 @@ function TodoApp() {
 			title: input,
 			id: uuidv4(),
 			isCompleted: false,
+			date: Date.now()
 		};
 
 		if (!Array.isArray(updatedTodos[date])) {
@@ -75,21 +76,25 @@ function TodoApp() {
 	};
 
 	// mars todo as completed/uncompleted
-	const handleMarkTodo = (id, isCompleted, title) => {
+	const handleMarkTodo = (id) => {
 		const updatedTodos = { ...todos };
 
 		updatedTodos[date] = updatedTodos[date].map((todo) => {
-			return (todo.id === id) ? { ...todo, isCompleted: !isCompleted } : { ...todo };
+			return (todo.id === id)
+				? { ...todo, isCompleted: !todo.isCompleted, date: Date.now() }
+				: { ...todo };
 		});
 
-		if (!isCompleted) {
-			updatedTodos[date] = sortTodosByCompletion(updatedTodos[date]);
-		} else {
-			updatedTodos[date] = [
-				{ title, id, isCompleted: false },
-				...updatedTodos[date].filter((todo) => todo.id !== id)
-			];
-		};
+		// if (!isCompleted) {
+		// 	updatedTodos[date] = sortTodosByCompletion(updatedTodos[date]);
+		// } else {
+		// 	updatedTodos[date] = [
+		// 		{ title, id, isCompleted: false },
+		// 		...updatedTodos[date].filter((todo) => todo.id !== id)
+		// 	];
+		// };
+
+		updatedTodos[date] = sortTodosByCompletion(updatedTodos[date]);
 
 		setTodos(updatedTodos);
 	};
@@ -103,7 +108,8 @@ function TodoApp() {
 			<input type="date" value={date} onChange={(e) => setDate(e.target.value)} name="date" id="date" />
 
 			<TodoList
-				list={date ? todos[date] : Object.values(todos).map((todos) => todos.reverse()).flat().reverse()}
+				// list={date ? todos[date] : Object.values(todos).map((todos) => todos.reverse()).flat().reverse()}
+				list={date ? todos[date] : sortTodosByCompletion(Object.values(todos).flat())}
 				onRenameTodo={handleRenameTodo}
 				onRemoveTodo={handleRemoveTodo}
 				onMarkTodo={handleMarkTodo}
