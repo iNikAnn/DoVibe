@@ -103,7 +103,7 @@ function TodoApp() {
 			<input type="date" value={date} onChange={(e) => setDate(e.target.value)} name="date" id="date" />
 
 			<TodoList
-				list={todos[date]}
+				list={date ? todos[date] : Object.values(todos).map((todos) => todos.reverse()).flat().reverse()}
 				onRenameTodo={handleRenameTodo}
 				onRemoveTodo={handleRemoveTodo}
 				onMarkTodo={handleMarkTodo}
