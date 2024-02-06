@@ -7,7 +7,6 @@ function sortTodosByCompletion(array) {
 		} else if (!a.isCompleted && b.isCompleted) {
 			return -1;
 		} else {
-			// return 0;
 			return b.date - a.date;
 		};
 	});

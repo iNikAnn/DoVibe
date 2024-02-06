@@ -24,7 +24,9 @@ function TodoApp() {
 
 	// add todo
 	const handleAddTodo = (input) => {
-		if (isTodoDuplicate(todos[date], input) || !date) return;
+		const day = date ? date : today;
+
+		if (isTodoDuplicate(todos[day], input)) return;
 
 		const updatedTodos = { ...todos };
 		const newTodo = {
@@ -32,14 +34,14 @@ function TodoApp() {
 			id: uuidv4(),
 			isCompleted: false,
 			date: Date.now(),
-			bin: date
+			bin: day
 		};
 
-		if (!Array.isArray(updatedTodos[date])) {
-			updatedTodos[date] = [];
+		if (!Array.isArray(updatedTodos[day])) {
+			updatedTodos[day] = [];
 		};
 
-		updatedTodos[date] = [newTodo, ...updatedTodos[date]];
+		updatedTodos[day] = [newTodo, ...updatedTodos[day]];
 
 		setTodos(updatedTodos);
 	};
@@ -80,7 +82,7 @@ function TodoApp() {
 
 		updatedTodos[bin] = updatedTodos[bin].map((todo) => {
 			return (todo.id === id)
-				? { ...todo, isCompleted: !todo.isCompleted, date: Date.now() }
+				? { ...todo, isCompleted: !todo.isCompleted, date: new Date() }
 				: { ...todo };
 		});
 
@@ -98,7 +100,12 @@ function TodoApp() {
 			<input type="date" value={date} onChange={(e) => setDate(e.target.value)} name="date" id="date" />
 
 			<TodoList
-				list={date ? todos[date] : sortTodosByCompletion(Object.values(todos).flat())}
+				list={
+					date
+						? todos[date]
+						: Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse()
+				}
+
 				onRenameTodo={handleRenameTodo}
 				onRemoveTodo={handleRemoveTodo}
 				onMarkTodo={handleMarkTodo}
@@ -107,4 +114,4 @@ function TodoApp() {
 	);
 }
 
-export default TodoApp
+export default TodoApp;
