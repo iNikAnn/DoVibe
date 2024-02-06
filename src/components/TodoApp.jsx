@@ -9,6 +9,7 @@ import InputBar from './InputBar';
 import TodoList from './TodoList';
 
 // utils
+import modifyDateByOneDay from '../utils/modifyDateByOneDay';
 import isTodoDuplicate from '../utils/isTodoDuplicate';
 import sortTodosByCompletion from '../utils/sortTodosByCompletion';
 
@@ -21,6 +22,20 @@ function TodoApp() {
 	useEffect(() => {
 		localStorage.setItem('todos', JSON.stringify(todos));
 	}, [todos]);
+
+	// change the date by pressing arrow keys
+	useEffect(() => {
+		const handleChangeDate = (e) => {
+			if (e.ctrlKey && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
+				setDate(modifyDateByOneDay(date, e.key));
+				document.querySelector('input[type="text"]').focus();
+			};
+		};
+
+		window.addEventListener('keydown', handleChangeDate);
+
+		return () => window.removeEventListener('keydown', handleChangeDate);
+	}, [date]);
 
 	// toggle view mode
 	const handleToggleViewMode = () => {
