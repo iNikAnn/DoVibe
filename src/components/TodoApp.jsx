@@ -110,6 +110,8 @@ function TodoApp() {
 
 	return (
 		<div className={styles.todoApp}>
+			<h1>DoVibe</h1>
+
 			<InputBar inputBarRef={inputBarRef} onSubmit={handleAddTodo} />
 
 			<div>

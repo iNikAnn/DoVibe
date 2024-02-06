@@ -1,9 +1,11 @@
 :root {
-	--accent-color: cyan;
+	--accent-color: #1971c2;
 
-	--bg-color-primary: #151515;
-	--bg-color-secondary: #181818;
-	--bg-color-tertiary: #202020;
+	--text-color-primary: #dfdfdf;
+
+	--bg-color-primary: #1a2026;
+	--bg-color-secondary: #212a33;
+	--bg-color-tertiary: #2e3945;
 }
 
 * {
@@ -12,9 +14,13 @@
 	box-sizing: border-box;
 }
 
+html {
+	background-color: var(--bg-color-primary);
+	color: var(--text-color-primary);
+}
+
 body {
-	font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-		sans-serif;
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 code {
@@ -24,4 +30,9 @@ code {
 button {
 	border: none;
 	cursor: pointer;
+	transition: transform 0.3s ease;
+}
+
+button:active {
+	transform: scale(0.95);
 }
