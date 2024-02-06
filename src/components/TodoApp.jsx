@@ -22,6 +22,11 @@ function TodoApp() {
 		localStorage.setItem('todos', JSON.stringify(todos));
 	}, [todos]);
 
+	// toggle view mode
+	const handleToggleViewMode = () => {
+		date ? setDate('') : setDate(today);
+	};
+
 	// add todo
 	const handleAddTodo = (input) => {
 		const day = date ? date : today;
@@ -93,11 +98,13 @@ function TodoApp() {
 
 	return (
 		<div className={styles.todoApp}>
-			<InputBar
-				onSubmit={handleAddTodo}
-			/>
+			<InputBar onSubmit={handleAddTodo} />
 
-			<input type="date" value={date} onChange={(e) => setDate(e.target.value)} name="date" id="date" />
+			<div>
+				<input type="date" value={date} onChange={(e) => setDate(e.target.value)} name="date" id="date" />
+
+				<button onClick={handleToggleViewMode}>View all</button>
+			</div>
 
 			<TodoList
 				list={
