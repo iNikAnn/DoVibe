@@ -1,10 +1,21 @@
 import styles from '../css/InputBar.module.css';
 
 // react
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 function InputBar({ inputBarRef, date, setDate, onSubmit }) {
+	const datePickerWrapperRef = useRef(null);
 	const [input, setInput] = useState('');
+
+	// show the picker when changing dates
+	useEffect(() => {
+		datePickerWrapperRef.current.classList.remove(styles.datePickerWrapperHidden);
+	}, [date]);
+
+	const handleChange = (e) => {
+		setInput(e.target.value.slice(0, 55)); // restrict input length
+		datePickerWrapperRef.current.classList.add(styles.datePickerWrapperHidden); // hide the picker when using the input
+	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -13,10 +24,6 @@ function InputBar({ inputBarRef, date, setDate, onSubmit }) {
 			onSubmit(input);
 			setInput('');
 		};
-	};
-
-	const handleChange = (e) => {
-		setInput(e.target.value.slice(0, 45)); // Restrict input length
 	};
 
 	return (
@@ -36,20 +43,22 @@ function InputBar({ inputBarRef, date, setDate, onSubmit }) {
 				/>
 
 				<div>
-
-
 					{/* <button onClick={handleToggleViewMode}>View all</button> */}
 				</div>
 
 				<div className={styles.btnWrapper}>
-					<input
-						className={`${styles.calendar} ${input ? styles.calendarHidden : ''}`}
-						type="date"
-						value={date} onChange={(e) => setDate(e.target.value)}
-						title="Selecting the date for a new todo"
-						name="date"
-						id="date"
-					/>
+					<div
+						ref={datePickerWrapperRef}
+						className={`${styles.datePickerWrapper} ${input ? styles.datePickerWrapperHidden : ''}`}
+					>
+						<input
+							className={styles.datePicker}
+							type="date"
+							value={date} onChange={(e) => setDate(e.target.value)}
+							name="date"
+							id="date"
+						/>
+					</div>
 
 					<button className={styles.btn}>Submit</button>
 				</div>
