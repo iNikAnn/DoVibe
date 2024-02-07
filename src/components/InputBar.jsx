@@ -42,9 +42,7 @@ function InputBar({ inputBarRef, date, setDate, onSubmit }) {
 					onChange={(e) => handleChange(e)}
 				/>
 
-				<div>
-					{/* <button onClick={handleToggleViewMode}>View all</button> */}
-				</div>
+				{/* <button onClick={handleToggleViewMode}>View all</button> */}
 
 				<div className={styles.btnWrapper}>
 					<div

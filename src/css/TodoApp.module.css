@@ -8,3 +8,10 @@
 	font-weight: 900;
 	color: var(--text-color-primary);
 }
+
+@media screen and (max-width: 576px) {
+	.todoApp {
+		width: 100%;
+		padding: 0 1rem;
+	}
+}
