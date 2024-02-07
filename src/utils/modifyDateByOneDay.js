@@ -1,4 +1,8 @@
 function modifyDateByOneDay(date, key) {
+	if (!date) {
+		return new Date().toISOString().slice(0, 10);
+	};
+
 	const currDate = new Date(date);
 	currDate.setDate(currDate.getDate() + (key === 'ArrowRight' ? 1 : -1));
 

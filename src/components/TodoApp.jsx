@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 // components
 import InputBar from './InputBar';
 import TodoList from './TodoList';
+import Footer from './Footer';
 
 // utils
 import modifyDateByOneDay from '../utils/modifyDateByOneDay';
@@ -110,13 +111,15 @@ function TodoApp() {
 
 	return (
 		<div className={styles.todoApp}>
-			<InputBar inputBarRef={inputBarRef} onSubmit={handleAddTodo} />
+			<h1>DoVibe</h1>
 
-			<div>
+			<InputBar inputBarRef={inputBarRef} onSubmit={handleAddTodo} date={date} setDate={setDate} />
+
+			{/* <div>
 				<input type="date" value={date} onChange={(e) => setDate(e.target.value)} name="date" id="date" />
 
 				<button onClick={handleToggleViewMode}>View all</button>
-			</div>
+			</div> */}
 
 			<TodoList
 				list={
@@ -130,6 +133,8 @@ function TodoApp() {
 				onRemoveTodo={handleRemoveTodo}
 				onMarkTodo={handleMarkTodo}
 			/>
+
+			<Footer />
 		</div>
 	);
 }

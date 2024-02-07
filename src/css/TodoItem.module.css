@@ -4,18 +4,19 @@
 }
 
 .todoItemWrapper:hover {
-	outline: 2px solid var(--accent-color);
+	/* outline: 2px solid var(--accent-color); */
+	background-color: var(--bg-color-secondary);
 }
 
 .todoItem {
 	position: relative;
-	height: 3rem;
-	padding: 1rem 0.6rem;
+	/* height: 3rem; */
+	padding: 1rem 1rem;
 	width: 100%;
 	display: flex;
 	align-items: center;
-	background-color: var(--bg-color-tertiary);
-	border: 2px solid #303030;
+	/* background-color: var(--bg-color-tertiary); */
+	/* border: 2px solid #303030; */
 	border-radius: 0.5rem;
 }
 
@@ -35,9 +36,9 @@
 	background: linear-gradient(
 		to right,
 		transparent,
-		var(--bg-color-tertiary),
-		var(--bg-color-tertiary),
-		var(--bg-color-tertiary)
+		var(--bg-color-secondary),
+		var(--bg-color-secondary),
+		var(--bg-color-secondary)
 	);
 	border-radius: 0 0.5rem 0.5rem 0;
 	opacity: 0;
@@ -58,23 +59,23 @@
 	background-color: unset;
 	width: 2.5rem;
 	height: 2.5rem;
-	color: #bfbfbf;
+	/* color: #bfbfbf; */
 }
 
 .btnWrapper button:hover {
-	background-color: var(--bg-color-secondary);
+	background-color: var(--bg-color-tertiary);
 	border-radius: 50%;
 }
 
-.btnRename:hover {
+.btnRename {
 	color: #7fc7ff;
 }
 
-.btnRemove:hover {
+.btnRemove {
 	color: #e4717a;
 }
 
-.btnMark:hover {
+.btnMark {
 	color: #3eb489;
 }
 
