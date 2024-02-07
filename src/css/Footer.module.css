@@ -8,4 +8,5 @@
 	color: var(--text-color-dimmed);
 	border-top: 1px solid var(--bg-color-secondary);
 	padding: 0.2rem;
+	z-index: 99;
 }
