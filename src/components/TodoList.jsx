@@ -6,14 +6,17 @@ import { Fragment } from 'react';
 // components
 import TodoItem from './TodoItem';
 
-function TodoList({ list, onRenameTodo, onRemoveTodo, onMarkTodo, }) {
+function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, }) {
 	let prevDate = null;
 
 	return (
 		<>
-			{list &&
-				<div className={styles.todoList}>
-					{list.map((item) => {
+			{/* {list && */}
+			<div className={styles.todoList}>
+				{!list
+					? <span>No tasks here</span>
+
+					: list.map((item) => {
 						const currDate = item.bin;
 						const binTitle = new Date(currDate).toLocaleDateString(); // the date format adheres to the user's preferences
 
@@ -26,7 +29,7 @@ function TodoList({ list, onRenameTodo, onRemoveTodo, onMarkTodo, }) {
 
 						return (
 							<Fragment key={'fragment' + item.id}>
-								{binTitleWrapper}
+								{!date && binTitleWrapper}
 
 								<TodoItem
 									key={item.id}
@@ -37,9 +40,10 @@ function TodoList({ list, onRenameTodo, onRemoveTodo, onMarkTodo, }) {
 								/>
 							</Fragment>
 						)
-					})}
-				</div>
-			}
+					})
+				}
+			</div>
+			{/* } */}
 		</>
 	);
 }

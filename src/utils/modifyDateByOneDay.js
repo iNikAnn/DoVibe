@@ -1,4 +1,9 @@
 function modifyDateByOneDay(date, key) {
+	// Sets CSS variable for viewtransition API
+	document.documentElement.style.setProperty(
+		'--animDir', (key === 'ArrowRight' ? '-50%' : '50%')
+	);
+
 	if (!date) {
 		return new Date().toISOString().slice(0, 10);
 	};

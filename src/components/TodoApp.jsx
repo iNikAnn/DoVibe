@@ -29,7 +29,9 @@ function TodoApp() {
 	useEffect(() => {
 		const handleChangeDate = (e) => {
 			if (e.ctrlKey && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
-				setDate(modifyDateByOneDay(date, e.key));
+				document.startViewTransition(() => {
+					setDate(modifyDateByOneDay(date, e.key));
+				});
 			};
 		};
 
@@ -128,7 +130,7 @@ function TodoApp() {
 						? todos[date]
 						: Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse()
 				}
-
+				date={date}
 				onRenameTodo={handleRenameTodo}
 				onRemoveTodo={handleRemoveTodo}
 				onMarkTodo={handleMarkTodo}
