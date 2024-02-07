@@ -15,17 +15,18 @@ function TodoList({ list, onRenameTodo, onRemoveTodo, onMarkTodo, }) {
 				<div className={styles.todoList}>
 					{list.map((item) => {
 						const currDate = item.bin;
+						const binTitle = new Date(currDate).toLocaleDateString(); // the date format adheres to the user's preferences
 
 						// The date is added only once for each day
-						const binTitle = (currDate !== prevDate)
-							? <small key={item.bin} className={styles.binTitle}>{currDate}</small>
+						const binTitleWrapper = (currDate !== prevDate)
+							? <small key={item.bin} className={styles.binTitle}>{binTitle}</small>
 							: null;
 
 						prevDate = currDate;
 
 						return (
 							<Fragment key={'fragment' + item.id}>
-								{binTitle}
+								{binTitleWrapper}
 
 								<TodoItem
 									key={item.id}
