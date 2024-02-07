@@ -1,7 +1,11 @@
 .formWrapper {
+	/* outline: 1px solid tomato; */
 	position: sticky;
-	top: 1rem;
+	top: 0;
 	left: 0;
+	background-color: var(--bg-color-primary);
+	border-radius: 0 0 2rem 2rem;
+	padding-top: 1rem;
 	z-index: 99;
 }
 

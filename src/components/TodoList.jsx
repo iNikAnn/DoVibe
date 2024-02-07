@@ -18,7 +18,7 @@ function TodoList({ list, onRenameTodo, onRemoveTodo, onMarkTodo, }) {
 
 						// The date is added only once for each day
 						const binTitle = (currDate !== prevDate)
-							? <span key={item.bin} className={styles.binTitle}>{currDate}</span>
+							? <small key={item.bin} className={styles.binTitle}>{currDate}</small>
 							: null;
 
 						prevDate = currDate;
