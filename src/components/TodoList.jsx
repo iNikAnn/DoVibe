@@ -11,7 +11,6 @@ function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, }) {
 
 	return (
 		<>
-			{/* {list && */}
 			<div className={styles.todoList}>
 				{!list
 					? <span>No tasks here</span>
@@ -43,7 +42,6 @@ function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, }) {
 					})
 				}
 			</div>
-			{/* } */}
 		</>
 	);
 }

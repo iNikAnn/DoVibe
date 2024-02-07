@@ -3,6 +3,9 @@ import styles from '../css/InputBar.module.css';
 // react
 import { useEffect, useRef, useState } from 'react';
 
+// icons
+import { MdLibraryAdd } from "react-icons/md";
+
 function InputBar({ inputBarRef, date, setDate, onSubmit }) {
 	const datePickerWrapperRef = useRef(null);
 	const [input, setInput] = useState('');
@@ -58,7 +61,10 @@ function InputBar({ inputBarRef, date, setDate, onSubmit }) {
 						/>
 					</div>
 
-					<button className={styles.btn}>Submit</button>
+					<button className={styles.btn}>
+						<span>Create</span>
+						<span className={styles.btnIconWrapper}><MdLibraryAdd /></span>
+					</button>
 				</div>
 			</form>
 		</div>

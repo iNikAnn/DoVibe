@@ -67,15 +67,24 @@
 	border-radius: 50%;
 }
 
-.btnRename {
+.btnWrapper svg {
+	width: 0.8rem;
+	height: 0.8rem;
+}
+
+.btnRename svg {
+	width: 0.95rem;
+	height: 0.95rem;
 	color: #7fc7ff;
 }
 
-.btnRemove {
+.btnRemove svg {
 	color: #e4717a;
 }
 
-.btnMark {
+.btnMark svg {
+	width: 0.95rem;
+	height: 0.95rem;
 	color: #3eb489;
 }
 
