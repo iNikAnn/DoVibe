@@ -1,6 +1,8 @@
 .todoItemWrapper {
 	position: relative;
 	border-radius: 0.5rem;
+	opacity: 0;
+	height: 0;
 }
 
 .todoItemWrapper:hover {
@@ -92,4 +94,23 @@
 .isCompleted {
 	opacity: 0.25;
 	text-decoration: line-through;
+}
+
+.visible {
+	height: 3rem;
+	opacity: 1;
+	animation: appear 0.3s ease;
+}
+
+@keyframes appear {
+	from {
+		height: 0;
+		opacity: 0;
+		transform: translateY(-2rem);
+	}
+	to {
+		height: 3rem;
+		opacity: 1;
+		transform: translateY(0);
+	}
 }

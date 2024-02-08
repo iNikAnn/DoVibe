@@ -1,13 +1,24 @@
 import styles from '../css/TodoItem.module.css';
 
+// react
+import { useEffect, useState } from 'react';
+
 // icons
 import { HiMiniPencilSquare } from "react-icons/hi2";
 import { FaTrash } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
 
-function TodoItem({ title, id, bin, isCompleted, onRenameTodo, onRemoveTodo, onMarkTodo }) {
+function TodoItem({ index, title, id, bin, isCompleted, onRenameTodo, onRemoveTodo, onMarkTodo }) {
+	const [visible, setVisible] = useState(false);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setVisible(true);
+		}, index * 100);
+	}, []);
+
 	return (
-		<div data-id={id} className={styles.todoItemWrapper}>
+		<div data-id={id} className={`${styles.todoItemWrapper} ${visible ? styles.visible : ''}`}>
 			<div className={`${styles.todoItem} ${isCompleted ? styles.isCompleted : ''}`}>
 				<span className={styles.text}>{title}</span>
 			</div>

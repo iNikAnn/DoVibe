@@ -29,9 +29,9 @@ function TodoApp() {
 	useEffect(() => {
 		const handleChangeDate = (e) => {
 			if (e.ctrlKey && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
-				document.startViewTransition(() => {
-					setDate(modifyDateByOneDay(date, e.key));
-				});
+				// document.startViewTransition(() => {
+				setDate(modifyDateByOneDay(date, e.key));
+				// });
 			};
 		};
 
