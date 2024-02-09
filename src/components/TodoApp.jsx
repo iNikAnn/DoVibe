@@ -13,6 +13,7 @@ import Footer from './Footer';
 import modifyDateByOneDay from '../utils/modifyDateByOneDay';
 import isTodoDuplicate from '../utils/isTodoDuplicate';
 import sortTodosByCompletion from '../utils/sortTodosByCompletion';
+import FiltersBar from './FiltersBar';
 
 function TodoApp() {
 	const inputBarRef = useRef(null);
@@ -114,6 +115,8 @@ function TodoApp() {
 			<h1>DoVibe</h1>
 
 			<InputBar inputBarRef={inputBarRef} onSubmit={handleAddTodo} date={date} setDate={setDate} />
+
+			<FiltersBar />
 
 			{/* <div>
 				<input type="date" value={date} onChange={(e) => setDate(e.target.value)} name="date" id="date" />
