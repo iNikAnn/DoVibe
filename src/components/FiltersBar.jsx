@@ -14,20 +14,38 @@ function FiltersBar({ date, setDate, today, setOnlyUncompleted }) {
 			</div>
 
 			<fieldset className={styles.fieldset}>
-				<input type="radio" name="range" id="all" onChange={() => setDate('')} checked={!date ? true : false} />
-				<label className={styles.label} htmlFor="all" onChange={() => setDate()}>
+				<input
+					type="radio"
+					name="range"
+					id="all"
+					onChange={() => setDate('')}
+					checked={!date ? true : false}
+
+				/>
+				<label className={styles.label} htmlFor="all" title="Show all todos">
 					<small>All</small>
 				</label>
 
-				<input type="radio" name="range" id="oneDay" onChange={() => setDate(today)} checked={date ? true : false} />
-				<label className={styles.label} htmlFor="oneDay">
+				<input
+					type="radio"
+					name="range"
+					id="oneDay"
+					onChange={() => setDate(today)}
+					checked={date ? true : false}
+				/>
+				<label className={styles.label} htmlFor="oneDay" title="Show todos for the day">
 					<small>One day</small>
 				</label>
 
 				<span className={styles.separator}>|</span>
 
-				<input type="checkbox" name="" id="uncompletedTodo" onChange={(e) => setOnlyUncompleted(e.target.checked)} />
-				<label className={styles.label} htmlFor="uncompletedTodo">
+				<input
+					type="checkbox"
+					name=""
+					id="uncompletedTodo"
+					onChange={(e) => setOnlyUncompleted(e.target.checked)}
+				/>
+				<label className={styles.label} htmlFor="uncompletedTodo" title="Show only uncompleted todos">
 					<small>Only uncompleted</small>
 				</label>
 			</fieldset>

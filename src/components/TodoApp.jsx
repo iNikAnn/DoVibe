@@ -39,7 +39,7 @@ function TodoApp() {
 		window.addEventListener('keydown', handleChangeDate);
 
 		return () => window.removeEventListener('keydown', handleChangeDate);
-	}, [date]);
+	}, [date, isOnlyUncompleted]);
 
 	// add todo
 	const handleAddTodo = (input) => {
@@ -110,9 +110,16 @@ function TodoApp() {
 		<div className={styles.todoApp}>
 			<h1>DoVibe</h1>
 
-			<InputBar inputBarRef={inputBarRef} onSubmit={handleAddTodo} />
+			<InputBar
+				inputBarRef={inputBarRef}
+				onSubmit={handleAddTodo}
+			/>
 
-			<FiltersBar date={date} setDate={setDate} today={today} setOnlyUncompleted={setOnlyUncompleted} />
+			<FiltersBar
+				date={date}
+				setDate={setDate}
+				today={today}
+				setOnlyUncompleted={setOnlyUncompleted} />
 
 			<TodoList
 				list={
