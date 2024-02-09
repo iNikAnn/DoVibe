@@ -1,6 +1,4 @@
 function sortTodosByCompletion(array) {
-	console.log('hi');
-
 	return array.sort((a, b) => {
 		if (a.isCompleted && !b.isCompleted) {
 			return 1;

@@ -2,43 +2,10 @@
 	display: flex;
 	flex-direction: column;
 	margin-top: 1rem;
-
-	view-transition-name: todoList;
 }
 
 .binTitle {
 	text-align: left;
 	color: var(--text-color-dimmed);
-	/* margin-top: 1rem; */
 	margin: 0.6rem 0;
-}
-
-::view-transition-old(todoList) {
-	animation: hide 0.3s ease;
-}
-
-::view-transition-new(todoList) {
-	animation: show 0.3s ease;
-}
-
-@keyframes hide {
-	from {
-		opacity: 1;
-		transform: translateX(0);
-	}
-	to {
-		opacity: 0;
-		transform: translateX(var(--animDir));
-	}
-}
-
-@keyframes show {
-	from {
-		opacity: 0;
-		transform: translateX(calc(var(--animDir) * -1));
-	}
-	to {
-		opacity: 1;
-		transform: translateX(0);
-	}
 }

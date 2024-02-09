@@ -15,7 +15,7 @@ function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, }) {
 				{!list
 					? <span>No tasks here</span>
 
-					: list.map((item) => {
+					: list.map((item, index) => {
 						const currDate = item.bin;
 						const binTitle = new Date(currDate).toLocaleDateString(); // the date format adheres to the user's preferences
 
@@ -29,9 +29,9 @@ function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, }) {
 						return (
 							<Fragment key={'fragment' + item.id}>
 								{!date && binTitleWrapper}
-
 								<TodoItem
 									key={item.id}
+									index={index}
 									{...item}
 									onRenameTodo={onRenameTodo}
 									onRemoveTodo={onRemoveTodo}
