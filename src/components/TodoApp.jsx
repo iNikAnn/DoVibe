@@ -114,9 +114,9 @@ function TodoApp() {
 		<div className={styles.todoApp}>
 			<h1>DoVibe</h1>
 
-			<InputBar inputBarRef={inputBarRef} onSubmit={handleAddTodo} date={date} setDate={setDate} />
+			<InputBar inputBarRef={inputBarRef} onSubmit={handleAddTodo} />
 
-			<FiltersBar />
+			<FiltersBar date={date} setDate={setDate} today={today} />
 
 			{/* <div>
 				<input type="date" value={date} onChange={(e) => setDate(e.target.value)} name="date" id="date" />

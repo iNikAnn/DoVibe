@@ -4,7 +4,60 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	/* background-color: hsl(210, 19%, 15%); */
+	border-radius: 0.4rem;
+	/* padding: 0.4rem; */
 	margin-top: 1rem;
+}
+
+.datePickerWrapper {
+	/* outline: 1px solid red; */
+	display: flex;
+	align-items: center;
+	height: 1.5rem;
+	background-color: var(--bg-color-secondary);
+	border-radius: 0.4rem;
+}
+
+.datePickerWrapperHidden {
+	opacity: 0.05;
+}
+
+.datePickerWrapper:hover {
+	opacity: 1;
+}
+
+.datePicker {
+	position: relative;
+	text-align: center;
+	background-color: transparent;
+	color: var(--text-color-primary);
+	font-weight: 600;
+	border: none;
+	pointer-events: none;
+}
+
+.datePicker:focus {
+	color: var(--accent-color);
+	outline: none;
+}
+
+.datePicker:hover {
+	color: var(--accent-color);
+}
+
+.datePicker::-webkit-calendar-picker-indicator {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	filter: opacity(0);
+	pointer-events: all;
+}
+
+.datePicker::-webkit-calendar-picker-indicator:hover {
+	cursor: pointer;
 }
 
 .fieldset {
@@ -24,7 +77,8 @@
 	/* height: 2rem; */
 	background-color: var(--bg-color-secondary);
 	border-radius: 0.4rem;
-	padding: 0.2rem 0.4rem;
+	height: 1.5rem;
+	padding: 0 0.4rem;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
 }
