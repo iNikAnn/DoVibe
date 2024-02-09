@@ -1,24 +1,21 @@
 .todoItemWrapper {
 	position: relative;
 	border-radius: 0.5rem;
-	height: 0;
-	opacity: 0;
+	/* max-height: 0; */
+	/* opacity: 0; */
+	will-change: max-height;
 }
 
 .todoItemWrapper:hover {
-	/* outline: 2px solid var(--accent-color); */
 	background-color: var(--bg-color-secondary);
 }
 
 .todoItem {
 	position: relative;
-	/* height: 3rem; */
 	padding: 1rem 1rem;
 	width: 100%;
 	display: flex;
 	align-items: center;
-	/* background-color: var(--bg-color-tertiary); */
-	/* border: 2px solid #303030; */
 	border-radius: 0.5rem;
 }
 
@@ -61,7 +58,6 @@
 	background-color: unset;
 	width: 2.5rem;
 	height: 2.5rem;
-	/* color: #bfbfbf; */
 }
 
 .btnWrapper button:hover {
@@ -96,49 +92,60 @@
 	text-decoration: line-through;
 }
 
-/* render todo */
-.visible {
-	height: 3rem;
+/* transition-group */
+.entering {
+	max-height: 3rem;
 	opacity: 1;
+	transform: translateY(0);
 	animation: appear 0.3s ease;
+}
+.entered {
+	max-height: 3rem;
+	opacity: 1;
+	transform: translateY(0);
+}
+.exiting {
+	max-height: 0;
+	opacity: 0;
+	transform: translateY(0) scale(0.5);
+	animation: removing 0.6s ease;
+}
+.exited {
+	max-height: 0;
+	opacity: 0;
+	transform: translateY(-2rem);
 }
 
 @keyframes appear {
-	from {
-		height: 0;
+	0% {
+		max-height: 0;
 		opacity: 0;
 		transform: translateY(-2rem);
 	}
-	to {
-		height: 3rem;
+
+	100% {
+		max-height: 3rem;
 		opacity: 1;
 		transform: translateY(0);
 	}
 }
 
-/* remove todo/ */
-.removingItem {
-	height: 0;
-	opacity: 0;
-	transform: scale(0.9);
-	animation: removeItem 0.6s ease;
-}
-
-@keyframes removeItem {
+@keyframes removing {
 	0% {
-		height: 3rem;
 		opacity: 1;
-		transform: scale(1);
+		max-height: 3rem;
+		transform: translateY(0) scale(1);
 	}
 
 	50% {
-		height: 3rem;
 		opacity: 0;
-		transform: scale(0.9);
+		max-height: 3rem;
+		transform: translateY(0) scale(0.9);
 	}
 
 	100% {
-		height: 0;
 		opacity: 0;
+		max-height: 0;
+		transform: translateY(0) scale(0.9);
 	}
 }

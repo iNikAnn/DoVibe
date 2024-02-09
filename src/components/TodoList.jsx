@@ -29,7 +29,6 @@ function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, }) {
 						return (
 							<Fragment key={'fragment' + item.id}>
 								{!date && binTitleWrapper}
-
 								<TodoItem
 									key={item.id}
 									index={index}
