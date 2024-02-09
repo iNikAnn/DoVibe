@@ -6,7 +6,8 @@ import { Fragment } from 'react';
 // components
 import TodoItem from './TodoItem';
 
-function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, }) {
+function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUncompleted }) {
+	const filteredList = isOnlyUncompleted ? list.filter((todo) => !todo.isCompleted) : list;
 	let prevDate = null;
 
 	return (
@@ -15,7 +16,7 @@ function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, }) {
 				{!list
 					? <span>No tasks here</span>
 
-					: list.map((item, index) => {
+					: filteredList.map((item, index) => {
 						const currDate = item.bin;
 						const binTitle = new Date(currDate).toLocaleDateString(); // the date format adheres to the user's preferences
 

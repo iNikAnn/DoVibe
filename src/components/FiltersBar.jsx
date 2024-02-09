@@ -1,6 +1,6 @@
 import styles from '../css/FiltersBar.module.css';
 
-function FiltersBar({ date, setDate, today }) {
+function FiltersBar({ date, setDate, today, setOnlyUncompleted }) {
 	return (
 		<div className={styles.filtersWrapper}>
 			<div className={`${styles.datePickerWrapper}`}>
@@ -26,7 +26,7 @@ function FiltersBar({ date, setDate, today }) {
 
 				<span className={styles.separator}>|</span>
 
-				<input type="checkbox" name="" id="uncompletedTodo" />
+				<input type="checkbox" name="" id="uncompletedTodo" onChange={(e) => setOnlyUncompleted(e.target.checked)} />
 				<label className={styles.label} htmlFor="uncompletedTodo">
 					<small>Only uncompleted</small>
 				</label>

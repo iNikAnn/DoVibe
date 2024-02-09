@@ -21,6 +21,7 @@ function TodoApp() {
 
 	const [date, setDate] = useState(today);
 	const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || {});
+	const [isOnlyUncompleted, setOnlyUncompleted] = useState(false);
 
 	useEffect(() => {
 		localStorage.setItem('todos', JSON.stringify(todos));
@@ -39,11 +40,6 @@ function TodoApp() {
 
 		return () => window.removeEventListener('keydown', handleChangeDate);
 	}, [date]);
-
-	// toggle view mode
-	const handleToggleViewMode = () => {
-		date ? setDate('') : setDate(today);
-	};
 
 	// add todo
 	const handleAddTodo = (input) => {
@@ -116,13 +112,7 @@ function TodoApp() {
 
 			<InputBar inputBarRef={inputBarRef} onSubmit={handleAddTodo} />
 
-			<FiltersBar date={date} setDate={setDate} today={today} />
-
-			{/* <div>
-				<input type="date" value={date} onChange={(e) => setDate(e.target.value)} name="date" id="date" />
-
-				<button onClick={handleToggleViewMode}>View all</button>
-			</div> */}
+			<FiltersBar date={date} setDate={setDate} today={today} setOnlyUncompleted={setOnlyUncompleted} />
 
 			<TodoList
 				list={
@@ -135,6 +125,7 @@ function TodoApp() {
 				onRenameTodo={handleRenameTodo}
 				onRemoveTodo={handleRemoveTodo}
 				onMarkTodo={handleMarkTodo}
+				isOnlyUncompleted={isOnlyUncompleted}
 			/>
 
 			<Footer />
