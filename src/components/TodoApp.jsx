@@ -55,7 +55,7 @@ function TodoApp() {
 
 		setTimeout(() => {
 			setSwitchPage(false);
-			setDate(day === 'today' ? today : '');
+			setDate(day ? today : '');
 		}, 600);
 	};
 

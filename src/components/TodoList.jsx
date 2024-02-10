@@ -8,6 +8,7 @@ import TodoItem from './TodoItem';
 
 function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUncompleted, switchPage }) {
 	const [showFiltered, setShowFiltered] = useState(false);
+	let prevDate = null;
 
 	const handleFilterList = () => {
 		if (list) {
@@ -19,8 +20,6 @@ function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUn
 		return list;
 	};
 
-	let prevDate = null;
-
 	// timeout to ensure the removal animation completes before updating the state
 	useEffect(() => {
 		setTimeout(() => {
@@ -30,24 +29,21 @@ function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUn
 
 	return (
 		<div className={styles.todoList}>
-			{!list
-				? <span>No tasks here</span>
-
-				// : (showUpdated ? (showFiltered ? handleFilterList() : list) : prevList).map((item, index) => {
-				: (showFiltered ? handleFilterList() : list).map((item, index) => {
+			{list &&
+				(showFiltered ? handleFilterList() : list).map((item, index) => {
 					const currDate = item.bin;
 					const binTitle = new Date(currDate).toLocaleDateString(); // the date format adheres to the user's preferences
 
-					// The date is added only once for each day
+					// the date is added only once for each day
 					const binTitleWrapper = (currDate !== prevDate)
-						? <small key={item.bin} className={styles.binTitle}>{binTitle}</small>
+						? <small key={item.bin} className={`${styles.binTitle} ${switchPage ? styles.removing : ''}`}>{binTitle}</small>
 						: null;
 
 					prevDate = currDate;
 
 					return (
 						<Fragment key={'fragment' + item.id}>
-							{/* {!date && binTitleWrapper} */}
+							{!date && binTitleWrapper}
 							<TodoItem
 								key={item.id}
 								index={index}
