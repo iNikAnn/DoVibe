@@ -29,8 +29,8 @@ function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUn
 
 	return (
 		<div className={styles.todoList}>
-			{list &&
-				(showFiltered ? handleFilterList() : list).map((item, index) => {
+			{list
+				? (showFiltered ? handleFilterList() : list).map((item, index) => {
 					const currDate = item.bin;
 					const binTitle = new Date(currDate).toLocaleDateString(); // the date format adheres to the user's preferences
 
@@ -58,6 +58,8 @@ function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUn
 						</Fragment>
 					)
 				})
+
+				: <span>No tasks here</span>
 			}
 		</div>
 	);

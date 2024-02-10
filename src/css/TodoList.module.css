@@ -8,6 +8,7 @@
 	text-align: left;
 	color: var(--text-color-dimmed);
 	margin: 2rem 0 0.6rem 0;
+	opacity: 1;
 	animation: appear 0.3s ease;
 }
 

@@ -51,11 +51,12 @@ function TodoApp() {
 
 	// change view mode
 	const handleChangeViewMode = (day) => {
+		const newDate = day === 'today' ? today : day ? day : '';
 		setSwitchPage(true);
 
 		setTimeout(() => {
 			setSwitchPage(false);
-			setDate(day ? today : '');
+			setDate(day ? day : '');
 		}, 600);
 	};
 
