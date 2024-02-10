@@ -13,6 +13,7 @@ import Footer from './Footer';
 import modifyDateByOneDay from '../utils/modifyDateByOneDay';
 import isTodoDuplicate from '../utils/isTodoDuplicate';
 import sortTodosByCompletion from '../utils/sortTodosByCompletion';
+import FiltersBar from './FiltersBar';
 
 function TodoApp() {
 	const inputBarRef = useRef(null);
@@ -20,7 +21,12 @@ function TodoApp() {
 
 	const [date, setDate] = useState(today);
 	const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || {});
+	const [switchPage, setSwitchPage] = useState(false);
+	const [isOnlyUncompleted, setOnlyUncompleted] = useState(false);
 
+	const allTodos = Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse();
+
+	// save todos to local storage
 	useEffect(() => {
 		localStorage.setItem('todos', JSON.stringify(todos));
 	}, [todos]);
@@ -29,7 +35,11 @@ function TodoApp() {
 	useEffect(() => {
 		const handleChangeDate = (e) => {
 			if (e.ctrlKey && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
+				// setPrevTodos(todos[date]);
+
+				// setTimeout(() => {
 				setDate(modifyDateByOneDay(date, e.key));
+				// }, 600);
 			};
 		};
 
@@ -37,11 +47,16 @@ function TodoApp() {
 		window.addEventListener('keydown', handleChangeDate);
 
 		return () => window.removeEventListener('keydown', handleChangeDate);
-	}, [date]);
+	}, [date, isOnlyUncompleted]);
 
-	// toggle view mode
-	const handleToggleViewMode = () => {
-		date ? setDate('') : setDate(today);
+	// change view mode
+	const handleChangeViewMode = (day) => {
+		setSwitchPage(true);
+
+		setTimeout(() => {
+			setSwitchPage(false);
+			setDate(day ? today : '');
+		}, 600);
 	};
 
 	// add todo
@@ -113,25 +128,29 @@ function TodoApp() {
 		<div className={styles.todoApp}>
 			<h1>DoVibe</h1>
 
-			<InputBar inputBarRef={inputBarRef} onSubmit={handleAddTodo} date={date} setDate={setDate} />
+			<InputBar
+				inputBarRef={inputBarRef}
+				onSubmit={handleAddTodo}
+			/>
 
-			{/* <div>
-				<input type="date" value={date} onChange={(e) => setDate(e.target.value)} name="date" id="date" />
-
-				<button onClick={handleToggleViewMode}>View all</button>
-			</div> */}
+			<FiltersBar
+				initialDate={date}
+				setDate={setDate}
+				onChangeViewMode={handleChangeViewMode}
+				setOnlyUncompleted={setOnlyUncompleted}
+			/>
 
 			<TodoList
 				list={
 					// displaying daily todos; if no date is selected, show all todos
-					date
-						? todos[date]
-						: Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse()
+					date ? todos[date] : allTodos
 				}
 				date={date}
 				onRenameTodo={handleRenameTodo}
 				onRemoveTodo={handleRemoveTodo}
 				onMarkTodo={handleMarkTodo}
+				isOnlyUncompleted={isOnlyUncompleted}
+				switchPage={switchPage}
 			/>
 
 			<Footer />

@@ -140,12 +140,12 @@
 	50% {
 		opacity: 0;
 		max-height: 3rem;
-		transform: translateY(0) scale(0.9);
+		transform: translateY(0) scale(0.95);
 	}
 
 	100% {
 		opacity: 0;
 		max-height: 0;
-		transform: translateY(0) scale(0.9);
+		transform: translateY(0) scale(0.95);
 	}
 }
