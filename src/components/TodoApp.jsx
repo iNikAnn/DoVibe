@@ -26,6 +26,7 @@ function TodoApp() {
 
 	const allTodos = Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse();
 
+	// save todos to local storage
 	useEffect(() => {
 		localStorage.setItem('todos', JSON.stringify(todos));
 	}, [todos]);
@@ -48,7 +49,7 @@ function TodoApp() {
 		return () => window.removeEventListener('keydown', handleChangeDate);
 	}, [date, isOnlyUncompleted]);
 
-
+	// change view mode
 	const handleChangeViewMode = (day) => {
 		setSwitchPage(true);
 
@@ -133,7 +134,7 @@ function TodoApp() {
 			/>
 
 			<FiltersBar
-				date={date}
+				initialDate={date}
 				setDate={setDate}
 				onChangeViewMode={handleChangeViewMode}
 				setOnlyUncompleted={setOnlyUncompleted}

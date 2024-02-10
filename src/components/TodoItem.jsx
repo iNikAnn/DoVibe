@@ -20,6 +20,7 @@ function TodoItem({ index, title, id, bin, isCompleted, onRenameTodo, onRemoveTo
 		}, index * 100);
 	}, [date]);
 
+	// initiating the todo removal animation when switch view mode
 	useEffect(() => {
 		if (switchPage) {
 			setAnim(false);

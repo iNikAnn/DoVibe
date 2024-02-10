@@ -17,14 +17,11 @@
 	height: 1.5rem;
 	background-color: var(--bg-color-secondary);
 	border-radius: 0.4rem;
-}
-
-.datePickerWrapperHidden {
-	opacity: 0.05;
+	transition: background-color 0.3s ease;
 }
 
 .datePickerWrapper:hover {
-	opacity: 1;
+	background-color: var(--bg-color-tertiary);
 }
 
 .datePicker {
@@ -32,18 +29,13 @@
 	text-align: center;
 	background-color: transparent;
 	color: var(--text-color-primary);
-	font-weight: 600;
+	font-family: inherit;
 	border: none;
 	pointer-events: none;
 }
 
 .datePicker:focus {
-	color: var(--accent-color);
 	outline: none;
-}
-
-.datePicker:hover {
-	color: var(--accent-color);
 }
 
 .datePicker::-webkit-calendar-picker-indicator {
@@ -81,6 +73,10 @@
 	padding: 0 0.4rem;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
+}
+
+.label:hover {
+	background-color: var(--bg-color-tertiary);
 }
 
 .fieldset input {
