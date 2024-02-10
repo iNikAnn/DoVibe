@@ -6,7 +6,7 @@ import { Fragment, useEffect, useState } from 'react';
 // components
 import TodoItem from './TodoItem';
 
-function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUncompleted }) {
+function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUncompleted, switchPage }) {
 	const [showFiltered, setShowFiltered] = useState(false);
 
 	const handleFilterList = () => {
@@ -33,6 +33,7 @@ function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUn
 			{!list
 				? <span>No tasks here</span>
 
+				// : (showUpdated ? (showFiltered ? handleFilterList() : list) : prevList).map((item, index) => {
 				: (showFiltered ? handleFilterList() : list).map((item, index) => {
 					const currDate = item.bin;
 					const binTitle = new Date(currDate).toLocaleDateString(); // the date format adheres to the user's preferences
@@ -46,7 +47,7 @@ function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUn
 
 					return (
 						<Fragment key={'fragment' + item.id}>
-							{!date && binTitleWrapper}
+							{/* {!date && binTitleWrapper} */}
 							<TodoItem
 								key={item.id}
 								index={index}
@@ -55,6 +56,8 @@ function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUn
 								onRemoveTodo={onRemoveTodo}
 								onMarkTodo={onMarkTodo}
 								isOnlyUncompleted={isOnlyUncompleted}
+								date={date}
+								switchPage={switchPage}
 							/>
 						</Fragment>
 					)

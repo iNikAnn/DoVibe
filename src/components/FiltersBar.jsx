@@ -1,13 +1,13 @@
 import styles from '../css/FiltersBar.module.css';
 
-function FiltersBar({ date, setDate, today, setOnlyUncompleted }) {
+function FiltersBar({ date, onChangeViewMode, setOnlyUncompleted }) {
 	return (
 		<div className={styles.filtersWrapper}>
 			<div className={`${styles.datePickerWrapper}`}>
 				<input
 					className={styles.datePicker}
 					type="date"
-					value={date} onChange={(e) => setDate(e.target.value)}
+					value={date} onChange={(e) => onChangeViewMode(e.target.value)}
 					name="date"
 					id="date"
 				/>
@@ -18,7 +18,7 @@ function FiltersBar({ date, setDate, today, setOnlyUncompleted }) {
 					type="radio"
 					name="range"
 					id="all"
-					onChange={() => setDate('')}
+					onChange={() => onChangeViewMode('')}
 					checked={!date ? true : false}
 
 				/>
@@ -30,7 +30,7 @@ function FiltersBar({ date, setDate, today, setOnlyUncompleted }) {
 					type="radio"
 					name="range"
 					id="oneDay"
-					onChange={() => setDate(today)}
+					onChange={() => onChangeViewMode('today')}
 					checked={date ? true : false}
 				/>
 				<label className={styles.label} htmlFor="oneDay" title="Show todos for the day">

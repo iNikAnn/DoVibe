@@ -21,7 +21,10 @@ function TodoApp() {
 
 	const [date, setDate] = useState(today);
 	const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || {});
+	const [switchPage, setSwitchPage] = useState(false);
 	const [isOnlyUncompleted, setOnlyUncompleted] = useState(false);
+
+	const allTodos = Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse();
 
 	useEffect(() => {
 		localStorage.setItem('todos', JSON.stringify(todos));
@@ -31,7 +34,11 @@ function TodoApp() {
 	useEffect(() => {
 		const handleChangeDate = (e) => {
 			if (e.ctrlKey && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
+				// setPrevTodos(todos[date]);
+
+				// setTimeout(() => {
 				setDate(modifyDateByOneDay(date, e.key));
+				// }, 600);
 			};
 		};
 
@@ -40,6 +47,16 @@ function TodoApp() {
 
 		return () => window.removeEventListener('keydown', handleChangeDate);
 	}, [date, isOnlyUncompleted]);
+
+
+	const handleChangeViewMode = (day) => {
+		setSwitchPage(true);
+
+		setTimeout(() => {
+			setSwitchPage(false);
+			setDate(day === 'today' ? today : '');
+		}, 600);
+	};
 
 	// add todo
 	const handleAddTodo = (input) => {
@@ -118,22 +135,21 @@ function TodoApp() {
 			<FiltersBar
 				date={date}
 				setDate={setDate}
-				today={today}
+				onChangeViewMode={handleChangeViewMode}
 				setOnlyUncompleted={setOnlyUncompleted}
 			/>
 
 			<TodoList
 				list={
 					// displaying daily todos; if no date is selected, show all todos
-					date
-						? todos[date]
-						: Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse()
+					date ? todos[date] : allTodos
 				}
 				date={date}
 				onRenameTodo={handleRenameTodo}
 				onRemoveTodo={handleRemoveTodo}
 				onMarkTodo={handleMarkTodo}
 				isOnlyUncompleted={isOnlyUncompleted}
+				switchPage={switchPage}
 			/>
 
 			<Footer />
