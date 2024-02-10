@@ -119,7 +119,8 @@ function TodoApp() {
 				date={date}
 				setDate={setDate}
 				today={today}
-				setOnlyUncompleted={setOnlyUncompleted} />
+				setOnlyUncompleted={setOnlyUncompleted}
+			/>
 
 			<TodoList
 				list={

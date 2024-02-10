@@ -9,7 +9,7 @@ import { HiMiniPencilSquare } from "react-icons/hi2";
 import { FaTrash } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
 
-function TodoItem({ index, title, id, bin, isCompleted, onRenameTodo, onRemoveTodo, onMarkTodo }) {
+function TodoItem({ index, title, id, bin, isCompleted, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUncompleted }) {
 	const todoRef = useRef(null);
 	const [anim, setAnim] = useState(false);
 	const animationDuration = 600;
@@ -19,6 +19,13 @@ function TodoItem({ index, title, id, bin, isCompleted, onRenameTodo, onRemoveTo
 			setAnim(true);
 		}, index * 100);
 	}, []);
+
+	// initiating the todo removal animation when applying filters
+	useEffect(() => {
+		if (isOnlyUncompleted && isCompleted) {
+			setAnim(false);
+		};
+	}, [isOnlyUncompleted]);
 
 	const handleRemove = () => {
 		setAnim(false);
