@@ -1,5 +1,10 @@
 import styles from '../css/FiltersBar.module.css';
 
+// icons
+import { FaCalendarAlt } from "react-icons/fa";
+import { FaCalendarDay } from "react-icons/fa";
+import { FaListAlt } from "react-icons/fa";
+
 function FiltersBar({ initialDate, onChangeViewMode, setOnlyUncompleted }) {
 	return (
 		<div className={styles.filtersWrapper}>
@@ -24,7 +29,8 @@ function FiltersBar({ initialDate, onChangeViewMode, setOnlyUncompleted }) {
 
 				/>
 				<label className={styles.label} htmlFor="all" title="Show all todos">
-					<small>All</small>
+					{/* <span>All</span> */}
+					<FaCalendarAlt />
 				</label>
 
 				<input
@@ -35,7 +41,8 @@ function FiltersBar({ initialDate, onChangeViewMode, setOnlyUncompleted }) {
 					checked={initialDate ? true : false}
 				/>
 				<label className={styles.label} htmlFor="oneDay" title="Show todos for the day">
-					<small>Day</small>
+					{/* <span>Day</span> */}
+					<FaCalendarDay />
 				</label>
 
 				<span className={styles.separator}>|</span>
@@ -46,8 +53,9 @@ function FiltersBar({ initialDate, onChangeViewMode, setOnlyUncompleted }) {
 					id="uncompletedTodo"
 					onChange={(e) => setOnlyUncompleted(e.target.checked)}
 				/>
-				<label className={styles.label} htmlFor="uncompletedTodo" title="Show only uncompleted todos">
-					<small>Uncompleted</small>
+				<label className={`${styles.label} ${styles.uncompletedTodo}`} htmlFor="uncompletedTodo" title="Show only uncompleted todos">
+					{/* <span>Uncompleted</span> */}
+					<FaListAlt />
 				</label>
 			</fieldset>
 		</div>

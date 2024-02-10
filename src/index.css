@@ -13,7 +13,7 @@
 	--accent-color: #1971c2;
 
 	--text-color-primary: #dfdfdf;
-	--text-color-dimmed: #2e3945;
+	--text-color-dimmed: hsl(211, 20%, 30%);
 
 	--bg-color-primary: #1a2026;
 	--bg-color-secondary: #212a33;

@@ -1,37 +1,48 @@
+:root {
+	--filter-height: 2rem;
+	--filter-border-radius: 0.4rem;
+	--filter-padding: 0 0.6rem;
+}
+
 .filtersWrapper {
 	/* outline: 1px solid tomato; */
 	position: relative;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	/* background-color: hsl(210, 19%, 15%); */
-	border-radius: 0.4rem;
-	/* padding: 0.4rem; */
+	color: var(--text-color-dimmed);
+	font-size: 1rem;
+	font-weight: 500;
 	margin-top: 1rem;
 }
 
+/* calendar */
 .datePickerWrapper {
 	/* outline: 1px solid red; */
 	display: flex;
 	align-items: center;
-	height: 1.5rem;
-	background-color: var(--bg-color-secondary);
-	border-radius: 0.4rem;
-	transition: background-color 0.3s ease;
-}
-
-.datePickerWrapper:hover {
-	background-color: var(--bg-color-tertiary);
 }
 
 .datePicker {
+	/* outline: 1px solid green; */
 	position: relative;
 	text-align: center;
-	background-color: transparent;
+	background-color: var(--bg-color-secondary);
+	border-radius: var(--filter-border-radius);
 	color: var(--text-color-primary);
+
 	font-family: inherit;
+	font-weight: inherit;
+	font-size: inherit;
+
 	border: none;
-	pointer-events: none;
+	height: var(--filter-height);
+	padding: var(--filter-padding);
+	transition: background-color 0.3s ease;
+}
+
+.datePicker:hover {
+	background-color: var(--bg-color-tertiary);
 }
 
 .datePicker:focus {
@@ -61,18 +72,21 @@
 
 .fieldset input:checked + label {
 	background-color: var(--bg-color-tertiary);
+	color: var(--text-color-primary);
 }
 
+/* label */
 .label {
 	display: flex;
 	align-items: center;
-	/* height: 2rem; */
 	background-color: var(--bg-color-secondary);
-	border-radius: 0.4rem;
-	height: 1.5rem;
-	padding: 0 0.4rem;
+	border-radius: var(--filter-border-radius);
+	height: var(--filter-height);
+	padding: var(--filter-padding);
 	cursor: pointer;
-	transition: background-color 0.3s ease;
+	transition-property: background-color, color;
+	transition-duration: 0.3s;
+	transition-timing-function: ease;
 }
 
 .label:hover {
@@ -86,6 +100,10 @@
 	appearance: none;
 }
 
+.uncompletedTodo svg {
+	transform: scale(1.1);
+}
+
 .separator {
-	opacity: 0.1;
+	opacity: 0.5;
 }
