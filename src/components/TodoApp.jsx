@@ -31,15 +31,12 @@ function TodoApp() {
 		localStorage.setItem('todos', JSON.stringify(todos));
 	}, [todos]);
 
-	// change the date by pressing arrow keys
+	// change the date by pressing comma / period
 	useEffect(() => {
 		const handleChangeDate = (e) => {
-			if (e.ctrlKey && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
-				// setPrevTodos(todos[date]);
-
-				// setTimeout(() => {
-				setDate(modifyDateByOneDay(date, e.key));
-				// }, 600);
+			if (((e.ctrlKey || e.metaKey) && e.shiftKey)
+				&& (e.code === 'Comma' || e.code === 'Period')) {
+				setDate(modifyDateByOneDay(date, e.code));
 			};
 		};
 
@@ -56,7 +53,7 @@ function TodoApp() {
 
 		setTimeout(() => {
 			setSwitchPage(false);
-			setDate(day ? day : '');
+			setDate(newDate);
 		}, 600);
 	};
 
