@@ -1,7 +1,8 @@
 import styles from '../css/TodoItem.module.css';
 
-// react, transition-group
+// react, framer
 import { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 
 // icons
 import { HiMiniPencilSquare } from "react-icons/hi2";
@@ -19,9 +20,32 @@ function TodoItem({ index, title, id, bin, isCompleted, onRenameTodo, onRemoveTo
 		onMarkTodo(bin, id);
 	};
 
-	return (
+	const liVariants = {
+		from: {
+			opacity: 0,
+			height: 0,
+		},
 
-		<li data-id={id} ref={todoRef} className={`${styles.todoItemWrapper}`}>
+		to: (custom) => ({
+			opacity: 1,
+			height: '3rem',
+			transition: {
+				delay: custom * 0.5
+			}
+		})
+	};
+
+	return (
+		<motion.li
+			ref={todoRef}
+			data-id={id}
+			className={`${styles.todoItemWrapper}`}
+
+			variants={liVariants}
+			initial='from'
+			animate='to'
+			custom={index}
+		>
 			<div className={`${styles.todoItem} ${isCompleted ? styles.isCompleted : ''}`}>
 				<span className={styles.text}>{title}</span>
 			</div>
@@ -31,7 +55,7 @@ function TodoItem({ index, title, id, bin, isCompleted, onRenameTodo, onRemoveTo
 				<button title='Remove' className={styles.btnRemove} onClick={handleRemove}><FaTrash /></button>
 				<button title='Toggle Todo Status' className={styles.btnMark} onClick={handleMark}><FaCheck /></button>
 			</div>
-		</li>
+		</motion.li>
 	);
 }
 

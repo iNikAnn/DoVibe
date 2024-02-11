@@ -1,6 +1,7 @@
 .todoItemWrapper {
 	position: relative;
 	border-radius: 0.5rem;
+	height: 3rem;
 	/* max-height: 0; */
 	/* opacity: 0; */
 	will-change: max-height;
