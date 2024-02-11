@@ -102,18 +102,35 @@ function TodoApp() {
 	};
 
 	// mars todo as completed/uncompleted
+	// const handleMarkTodo = (bin, id) => {
+	// 	const updatedTodos = { ...todos };
+
+	// 	updatedTodos[bin] = updatedTodos[bin].map((todo) => {
+	// 		return (todo.id === id)
+	// 			? { ...todo, isCompleted: !todo.isCompleted, date: Date.now(), id: uuidv4() }
+	// 			: { ...todo };
+	// 	});
+
+	// 	updatedTodos[bin] = sortTodosByCompletion(updatedTodos[bin]);
+
+	// 	setTodos(updatedTodos);
+	// };
+
 	const handleMarkTodo = (bin, id) => {
 		const updatedTodos = { ...todos };
-
 		updatedTodos[bin] = updatedTodos[bin].map((todo) => {
 			return (todo.id === id)
-				? { ...todo, isCompleted: !todo.isCompleted, date: new Date() }
+				? { ...todo, isCompleted: !todo.isCompleted, date: Date.now() }
 				: { ...todo };
 		});
 
+		handleRemoveTodo(bin, id);
+
 		updatedTodos[bin] = sortTodosByCompletion(updatedTodos[bin]);
 
-		setTodos(updatedTodos);
+		setTimeout(() => {
+			setTodos(updatedTodos);
+		}, 600);
 	};
 
 	return (
