@@ -21,7 +21,6 @@ function TodoApp() {
 
 	const [date, setDate] = useState(today);
 	const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || {});
-	const [switchPage, setSwitchPage] = useState(false);
 	const [isOnlyUncompleted, setOnlyUncompleted] = useState(false);
 
 	const allTodos = Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse();
@@ -49,12 +48,7 @@ function TodoApp() {
 	// change view mode
 	const handleChangeViewMode = (day) => {
 		const newDate = day === 'today' ? today : day ? day : '';
-		setSwitchPage(true);
-
-		setTimeout(() => {
-			setSwitchPage(false);
-			setDate(newDate);
-		}, 600);
+		setDate(newDate);
 	};
 
 	// add todo
@@ -148,7 +142,6 @@ function TodoApp() {
 				onRemoveTodo={handleRemoveTodo}
 				onMarkTodo={handleMarkTodo}
 				isOnlyUncompleted={isOnlyUncompleted}
-				switchPage={switchPage}
 			/>
 
 			<Footer />

@@ -2,75 +2,36 @@ import styles from '../css/TodoItem.module.css';
 
 // react, transition-group
 import { useEffect, useRef, useState } from 'react';
-import { Transition } from 'react-transition-group';
 
 // icons
 import { HiMiniPencilSquare } from "react-icons/hi2";
 import { FaTrash } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
 
-function TodoItem({ index, title, id, bin, isCompleted, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUncompleted, date, switchPage }) {
+function TodoItem({ index, title, id, bin, isCompleted, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUncompleted, date }) {
 	const todoRef = useRef(null);
-	const [anim, setAnim] = useState(false);
-	const animationDuration = 600;
-
-	useEffect(() => {
-		setTimeout(() => {
-			setAnim(true);
-		}, index * 100);
-	}, [date]);
-
-	// initiating the todo removal animation when switch view mode
-	useEffect(() => {
-		if (switchPage) {
-			setAnim(false);
-		};
-	}, [switchPage])
-
-	// initiating the todo removal animation when applying filters
-	useEffect(() => {
-		if (isOnlyUncompleted && isCompleted) {
-			setAnim(false);
-		};
-	}, [isOnlyUncompleted]);
 
 	const handleRemove = () => {
-		setAnim(false);
-
-		setTimeout(() => {
-			onRemoveTodo(bin, id);
-		}, animationDuration);
+		onRemoveTodo(bin, id);
 	};
 
 	const handleMark = () => {
-		setAnim(false);
-
-		setTimeout(() => {
-			setAnim(true);
-			onMarkTodo(bin, id);
-		}, animationDuration);
+		onMarkTodo(bin, id);
 	};
 
 	return (
-		<Transition
-			in={anim}
-			timeout={animationDuration}
-			unmountOnExit
-		>
-			{(state) => (
-				<li data-id={id} ref={todoRef} className={`${styles.todoItemWrapper} ${styles[state]}`}>
-					<div className={`${styles.todoItem} ${isCompleted ? styles.isCompleted : ''}`}>
-						<span className={styles.text}>{title}</span>
-					</div>
 
-					<div className={styles.btnWrapper}>
-						<button title="Rename" className={styles.btnRename} onClick={() => onRenameTodo(bin, id, title)}><HiMiniPencilSquare /></button>
-						<button title='Remove' className={styles.btnRemove} onClick={handleRemove}><FaTrash /></button>
-						<button title='Toggle Todo Status' className={styles.btnMark} onClick={handleMark}><FaCheck /></button>
-					</div>
-				</li>
-			)}
-		</Transition>
+		<li data-id={id} ref={todoRef} className={`${styles.todoItemWrapper}`}>
+			<div className={`${styles.todoItem} ${isCompleted ? styles.isCompleted : ''}`}>
+				<span className={styles.text}>{title}</span>
+			</div>
+
+			<div className={styles.btnWrapper}>
+				<button title="Rename" className={styles.btnRename} onClick={() => onRenameTodo(bin, id, title)}><HiMiniPencilSquare /></button>
+				<button title='Remove' className={styles.btnRemove} onClick={handleRemove}><FaTrash /></button>
+				<button title='Toggle Todo Status' className={styles.btnMark} onClick={handleMark}><FaCheck /></button>
+			</div>
+		</li>
 	);
 }
 

@@ -6,7 +6,7 @@ import { Fragment, useEffect, useState } from 'react';
 // components
 import TodoItem from './TodoItem';
 
-function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUncompleted, switchPage }) {
+function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUncompleted }) {
 	const [showFiltered, setShowFiltered] = useState(false);
 	let prevDate = null;
 
@@ -22,9 +22,7 @@ function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUn
 
 	// timeout to ensure the removal animation completes before updating the state
 	useEffect(() => {
-		setTimeout(() => {
-			setShowFiltered(isOnlyUncompleted);
-		}, isOnlyUncompleted ? 600 : 0);
+		setShowFiltered(isOnlyUncompleted);
 	}, [isOnlyUncompleted]);
 
 	return (
@@ -36,7 +34,7 @@ function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUn
 
 					// the date is added only once for each day
 					const binTitleWrapper = (currDate !== prevDate)
-						? <small key={item.bin} className={`${styles.binTitle} ${switchPage ? styles.removing : ''}`}>{binTitle}</small>
+						? <small key={item.bin} className={`${styles.binTitle}`}>{binTitle}</small>
 						: null;
 
 					prevDate = currDate;
@@ -53,7 +51,6 @@ function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUn
 								onMarkTodo={onMarkTodo}
 								isOnlyUncompleted={isOnlyUncompleted}
 								date={date}
-								switchPage={switchPage}
 							/>
 						</Fragment>
 					)
