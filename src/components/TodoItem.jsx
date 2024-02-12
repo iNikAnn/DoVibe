@@ -1,64 +1,69 @@
 import styles from '../css/TodoItem.module.css';
 
-// react, transition-group
-import { useEffect, useRef, useState } from 'react';
-import { Transition } from 'react-transition-group';
+// react, framer
+import { Fragment, useEffect, useRef, useState, } from 'react';
+import { motion, } from 'framer-motion';
 
 // icons
 import { HiMiniPencilSquare } from "react-icons/hi2";
 import { FaTrash } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
 
-function TodoItem({ index, title, id, bin, isCompleted, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUncompleted, date, switchPage }) {
+function TodoItem({ index, title, id, bin, isCompleted, onRenameTodo, onRemoveTodo, onMarkTodo }) {
 	const todoRef = useRef(null);
-	const [anim, setAnim] = useState(false);
-	const animationDuration = 600;
-
-	useEffect(() => {
-		setTimeout(() => {
-			setAnim(true);
-		}, index * 100);
-	}, [date]);
-
-	// initiating the todo removal animation when switch view mode
-	useEffect(() => {
-		if (switchPage) {
-			setAnim(false);
-		};
-	}, [switchPage])
-
-	// initiating the todo removal animation when applying filters
-	useEffect(() => {
-		if (isOnlyUncompleted && isCompleted) {
-			setAnim(false);
-		};
-	}, [isOnlyUncompleted]);
+	const [delay, setDelay] = useState(false);
 
 	const handleRemove = () => {
-		setAnim(false);
-
-		setTimeout(() => {
-			onRemoveTodo(bin, id);
-		}, animationDuration);
+		setDelay(true);
+		onRemoveTodo(bin, id);
 	};
 
 	const handleMark = () => {
-		setAnim(false);
+		setDelay(true);
+		onMarkTodo(bin, id);
+	};
 
-		setTimeout(() => {
-			setAnim(true);
-			onMarkTodo(bin, id);
-		}, animationDuration);
+	const liVariants = {
+		initial: {
+			y: '-2rem',
+			opacity: 0,
+			maxHeight: 0,
+		},
+
+		animate: (custom) => ({
+			y: 0,
+			opacity: 1,
+			maxHeight: '3rem',
+			transform: 'scale(1)',
+
+			transition: {
+				ease: 'easeOut',
+				delay: custom * (delay ? 0 : .1),
+				duration: .3
+			}
+		}),
+
+		exit: {
+			opacity: 0,
+			maxHeight: 0,
+			transform: `scale(${delay ? .9 : 1})`,
+
+			transition: {
+				ease: 'easeOut',
+				duration: .3,
+				maxHeight: { delay: delay ? .3 : 0 }
+			}
+		}
 	};
 
 	return (
-		<Transition
-			in={anim}
-			timeout={animationDuration}
-			unmountOnExit
-		>
-			{(state) => (
-				<li data-id={id} ref={todoRef} className={`${styles.todoItemWrapper} ${styles[state]}`}>
+		<>
+			<motion.li
+				key={title}
+				{...liVariants}
+				custom={index}
+			>
+				<div ref={todoRef} data-id={id} className={`${styles.todoItemWrapper}`}>
 					<div className={`${styles.todoItem} ${isCompleted ? styles.isCompleted : ''}`}>
 						<span className={styles.text}>{title}</span>
 					</div>
@@ -68,9 +73,10 @@ function TodoItem({ index, title, id, bin, isCompleted, onRenameTodo, onRemoveTo
 						<button title='Remove' className={styles.btnRemove} onClick={handleRemove}><FaTrash /></button>
 						<button title='Toggle Todo Status' className={styles.btnMark} onClick={handleMark}><FaCheck /></button>
 					</div>
-				</li>
-			)}
-		</Transition>
+				</div>
+			</motion.li>
+		</>
+
 	);
 }
 

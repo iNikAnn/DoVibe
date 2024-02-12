@@ -5,8 +5,9 @@ import { Fragment, useEffect, useState } from 'react';
 
 // components
 import TodoItem from './TodoItem';
+import { AnimatePresence } from 'framer-motion';
 
-function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUncompleted, switchPage }) {
+function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUncompleted }) {
 	const [showFiltered, setShowFiltered] = useState(false);
 	let prevDate = null;
 
@@ -22,45 +23,42 @@ function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUn
 
 	// timeout to ensure the removal animation completes before updating the state
 	useEffect(() => {
-		setTimeout(() => {
-			setShowFiltered(isOnlyUncompleted);
-		}, isOnlyUncompleted ? 600 : 0);
+		setShowFiltered(isOnlyUncompleted);
 	}, [isOnlyUncompleted]);
 
 	return (
 		<div className={styles.todoList}>
-			{list
-				? (showFiltered ? handleFilterList() : list).map((item, index) => {
-					const currDate = item.bin;
-					const binTitle = new Date(currDate).toLocaleDateString(); // the date format adheres to the user's preferences
+			<AnimatePresence>
+				{list
+					? (showFiltered ? handleFilterList() : list).map((item, index) => {
+						const currDate = item.bin;
+						const binTitle = new Date(currDate).toLocaleDateString(); // the date format adheres to the user's preferences
 
-					// the date is added only once for each day
-					const binTitleWrapper = (currDate !== prevDate)
-						? <small key={item.bin} className={`${styles.binTitle} ${switchPage ? styles.removing : ''}`}>{binTitle}</small>
-						: null;
+						// the date is added only once for each day
+						const binTitleWrapper = (currDate !== prevDate)
+							? <small key={item.bin} className={`${styles.binTitle}`}>{binTitle}</small>
+							: null;
 
-					prevDate = currDate;
+						prevDate = currDate;
 
-					return (
-						<Fragment key={'fragment' + item.id}>
-							{!date && binTitleWrapper}
-							<TodoItem
-								key={item.id}
-								index={index}
-								{...item}
-								onRenameTodo={onRenameTodo}
-								onRemoveTodo={onRemoveTodo}
-								onMarkTodo={onMarkTodo}
-								isOnlyUncompleted={isOnlyUncompleted}
-								date={date}
-								switchPage={switchPage}
-							/>
-						</Fragment>
-					)
-				})
+						return (
+							<Fragment key={'fragment' + item.id}>
+								{/* {!date && binTitleWrapper} */}
 
-				: <span>No tasks here</span>
-			}
+								<TodoItem
+									key={item.id}
+									index={index}
+									{...item}
+									onRenameTodo={onRenameTodo}
+									onRemoveTodo={onRemoveTodo}
+									onMarkTodo={onMarkTodo}
+								/>
+							</Fragment>
+						);
+					})
+					: <span>No tasks here</span>
+				}
+			</AnimatePresence>
 		</div>
 	);
 }

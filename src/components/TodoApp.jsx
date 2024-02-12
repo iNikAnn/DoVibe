@@ -21,7 +21,6 @@ function TodoApp() {
 
 	const [date, setDate] = useState(today);
 	const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || {});
-	const [switchPage, setSwitchPage] = useState(false);
 	const [isOnlyUncompleted, setOnlyUncompleted] = useState(false);
 
 	const allTodos = Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse();
@@ -49,12 +48,7 @@ function TodoApp() {
 	// change view mode
 	const handleChangeViewMode = (day) => {
 		const newDate = day === 'today' ? today : day ? day : '';
-		setSwitchPage(true);
-
-		setTimeout(() => {
-			setSwitchPage(false);
-			setDate(newDate);
-		}, 600);
+		setDate(newDate);
 	};
 
 	// add todo
@@ -108,18 +102,35 @@ function TodoApp() {
 	};
 
 	// mars todo as completed/uncompleted
+	// const handleMarkTodo = (bin, id) => {
+	// 	const updatedTodos = { ...todos };
+
+	// 	updatedTodos[bin] = updatedTodos[bin].map((todo) => {
+	// 		return (todo.id === id)
+	// 			? { ...todo, isCompleted: !todo.isCompleted, date: Date.now(), id: uuidv4() }
+	// 			: { ...todo };
+	// 	});
+
+	// 	updatedTodos[bin] = sortTodosByCompletion(updatedTodos[bin]);
+
+	// 	setTodos(updatedTodos);
+	// };
+
 	const handleMarkTodo = (bin, id) => {
 		const updatedTodos = { ...todos };
-
 		updatedTodos[bin] = updatedTodos[bin].map((todo) => {
 			return (todo.id === id)
-				? { ...todo, isCompleted: !todo.isCompleted, date: new Date() }
+				? { ...todo, isCompleted: !todo.isCompleted, date: Date.now() }
 				: { ...todo };
 		});
 
+		handleRemoveTodo(bin, id);
+
 		updatedTodos[bin] = sortTodosByCompletion(updatedTodos[bin]);
 
-		setTodos(updatedTodos);
+		setTimeout(() => {
+			setTodos(updatedTodos);
+		}, 600);
 	};
 
 	return (
@@ -148,7 +159,6 @@ function TodoApp() {
 				onRemoveTodo={handleRemoveTodo}
 				onMarkTodo={handleMarkTodo}
 				isOnlyUncompleted={isOnlyUncompleted}
-				switchPage={switchPage}
 			/>
 
 			<Footer />
