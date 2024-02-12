@@ -9,6 +9,25 @@
 	color: var(--text-color-primary);
 }
 
+/* remove todo notification */
+.removeTodoNotif {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.removeTodoNotif button {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+	height: 2rem;
+	background-color: var(--bg-color-tertiary);
+	color: #3eb489;
+	font-weight: 600;
+	border-radius: 0.4rem;
+	padding: 0 0.8rem;
+}
+
 @media screen and (max-width: 576px) {
 	.todoApp {
 		width: 100%;

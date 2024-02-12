@@ -1,19 +1,24 @@
 import styles from '../css/TodoApp.module.css';
 
-// react, uuid
+// react, uuid, framer
 import { useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { AnimatePresence } from 'framer-motion';
 
 // components
 import InputBar from './InputBar';
 import TodoList from './TodoList';
 import Footer from './Footer';
+import Notification from './Hotification';
 
 // utils
 import modifyDateByOneDay from '../utils/modifyDateByOneDay';
 import isTodoDuplicate from '../utils/isTodoDuplicate';
 import sortTodosByCompletion from '../utils/sortTodosByCompletion';
 import FiltersBar from './FiltersBar';
+
+// icons
+import { FaUndoAlt } from "react-icons/fa";
 
 function TodoApp() {
 	const inputBarRef = useRef(null);
@@ -22,6 +27,11 @@ function TodoApp() {
 	const [date, setDate] = useState(today);
 	const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || {});
 	const [isOnlyUncompleted, setOnlyUncompleted] = useState(false);
+
+	// notification
+	const [notifIsVisible, setNotifIsVisible] = useState(false);
+	const [notifContent, setNotifContent] = useState(null);
+	const hideNotifTimeOutRef = useRef(null);
 
 	const allTodos = Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse();
 
@@ -92,30 +102,55 @@ function TodoApp() {
 	};
 
 	// remove todo
-	const handleRemoveTodo = (bin, id) => {
+	const handleRemoveTodo = (bin, id, showNotif = true) => {
 		const updatedTodos = { ...todos };
 		updatedTodos[bin] = updatedTodos[bin].filter((todo) => todo.id !== id);
 
-		if (updatedTodos[bin].length === 0) delete updatedTodos[bin];
+		if (updatedTodos[bin].length === 0) {
+			delete updatedTodos[bin];
+		};
 
 		setTodos(updatedTodos);
+
+		// display notification about todo deletion
+		if (showNotif) {
+			setTimeout(() => {
+				setNotifContent(
+					<div className={styles.removeTodoNotif}>
+						<span>Removed successfully!</span>
+
+						<button onClick={() => setTodos({ ...todos })}>
+							<span>Undo</span>
+							<FaUndoAlt />
+						</button>
+					</div>
+				);
+
+				setNotifIsVisible(true);
+				hideNotifTimeOutRef.current = hideNotifeTimeout(4000);
+			}, 600);
+		};
+	};
+
+	const hideNotifeTimeout = (duration) => {
+		return setTimeout(() => {
+			setNotifIsVisible(false);
+		}, duration);
+	};
+
+	// сlearing the timeout on hovering over the notification
+	const handleNotifHoverStart = () => {
+		clearTimeout(hideNotifTimeOutRef.current);
+	};
+
+	// setting a timeout on the 'onHoverEnd' event
+	const handleNotifHoverEnd = () => {
+		setTimeout(() => {
+			setNotifIsVisible(false);
+		}, 2000);
 	};
 
 	// mars todo as completed/uncompleted
-	// const handleMarkTodo = (bin, id) => {
-	// 	const updatedTodos = { ...todos };
-
-	// 	updatedTodos[bin] = updatedTodos[bin].map((todo) => {
-	// 		return (todo.id === id)
-	// 			? { ...todo, isCompleted: !todo.isCompleted, date: Date.now(), id: uuidv4() }
-	// 			: { ...todo };
-	// 	});
-
-	// 	updatedTodos[bin] = sortTodosByCompletion(updatedTodos[bin]);
-
-	// 	setTodos(updatedTodos);
-	// };
-
 	const handleMarkTodo = (bin, id) => {
 		const updatedTodos = { ...todos };
 		updatedTodos[bin] = updatedTodos[bin].map((todo) => {
@@ -124,7 +159,7 @@ function TodoApp() {
 				: { ...todo };
 		});
 
-		handleRemoveTodo(bin, id);
+		handleRemoveTodo(bin, id, false);
 
 		updatedTodos[bin] = sortTodosByCompletion(updatedTodos[bin]);
 
@@ -162,6 +197,17 @@ function TodoApp() {
 			/>
 
 			<Footer />
+
+			<AnimatePresence>
+				{notifIsVisible && (
+					<Notification
+						onHoverStart={handleNotifHoverStart}
+						onHoverEnd={handleNotifHoverEnd}
+					>
+						{notifContent}
+					</Notification>
+				)}
+			</AnimatePresence>
 		</div>
 	);
 }

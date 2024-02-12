@@ -1,0 +1,12 @@
+.notification {
+	/* outline: 1px solid tomato; */
+	position: fixed;
+	background-color: var(--bg-color-secondary);
+	box-shadow: var(--box-shadow-primary);
+	padding: 0.4rem 0.4rem 0.4rem 0.8rem;
+	border-radius: 0.6rem;
+	bottom: 3rem;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 9;
+}

@@ -18,6 +18,8 @@
 	--bg-color-primary: #1a2026;
 	--bg-color-secondary: #212a33;
 	--bg-color-tertiary: #2e3945;
+
+	--box-shadow-primary: 0px 0px 15px rgba(0, 0, 0, 0.1);
 }
 
 * {
@@ -44,7 +46,13 @@ code {
 button {
 	border: none;
 	cursor: pointer;
-	transition: transform 0.3s ease;
+	transition-property: transform, filter;
+	transition-duration: 0.3s;
+	transition-timing-function: ease;
+}
+
+button:hover {
+	filter: brightness(1.1);
 }
 
 button:active {

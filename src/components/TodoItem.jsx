@@ -1,7 +1,7 @@
 import styles from '../css/TodoItem.module.css';
 
 // react, framer
-import { Fragment, useEffect, useRef, useState, } from 'react';
+import { Fragment, useRef, useState, } from 'react';
 import { motion, } from 'framer-motion';
 
 // icons
