@@ -57,6 +57,16 @@ function TodoApp() {
 		return () => window.removeEventListener('keydown', handleChangeDate);
 	}, [date, isOnlyUncompleted]);
 
+	const checkForUnfinishedTodosInDay = (date) => {
+		const formattedDate = getFormattedDate(date);
+
+		if (todos[formattedDate]) {
+			return Boolean(todos[formattedDate].find((todo) => !todo.isCompleted));
+		};
+
+		return false;
+	};
+
 	// change view mode
 	const handleChangeViewMode = (day) => {
 		const newDate = day === 'today' ? today : day ? day : '';
@@ -184,6 +194,7 @@ function TodoApp() {
 				setDate={setDate}
 				onChangeViewMode={handleChangeViewMode}
 				setOnlyUncompleted={setOnlyUncompleted}
+				checkForUnfinishedTodosInDay={checkForUnfinishedTodosInDay}
 			/>
 
 			<TodoList

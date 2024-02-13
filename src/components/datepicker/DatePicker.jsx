@@ -9,7 +9,7 @@ import DatePickerCell from './DatePickerCell';
 // icons
 import { IoIosArrowForward } from "react-icons/io";
 
-function DatePicker({ initialDate, onPickDate }) {
+function DatePicker({ initialDate, onPickDate, checkForUnfinishedTodosInDay }) {
 	const now = new Date();
 	const [year, setYear] = useState(now.getFullYear());
 	const [month, setMonth] = useState(now.getMonth());
@@ -63,6 +63,7 @@ function DatePicker({ initialDate, onPickDate }) {
 								month={month}
 								day={day}
 								onClick={handleChangeDate}
+								checkForUnfinishedTodosInDay={checkForUnfinishedTodosInDay}
 							/>
 						) : (
 							<div key={`shift${index}`} />
