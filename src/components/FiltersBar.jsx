@@ -33,7 +33,7 @@ function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, 
 				onClick={() => setDatePickerIsHidden(!datePickerIsHidden)}
 				title='Show date picker'
 			>
-				{new Date(initialDate).toLocaleDateString()}
+				{initialDate ? new Date(initialDate).toLocaleDateString() : 'All todos'}
 			</button>
 
 			<fieldset className={styles.fieldset}>
@@ -56,7 +56,7 @@ function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, 
 						type="radio"
 						name="range"
 						id="oneDay"
-						onChange={() => onChangeViewMode('today')}
+						onChange={() => onChangeViewMode(new Date())}
 						checked={initialDate ? true : false}
 					/>
 					<label className={styles.viewModeLabel} htmlFor="oneDay" title="Show todos for the day">

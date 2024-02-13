@@ -25,10 +25,12 @@ function DatePicker({ todos, initialDate, onPickDate, checkForUnfinishedTodosInD
 	}, [month]);
 
 	useEffect(() => {
-		const newDate = new Date(initialDate);
+		if (initialDate) {
+			const newDate = new Date(initialDate);
 
-		setYear(newDate.getFullYear());
-		setMonth(newDate.getMonth());
+			setYear(newDate.getFullYear());
+			setMonth(newDate.getMonth());
+		};
 	}, [initialDate]);
 
 	const handleBackToTheToday = (today) => {

@@ -154,8 +154,10 @@
 	transition-timing-function: ease;
 }
 
-.label:hover {
-	background-color: var(--bg-color-tertiary);
+.label:hover,
+.viewModeLabel:hover {
+	/* background-color: var(--bg-color-tertiary); */
+	color: var(--text-color-primary);
 }
 
 .fieldset input {

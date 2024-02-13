@@ -69,8 +69,7 @@ function TodoApp() {
 
 	// change view mode
 	const handleChangeViewMode = (date) => {
-		const newDate = date === 'today' ? today : date ? date : '';
-		setDate(getFormattedDate(newDate));
+		setDate(date ? getFormattedDate(date) : '');
 	};
 
 	// add todo
