@@ -68,8 +68,8 @@ function TodoApp() {
 	};
 
 	// change view mode
-	const handleChangeViewMode = (day) => {
-		const newDate = day === 'today' ? today : day ? day : '';
+	const handleChangeViewMode = (date) => {
+		const newDate = date === 'today' ? today : date ? date : '';
 		setDate(getFormattedDate(newDate));
 	};
 

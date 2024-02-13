@@ -58,3 +58,11 @@
 	justify-content: center;
 	font-weight: 600;
 }
+
+.todayBtn {
+	height: 2rem;
+	width: 100%;
+	background-color: var(--bg-color-tertiary);
+	border-radius: 0.4rem;
+	margin-top: 0.6rem;
+}

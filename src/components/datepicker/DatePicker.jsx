@@ -24,13 +24,18 @@ function DatePicker({ todos, initialDate, onPickDate, checkForUnfinishedTodosInD
 		setMonthName(new Date(year, month, 1).toLocaleString('default', { month: 'long' }));
 	}, [month]);
 
-
 	useEffect(() => {
 		const newDate = new Date(initialDate);
 
 		setYear(newDate.getFullYear());
 		setMonth(newDate.getMonth());
 	}, [initialDate]);
+
+	const handleBackToTheToday = (today) => {
+		setYear(today.getFullYear());
+		setMonth(today.getMonth());
+		onPickDate(today);
+	};
 
 	const handleChangeYear = (dir) => {
 		setYear((currYear) => currYear + (dir === 'back' ? -1 : 1));
@@ -113,6 +118,13 @@ function DatePicker({ todos, initialDate, onPickDate, checkForUnfinishedTodosInD
 					/>
 				)}
 			</div>
+
+			<button
+				className={styles.todayBtn}
+				onClick={() => handleBackToTheToday(new Date())}
+			>
+				Today
+			</button>
 		</motion.div>
 	);
 }
