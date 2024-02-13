@@ -22,6 +22,7 @@ function FiltersBar({ initialDate, onChangeViewMode, setOnlyUncompleted }) {
 						id="date"
 					/>
 				</div>
+
 				<fieldset className={styles.fieldset}>
 					<div className={styles.viewModeWrapper}>
 						<input
@@ -36,6 +37,7 @@ function FiltersBar({ initialDate, onChangeViewMode, setOnlyUncompleted }) {
 							{/* <span>All</span> */}
 							<FaCalendarAlt />
 						</label>
+
 						<input
 							className={styles.inputToday}
 							type="radio"
@@ -48,9 +50,12 @@ function FiltersBar({ initialDate, onChangeViewMode, setOnlyUncompleted }) {
 							{/* <span>Day</span> */}
 							<FaCalendarDay />
 						</label>
+
 						<div className={styles.activeViewMode}></div>
 					</div>
+
 					<span className={styles.separator}>|</span>
+
 					<input
 						type="checkbox"
 						name=""
@@ -64,9 +69,9 @@ function FiltersBar({ initialDate, onChangeViewMode, setOnlyUncompleted }) {
 				</fieldset>
 			</div>
 
-			<DatePicker onPickDate={onChangeViewMode} />
+			<DatePicker initialDate={initialDate} onPickDate={onChangeViewMode} />
 		</>
-	)
+	);
 }
 
 export default FiltersBar;
