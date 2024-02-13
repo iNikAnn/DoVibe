@@ -1,0 +1,17 @@
+.datePicker {
+	outline: 1px solid tomato;
+	display: inline-block;
+}
+
+.monthControl {
+	display: flex;
+	justify-content: space-between;
+	padding: 0.6rem;
+}
+
+.days {
+	display: grid;
+	grid-template-columns: repeat(7, 2rem);
+	grid-template-rows: repeat(7, 2rem);
+	gap: 0.2rem;
+}
