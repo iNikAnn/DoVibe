@@ -1,0 +1,68 @@
+.datePicker {
+	/* outline: 1px solid tomato; */
+	position: absolute;
+	top: 0;
+	left: 0;
+	/* transform: translateX(calc(-100% - 1rem)); */
+	display: inline-block;
+	background-color: var(--bg-color-secondary);
+	color: var(--text-color-primary);
+	border-radius: 0.6rem;
+	padding: 0.6rem;
+}
+
+.controls {
+	/* outline: 1px solid tomato; */
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	/* padding: 0.6rem; */
+	/* margin-bottom: 1rem; */
+}
+
+.controls button {
+	width: 2rem;
+	height: 2rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: unset;
+	border-radius: 50%;
+}
+
+.controls button:hover {
+	background-color: var(--bg-color-tertiary);
+}
+
+.controls button svg {
+	width: 75%;
+	height: 75%;
+}
+
+/* left button svg */
+.controls button:first-child svg {
+	transform: rotate(180deg);
+}
+
+.days {
+	display: grid;
+	grid-template-columns: repeat(7, 2rem);
+	/* grid-template-rows: repeat(6, 2rem); */
+	grid-auto-rows: minmax(2rem, auto);
+}
+
+.weekDay {
+	/* outline: 1px solid tomato; */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 600;
+}
+
+.todayBtn {
+	height: 2rem;
+	width: 100%;
+	background-color: var(--bg-color-tertiary);
+	border-radius: 0.4rem;
+	margin-top: 0.6rem;
+}

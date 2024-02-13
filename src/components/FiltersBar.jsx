@@ -1,14 +1,23 @@
 import styles from '../css/FiltersBar.module.css';
 
+// react, framer
+import { useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
+
 // icons
 import { FaCalendarAlt } from "react-icons/fa";
 import { FaCalendarDay } from "react-icons/fa";
 import { FaListAlt } from "react-icons/fa";
 
-function FiltersBar({ initialDate, onChangeViewMode, setOnlyUncompleted }) {
+// components
+import DatePicker from '../components/datepicker/DatePicker';
+
+function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, checkForUnfinishedTodosInDay }) {
+	const [datePickerIsHidden, setDatePickerIsHidden] = useState(false);
+
 	return (
 		<div className={styles.filtersWrapper}>
-			<div className={`${styles.datePickerWrapper}`}>
+			{/* <div className={`${styles.datePickerWrapper}`}>
 				<input
 					className={styles.datePicker}
 					type="date"
@@ -17,7 +26,15 @@ function FiltersBar({ initialDate, onChangeViewMode, setOnlyUncompleted }) {
 					name="date"
 					id="date"
 				/>
-			</div>
+			</div> */}
+
+			<button
+				className={styles.datePickerBtn}
+				onClick={() => setDatePickerIsHidden(!datePickerIsHidden)}
+				title='Show date picker'
+			>
+				{initialDate ? new Date(initialDate).toLocaleDateString() : 'All todos'}
+			</button>
 
 			<fieldset className={styles.fieldset}>
 				<div className={styles.viewModeWrapper}>
@@ -39,7 +56,7 @@ function FiltersBar({ initialDate, onChangeViewMode, setOnlyUncompleted }) {
 						type="radio"
 						name="range"
 						id="oneDay"
-						onChange={() => onChangeViewMode('today')}
+						onChange={() => onChangeViewMode(new Date())}
 						checked={initialDate ? true : false}
 					/>
 					<label className={styles.viewModeLabel} htmlFor="oneDay" title="Show todos for the day">
@@ -63,8 +80,19 @@ function FiltersBar({ initialDate, onChangeViewMode, setOnlyUncompleted }) {
 					<FaListAlt />
 				</label>
 			</fieldset>
+
+			<AnimatePresence>
+				{datePickerIsHidden && (
+					<DatePicker
+						todos={todos}
+						initialDate={initialDate}
+						onPickDate={onChangeViewMode}
+						checkForUnfinishedTodosInDay={checkForUnfinishedTodosInDay}
+					/>
+				)}
+			</AnimatePresence>
 		</div>
-	)
+	);
 }
 
 export default FiltersBar;

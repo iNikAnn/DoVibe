@@ -1,0 +1,38 @@
+.cell {
+	/* border: 1px solid tomato; */
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+
+.cell:hover {
+	background-color: var(--bg-color-tertiary);
+	cursor: pointer;
+}
+
+.today {
+	color: var(--accent-color);
+	/* font-weight: 600; */
+}
+
+.selected {
+	background-color: var(--bg-color-tertiary);
+}
+
+.highlight::after {
+	content: '';
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	transform: translate(-50%, -100%);
+
+	width: 0.2rem;
+	height: 0.2rem;
+
+	background-color: var(--accent-color);
+	border-radius: 50%;
+}

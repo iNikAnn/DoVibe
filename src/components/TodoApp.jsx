@@ -7,22 +7,24 @@ import { AnimatePresence } from 'framer-motion';
 
 // components
 import InputBar from './InputBar';
+import FiltersBar from './FiltersBar';
 import TodoList from './TodoList';
 import Footer from './Footer';
 import Notification from './Hotification';
 
 // utils
+import getFormattedDate from '../utils/getFormattedDate';
 import modifyDateByOneDay from '../utils/modifyDateByOneDay';
 import isTodoDuplicate from '../utils/isTodoDuplicate';
 import sortTodosByCompletion from '../utils/sortTodosByCompletion';
-import FiltersBar from './FiltersBar';
 
 // icons
 import { FaUndoAlt } from "react-icons/fa";
 
 function TodoApp() {
 	const inputBarRef = useRef(null);
-	const today = new Date().toISOString().slice(0, 10);
+	// const today = new Date().toISOString().slice(0, 10);
+	const today = getFormattedDate(new Date());
 
 	const [date, setDate] = useState(today);
 	const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || {});
@@ -55,10 +57,19 @@ function TodoApp() {
 		return () => window.removeEventListener('keydown', handleChangeDate);
 	}, [date, isOnlyUncompleted]);
 
+	const checkForUnfinishedTodosInDay = (date) => {
+		const formattedDate = getFormattedDate(date);
+
+		if (todos[formattedDate]) {
+			return Boolean(todos[formattedDate].find((todo) => !todo.isCompleted));
+		};
+
+		return false;
+	};
+
 	// change view mode
-	const handleChangeViewMode = (day) => {
-		const newDate = day === 'today' ? today : day ? day : '';
-		setDate(newDate);
+	const handleChangeViewMode = (date) => {
+		setDate(date ? getFormattedDate(date) : '');
 	};
 
 	// add todo
@@ -178,10 +189,12 @@ function TodoApp() {
 			/>
 
 			<FiltersBar
+				todos={todos}
 				initialDate={date}
 				setDate={setDate}
 				onChangeViewMode={handleChangeViewMode}
 				setOnlyUncompleted={setOnlyUncompleted}
+				checkForUnfinishedTodosInDay={checkForUnfinishedTodosInDay}
 			/>
 
 			<TodoList

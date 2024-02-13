@@ -17,6 +17,13 @@
 	margin-top: 1rem;
 }
 
+.datePickerBtn {
+	height: var(--filter-height);
+	border-radius: var(--filter-border-radius);
+	background-color: var(--bg-color-secondary);
+	padding: var(--filter-padding);
+}
+
 /* calendar */
 .datePickerWrapper {
 	/* outline: 1px solid red; */
@@ -147,8 +154,10 @@
 	transition-timing-function: ease;
 }
 
-.label:hover {
-	background-color: var(--bg-color-tertiary);
+.label:hover,
+.viewModeLabel:hover {
+	/* background-color: var(--bg-color-tertiary); */
+	color: var(--text-color-primary);
 }
 
 .fieldset input {
