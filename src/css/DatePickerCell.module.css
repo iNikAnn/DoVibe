@@ -9,18 +9,14 @@
 	border-radius: 50%;
 }
 
-.weekDay {
-	font-size: 0.8rem;
-}
-
-.day:hover {
+.cell:hover {
 	background-color: var(--bg-color-tertiary);
 	cursor: pointer;
 }
 
 .today {
 	color: var(--accent-color);
-	font-weight: 600;
+	/* font-weight: 600; */
 }
 
 .selected {

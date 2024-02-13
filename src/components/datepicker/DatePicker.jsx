@@ -1,7 +1,7 @@
 import styles from '../../css/DatePicker.module.css';
 
 // react
-import { Fragment, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 // components
 import DatePickerCell from './DatePickerCell';
@@ -10,23 +10,22 @@ import DatePickerCell from './DatePickerCell';
 import { IoIosArrowForward } from "react-icons/io";
 
 function DatePicker({ initialDate, onPickDate, checkForUnfinishedTodosInDay }) {
+	const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 	const now = new Date();
 	const [year, setYear] = useState(now.getFullYear());
 	const [month, setMonth] = useState(now.getMonth());
 	const [day, setDay] = useState(now.getDate());
 	const [monthName, setMonthName] = useState(now.toLocaleString('default', { month: 'long' }));
 	const days = new Date(year, month + 1, 0).getDate();
-	const shift = new Date(year, month, 0).getDay();
-
-	// Отрабатывает 2 раза!!!
-	// console.log(month);
-	// console.log(shift);
+	const shift = new Date(year, month, 1).getDay();
 
 	useEffect(() => {
 		setMonthName(new Date(year, month, 1).toLocaleString('default', { month: 'long' }));
-	}, [month, year]);
+	}, [month]);
 
-	const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+	const handleChangeYear = (dir) => {
+		setYear((currYear) => currYear + (dir === 'back' ? -1 : 1));
+	};
 
 	const handleChangeMonth = (dir) => {
 		const newMonth = month + (dir === 'back' ? -1 : 1);
@@ -42,33 +41,46 @@ function DatePicker({ initialDate, onPickDate, checkForUnfinishedTodosInDay }) {
 
 	return (
 		<div className={styles.datePicker}>
-			<div className={styles.monthControl}>
-				<button onClick={() => handleChangeMonth('back')}><IoIosArrowForward /></button>
-				<span>{monthName}</span>
-				<button onClick={() => handleChangeMonth('forward')}><IoIosArrowForward /></button>
+			<div>
+				<div className={styles.controls}>
+					<button onClick={() => handleChangeYear('back')}><IoIosArrowForward /></button>
+					<span>{year}</span>
+					<button onClick={() => handleChangeYear('forward')}><IoIosArrowForward /></button>
+				</div>
+
+				<div className={styles.controls}>
+					<button onClick={() => handleChangeMonth('back')}><IoIosArrowForward /></button>
+					<span>{monthName}</span>
+					<button onClick={() => handleChangeMonth('forward')}><IoIosArrowForward /></button>
+				</div>
 			</div>
 
 			<div className={styles.days}>
-				{[...weekDays, ...Array(shift).fill(null), ...Array(days).fill('day')].map((el, index) =>
-					<Fragment key={'fragment' + index}>
-						{index <= 6 ? (
-							<DatePickerCell key={`weekDay${el}`} text={el} className="weekDay" />
-						) : el === 'day' ? (
-							<DatePickerCell
-								key={`day${index - 6 - shift}`}
-								text={index - 6 - shift}
-								className="day"
-								initialDate={initialDate}
-								year={year}
-								month={month}
-								day={day}
-								onClick={handleChangeDate}
-								checkForUnfinishedTodosInDay={checkForUnfinishedTodosInDay}
-							/>
-						) : (
-							<div key={`shift${index}`} />
-						)}
-					</Fragment>
+				{weekDays.map((weekDay) =>
+					<small
+						key={weekDay}
+						className={styles.weekDay}
+					>
+						{weekDay}
+					</small>
+				)}
+
+				{
+					// generate an array of empty cells to fill at the beginning of the month
+					Array(shift === 0 ? 6 : shift - 1).fill(null).map((_, index) => <div key={'empty' + index} />)
+				}
+
+				{[...Array(days).fill('day')].map((_, index) =>
+					<DatePickerCell
+						key={`${year}-${month}-${index + 1}`}
+						text={index + 1}
+						initialDate={initialDate}
+						year={year}
+						month={month}
+						day={day}
+						onSelectDay={handleChangeDate}
+						checkForUnfinishedTodosInDay={checkForUnfinishedTodosInDay}
+					/>
 				)}
 			</div>
 		</div>
