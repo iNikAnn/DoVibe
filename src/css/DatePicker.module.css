@@ -1,7 +1,12 @@
 .datePicker {
 	/* outline: 1px solid tomato; */
+	position: absolute;
+	top: 0;
+	left: 0;
+	/* transform: translateX(calc(-100% - 1rem)); */
 	display: inline-block;
 	background-color: var(--bg-color-secondary);
+	color: var(--text-color-primary);
 	border-radius: 0.6rem;
 	padding: 0.6rem;
 }

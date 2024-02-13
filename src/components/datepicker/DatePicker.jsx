@@ -1,7 +1,8 @@
 import styles from '../../css/DatePicker.module.css';
 
-// react
+// react, framer
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 // components
 import DatePickerCell from './DatePickerCell';
@@ -39,8 +40,28 @@ function DatePicker({ todos, initialDate, onPickDate, checkForUnfinishedTodosInD
 		onPickDate(newDate);
 	};
 
+	const datePickerVariants = {
+		initial: {
+			opacity: 0,
+			x: 'calc(-100% - 1rem)',
+			y: '10%'
+		},
+
+		animate: {
+			opacity: 1,
+			x: 'calc(-100% - 1rem)',
+			y: 0
+		},
+
+		exit: {
+			opacity: 0,
+			x: 'calc(-100% - 1rem)',
+			y: '10%'
+		},
+	}
+
 	return (
-		<div className={styles.datePicker}>
+		<motion.div className={styles.datePicker} {...datePickerVariants}>
 			<div>
 				<div className={styles.controls}>
 					<button onClick={() => handleChangeYear('back')}><IoIosArrowForward /></button>
@@ -84,7 +105,7 @@ function DatePicker({ todos, initialDate, onPickDate, checkForUnfinishedTodosInD
 					/>
 				)}
 			</div>
-		</div>
+		</motion.div>
 	);
 }
 
