@@ -24,7 +24,7 @@ function DatePickerCell({ todos, initialDate, text, year, month, day, onSelectDa
 
 			return dayDate.toDateString() === currentDate.toDateString();
 		});
-	}, [day]);
+	}, [day, initialDate]);
 
 	return (
 		<div
