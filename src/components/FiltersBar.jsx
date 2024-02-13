@@ -14,6 +14,7 @@ import DatePicker from '../components/datepicker/DatePicker';
 
 function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, checkForUnfinishedTodosInDay }) {
 	const [datePickerIsHidden, setDatePickerIsHidden] = useState(false);
+
 	return (
 		<div className={styles.filtersWrapper}>
 			{/* <div className={`${styles.datePickerWrapper}`}>
@@ -26,11 +27,13 @@ function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, 
 					id="date"
 				/>
 			</div> */}
+
 			<button
 				className={styles.datePickerBtn}
 				onClick={() => setDatePickerIsHidden(!datePickerIsHidden)}
+				title='Show date picker'
 			>
-				123
+				{new Date(initialDate).toLocaleDateString()}
 			</button>
 
 			<fieldset className={styles.fieldset}>
