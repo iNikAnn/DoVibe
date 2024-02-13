@@ -9,7 +9,7 @@ import DatePickerCell from './DatePickerCell';
 // icons
 import { IoIosArrowForward } from "react-icons/io";
 
-function DatePicker({ initialDate, onPickDate, checkForUnfinishedTodosInDay }) {
+function DatePicker({ todos, initialDate, onPickDate, checkForUnfinishedTodosInDay }) {
 	const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 	const now = new Date();
 	const [year, setYear] = useState(now.getFullYear());
@@ -73,6 +73,7 @@ function DatePicker({ initialDate, onPickDate, checkForUnfinishedTodosInDay }) {
 				{[...Array(days).fill('day')].map((_, index) =>
 					<DatePickerCell
 						key={`${year}-${month}-${index + 1}`}
+						todos={todos}
 						text={index + 1}
 						initialDate={initialDate}
 						year={year}

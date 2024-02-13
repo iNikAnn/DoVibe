@@ -3,23 +3,18 @@ import styles from '../../css/DatePickerCell.module.css';
 // react
 import { useEffect, useState } from 'react';
 
-function DatePickerCell({ initialDate, text, className, year, month, day, onSelectDay, checkForUnfinishedTodosInDay }) {
+function DatePickerCell({ todos, initialDate, text, year, month, day, onSelectDay, checkForUnfinishedTodosInDay }) {
 	const dayDate = new Date(year, month, text);
-
 	const [isSelected, setIsSelected] = useState(false);
 	const [hasUncompletedTodos, setHasUncompletedTodos] = useState(false);
-
-	const [isToday, setIsToday] = useState(() => {
-		const now = new Date();
-		return now.toDateString() === dayDate.toDateString();
-	});
+	const isToday = new Date().toDateString() === dayDate.toDateString();
 
 	// сheck for uncompleted todos in the current day
 	useEffect(() => {
 		setHasUncompletedTodos(
 			checkForUnfinishedTodosInDay(dayDate)
 		);
-	}, []);
+	}, [todos]);
 
 	// checks if the day is selected
 	useEffect(() => {

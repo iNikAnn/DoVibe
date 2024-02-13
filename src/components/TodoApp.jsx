@@ -190,6 +190,7 @@ function TodoApp() {
 			/>
 
 			<FiltersBar
+				todos={todos}
 				initialDate={date}
 				setDate={setDate}
 				onChangeViewMode={handleChangeViewMode}

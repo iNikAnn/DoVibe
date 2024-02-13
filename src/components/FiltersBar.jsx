@@ -8,7 +8,7 @@ import { FaListAlt } from "react-icons/fa";
 // components
 import DatePicker from '../components/datepicker/DatePicker';
 
-function FiltersBar({ initialDate, onChangeViewMode, setOnlyUncompleted, checkForUnfinishedTodosInDay }) {
+function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, checkForUnfinishedTodosInDay }) {
 	return (
 		<>
 			<div className={styles.filtersWrapper}>
@@ -70,6 +70,7 @@ function FiltersBar({ initialDate, onChangeViewMode, setOnlyUncompleted, checkFo
 			</div>
 
 			<DatePicker
+				todos={todos}
 				initialDate={initialDate}
 				onPickDate={onChangeViewMode}
 				checkForUnfinishedTodosInDay={checkForUnfinishedTodosInDay}
