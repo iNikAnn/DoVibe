@@ -1,0 +1,16 @@
+.tooltip {
+	position: absolute;
+	top: calc(100% + 0.4rem);
+	white-space: nowrap;
+	background-color: var(--bg-color-tertiary);
+	color: var(--text-color-primary);
+	border-radius: 0.4rem;
+	padding: 0.4rem;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	pointer-events: none;
+}
+
+.visible {
+	opacity: 1;
+}
