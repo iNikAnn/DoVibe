@@ -40,30 +40,30 @@ function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, 
 
 			<fieldset className={styles.fieldset}>
 				<div className={styles.viewModeWrapper}>
+					<input
+						className={styles.inputAll}
+						type="radio"
+						name="range"
+						id="all"
+						onChange={() => onChangeViewMode('')}
+						checked={initialDate ? false : true}
+					/>
 					<Tooltip text="Show all todos">
-						<input
-							className={styles.inputAll}
-							type="radio"
-							name="range"
-							id="all"
-							onChange={() => onChangeViewMode('')}
-							checked={initialDate ? false : true}
-						/>
 						<label className={styles.viewModeLabel} htmlFor="all">
 							{/* <span>All</span> */}
 							<FaCalendarAlt />
 						</label>
 					</Tooltip>
 
+					<input
+						className={styles.inputToday}
+						type="radio"
+						name="range"
+						id="oneDay"
+						onChange={() => onChangeViewMode(new Date())}
+						checked={initialDate ? true : false}
+					/>
 					<Tooltip text="Show todos for the day">
-						<input
-							className={styles.inputToday}
-							type="radio"
-							name="range"
-							id="oneDay"
-							onChange={() => onChangeViewMode(new Date())}
-							checked={initialDate ? true : false}
-						/>
 						<label className={styles.viewModeLabel} htmlFor="oneDay">
 							{/* <span>Day</span> */}
 							<FaCalendarDay />

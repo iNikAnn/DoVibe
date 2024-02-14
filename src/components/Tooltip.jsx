@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
 import styles from '../css/Tooltip.module.css';
+
+// react
+import { useEffect, useRef, useState } from 'react';
 
 function Tooltip({ text, children }) {
 	const parentRef = useRef(null);

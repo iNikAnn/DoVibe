@@ -83,7 +83,8 @@
 	color: var(--text-color-primary);
 }
 
-.fieldset input:checked + .viewModeLabel {
+/* .fieldset input:checked + .viewModeLabel { */
+.fieldset input:checked + div {
 	color: var(--text-color-primary);
 }
 
