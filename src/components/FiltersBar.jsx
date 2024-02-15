@@ -6,6 +6,8 @@ import { AnimatePresence } from 'framer-motion';
 
 // icons
 import { FaCalendar } from "react-icons/fa";
+import { FaSun } from "react-icons/fa";
+import { FaMoon } from "react-icons/fa";
 import { FaCalendarAlt } from "react-icons/fa";
 import { FaCalendarDay } from "react-icons/fa";
 import { FaListAlt } from "react-icons/fa";
@@ -53,7 +55,40 @@ function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, 
 			</Tooltip>
 
 			<fieldset className={styles.fieldset}>
-				<div className={styles.viewModeWrapper}>
+				<div className={styles.modeWrapper}>
+					<input
+						className={styles.lightInput}
+						type="radio"
+						name="schemeSwticher"
+						id="lightScheme"
+					/>
+					<Tooltip text="Light">
+						<label
+							className={styles.modeLabel}
+							htmlFor="lightScheme">
+							<FaSun />
+						</label>
+					</Tooltip>
+
+					<input
+						className={styles.inputDark}
+						type="radio"
+						name="schemeSwticher"
+						id="darkScheme"
+					/>
+					<Tooltip text="Dark">
+						<label
+							className={styles.modeLabel}
+							htmlFor="darkScheme">
+							<FaMoon />
+						</label>
+					</Tooltip>
+					<div className={styles.activeMode}></div>
+				</div>
+
+				<span className={styles.separator}>|</span>
+
+				<div className={styles.modeWrapper}>
 					<input
 						className={styles.inputAll}
 						type="radio"
@@ -63,7 +98,7 @@ function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, 
 						checked={initialDate ? false : true}
 					/>
 					<Tooltip text="Show all todos">
-						<label className={styles.viewModeLabel} htmlFor="all">
+						<label className={styles.modeLabel} htmlFor="all">
 							{/* <span>All</span> */}
 							<FaCalendarAlt />
 						</label>
@@ -78,13 +113,13 @@ function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, 
 						checked={initialDate ? true : false}
 					/>
 					<Tooltip text="Show todos for the day">
-						<label className={styles.viewModeLabel} htmlFor="oneDay">
+						<label className={styles.modeLabel} htmlFor="oneDay">
 							{/* <span>Day</span> */}
 							<FaCalendarDay />
 						</label>
 					</Tooltip>
 
-					<div className={styles.activeViewMode}></div>
+					<div className={styles.activeMode}></div>
 				</div>
 
 				<span className={styles.separator}>|</span>

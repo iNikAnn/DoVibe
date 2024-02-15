@@ -109,7 +109,7 @@
 	color: var(--text-color-primary);
 }
 
-.viewModeWrapper {
+.modeWrapper {
 	position: relative;
 	/* outline: 1px solid tomato; */
 	display: flex;
@@ -119,13 +119,13 @@
 	height: var(--filter-height);
 }
 
-.viewModeLabel {
+.modeLabel {
 	position: relative;
 	transition: color 0.3s ease;
 	z-index: 5;
 }
 
-.activeViewMode {
+.activeMode {
 	/* outline: 1px solid green; */
 	position: absolute;
 	top: 0;
@@ -143,12 +143,22 @@
 	transition-timing-function: ease;
 }
 
-.inputAll:checked ~ .activeViewMode {
+.inputLight:checked ~ .activeMode {
 	left: 0%;
 	transform: translateX(0%);
 }
 
-.inputToday:checked ~ .activeViewMode {
+.inputDark:checked ~ .activeMode {
+	left: 100%;
+	transform: translateX(-100%);
+}
+
+.inputAll:checked ~ .activeMode {
+	left: 0%;
+	transform: translateX(0%);
+}
+
+.inputToday:checked ~ .activeMode {
 	left: 100%;
 	transform: translateX(-100%);
 }
@@ -178,7 +188,7 @@
 }
 
 .label:hover,
-.viewModeLabel:hover {
+.modeLabel:hover {
 	/* background-color: var(--bg-color-tertiary); */
 	color: var(--text-color-primary);
 }
