@@ -133,7 +133,12 @@ function TodoApp() {
 					<div className={styles.removeTodoNotif}>
 						<span>Removed successfully!</span>
 
-						<button onClick={() => setTodos({ ...todos })}>
+						<button onClick={() => {
+							setTodos({ ...todos });
+							setTimeout(() => {
+								setNotifIsVisible(false);
+							}, 200);
+						}}>
 							<span>Undo</span>
 							<FaUndoAlt />
 						</button>
