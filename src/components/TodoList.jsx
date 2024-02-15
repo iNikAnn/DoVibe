@@ -7,7 +7,7 @@ import { Fragment, useEffect, useState } from 'react';
 import TodoItem from './TodoItem';
 import { AnimatePresence } from 'framer-motion';
 
-function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUncompleted }) {
+function TodoList({ list, showCustomModal, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUncompleted }) {
 	const [showFiltered, setShowFiltered] = useState(false);
 	let prevDate = null;
 
@@ -27,7 +27,7 @@ function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUn
 	}, [isOnlyUncompleted]);
 
 	return (
-		<div className={styles.todoList}>
+		<ul className={styles.todoList}>
 			<AnimatePresence>
 				{list
 					? (showFiltered ? handleFilterList() : list).map((item, index) => {
@@ -49,6 +49,7 @@ function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUn
 									key={item.id}
 									index={index}
 									{...item}
+									showCustomModal={showCustomModal}
 									onRenameTodo={onRenameTodo}
 									onRemoveTodo={onRemoveTodo}
 									onMarkTodo={onMarkTodo}
@@ -59,7 +60,7 @@ function TodoList({ list, date, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUn
 					: <span>No tasks here</span>
 				}
 			</AnimatePresence>
-		</div>
+		</ul>
 	);
 }
 

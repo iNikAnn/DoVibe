@@ -1,7 +1,7 @@
 .todoList {
 	display: flex;
 	flex-direction: column;
-	margin-top: 1rem;
+	margin: 1rem 0;
 }
 
 .binTitle {
@@ -14,28 +14,4 @@
 
 .binTitle:first-child {
 	margin: 0.6rem 0 0.6rem 0;
-}
-
-.removing {
-	opacity: 0;
-	animation: hide 0.3s ease;
-}
-
-@keyframes appear {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
-}
-
-@keyframes hide {
-	from {
-		opacity: 1;
-	}
-
-	to {
-		opacity: 0;
-	}
 }

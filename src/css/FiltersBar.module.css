@@ -17,11 +17,32 @@
 	margin-top: 1rem;
 }
 
-.datePickerBtn {
+/* .datePickerBtn {
+	gap: 0.4rem;
 	height: var(--filter-height);
 	border-radius: var(--filter-border-radius);
 	background-color: var(--bg-color-secondary);
 	padding: var(--filter-padding);
+} */
+
+.datePickerCheckbox:checked + .datePickerLabel svg {
+	color: var(--text-color-primary);
+}
+
+.datePickerLabel {
+	color: var(--text-color-primary);
+	gap: 0.4rem;
+	width: auto !important;
+	padding: var(--filter-padding);
+}
+
+.datePickerLabel svg {
+	color: var(--text-color-dimmed);
+	transition: color 0.3s ease;
+}
+
+.datePickerLabel:hover svg {
+	color: var(--text-color-primary);
 }
 
 /* calendar */
@@ -139,7 +160,8 @@
 	height: var(--filter-height);
 }
 
-.fieldset label {
+.fieldset label,
+.datePickerBtn {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -161,7 +183,7 @@
 	color: var(--text-color-primary);
 }
 
-.fieldset input {
+.filtersWrapper input {
 	position: absolute;
 	top: 0;
 	left: 0;

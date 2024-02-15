@@ -1,0 +1,80 @@
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	/* background-color: black; */
+	/* opacity: 0.1; */
+	z-index: 99;
+}
+
+.modal {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	min-width: 300px;
+	background-color: var(--bg-color-secondary);
+	border-radius: var(--border-radius-primary);
+	box-shadow: var(--box-shadow-primary);
+	padding: 1rem;
+	z-index: 999;
+}
+
+/* modal */
+.modal h3 {
+	margin-bottom: 1rem;
+}
+
+.modal form {
+	display: flex;
+	flex-direction: column;
+}
+
+.modal label {
+	align-self: start;
+	margin-bottom: 0.4rem;
+}
+
+.modal input {
+	height: 2rem;
+	background-color: var(--bg-color-primary);
+	border-radius: 0.4rem;
+	padding: 0 0.6rem;
+}
+
+.modal input:focus {
+	outline: 2px solid var(--accent-color);
+}
+
+.modal button[type='submit'],
+.modal button[data-type='cancel'] {
+	height: 2rem;
+	background-color: var(--bg-color-tertiary);
+	border-radius: 0.4rem;
+	margin-top: 1rem;
+}
+
+.modal button[type='submit'] {
+	color: #3eb489;
+}
+
+/* close button */
+.closeBtn {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: calc(1.6rem / -2);
+	right: calc(1.6rem / -2);
+	width: 1.6rem;
+	height: 1.6rem;
+	background-color: var(--bg-color-tertiary);
+	border-radius: 50%;
+}
+
+@media screen and (max-width: 576px) {
+	.modal {
+		width: calc(100% - 2rem);
+	}
+}

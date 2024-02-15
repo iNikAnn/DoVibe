@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 
 // icons
+import { FaCalendar } from "react-icons/fa";
 import { FaCalendarAlt } from "react-icons/fa";
 import { FaCalendarDay } from "react-icons/fa";
 import { FaListAlt } from "react-icons/fa";
@@ -28,14 +29,27 @@ function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, 
 					id="date"
 				/>
 			</div> */}
-
+			{/*
 			<Tooltip text="Show date picker">
 				<button
 					className={styles.datePickerBtn}
 					onClick={() => setDatePickerIsHidden(!datePickerIsHidden)}
 				>
+					<FaCalendar />
 					{initialDate ? new Date(initialDate).toLocaleDateString() : 'All todos'}
 				</button>
+			</Tooltip> */}
+
+			<Tooltip text="Show date picker">
+				<input className={styles.datePickerCheckbox} type="checkbox" name="datePicker" id="datePicker" />
+				<label
+					htmlFor="datePicker"
+					className={`${styles.label} ${styles.datePickerLabel}`}
+					onClick={() => setDatePickerIsHidden(!datePickerIsHidden)}
+				>
+					<FaCalendar />
+					{initialDate ? new Date(initialDate).toLocaleDateString() : 'All todos'}
+				</label>
 			</Tooltip>
 
 			<fieldset className={styles.fieldset}>
