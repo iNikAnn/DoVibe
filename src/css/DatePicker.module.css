@@ -3,10 +3,10 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	/* transform: translateX(calc(-100% - 1rem)); */
 	display: inline-block;
 	background-color: var(--bg-color-secondary);
 	color: var(--text-color-primary);
+	box-shadow: var(--box-shadow-primary);
 	border-radius: 0.6rem;
 	padding: 0.6rem;
 }
@@ -16,8 +16,6 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	/* padding: 0.6rem; */
-	/* margin-bottom: 1rem; */
 }
 
 .controls button {
@@ -47,7 +45,6 @@
 .days {
 	display: grid;
 	grid-template-columns: repeat(7, 2rem);
-	/* grid-template-rows: repeat(6, 2rem); */
 	grid-auto-rows: minmax(2rem, auto);
 }
 

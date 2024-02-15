@@ -12,8 +12,11 @@ import { FaCheck } from "react-icons/fa";
 function TodoItem({ index, title, id, bin, isCompleted, showCustomModal, onRenameTodo, onRemoveTodo, onMarkTodo }) {
 	const todoRef = useRef(null);
 	const [delay, setDelay] = useState(false);
+	const [motionOn, setMotionOn] = useState(true);
 
 	const handleRename = () => {
+		setMotionOn(false);
+
 		showCustomModal(
 			<form
 				action="submit"
@@ -21,6 +24,7 @@ function TodoItem({ index, title, id, bin, isCompleted, showCustomModal, onRenam
 					e.preventDefault();
 					onRenameTodo(bin, id, e.target.newTitle.value);
 					showCustomModal(null);
+					setMotionOn(true);
 				}}
 			>
 				<h3>Enter new title</h3>
@@ -48,6 +52,7 @@ function TodoItem({ index, title, id, bin, isCompleted, showCustomModal, onRenam
 			y: '-2rem',
 			opacity: 0,
 			maxHeight: 0,
+			transform: 'scale(1)',
 		},
 
 		animate: (custom) => ({
@@ -79,8 +84,7 @@ function TodoItem({ index, title, id, bin, isCompleted, showCustomModal, onRenam
 	return (
 		<>
 			<motion.li
-				key={title}
-				{...liVariants}
+				{...(motionOn ? liVariants : {})}
 				custom={index}
 			>
 				<div ref={todoRef} data-id={id} className={`${styles.todoItemWrapper}`}>
