@@ -97,14 +97,12 @@ function TodoApp() {
 	};
 
 	// rename todo
-	const handleRenameTodo = (bin, id, title) => {
-		const newName = prompt('New title...', title);
-
-		if (!newName || isTodoDuplicate(todos[bin], newName)) return;
+	const handleRenameTodo = (bin, id, newTitle) => {
+		if (!newTitle || isTodoDuplicate(todos[bin], newTitle)) return;
 
 		const updatedTodos = { ...todos };
 		const updatedDailyTodos = updatedTodos[bin].map((todo) => {
-			return (todo.id === id) ? { ...todo, title: newName } : { ...todo };
+			return (todo.id === id) ? { ...todo, title: newTitle } : { ...todo };
 		});
 
 		updatedTodos[bin] = updatedDailyTodos;

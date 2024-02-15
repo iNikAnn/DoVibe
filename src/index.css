@@ -20,6 +20,8 @@
 	--bg-color-tertiary: #2e3945;
 
 	--box-shadow-primary: 0px 0px 15px rgba(0, 0, 0, 0.1);
+
+	--border-radius-primary: 0.6rem;
 }
 
 * {
@@ -61,4 +63,8 @@ button:active {
 
 li {
 	list-style: none;
+}
+
+input {
+	border: none;
 }
