@@ -10,26 +10,20 @@ function Modal({ children, onClose }) {
 	const modalVariants = {
 		initial: {
 			opacity: 0,
-			top: '50%',
-			left: '50%',
-			x: '50%',
-			transform: 'translate(-50%, -50%) scale(0.9)'
+			x: '-50%',
+			y: '-40%',
 		},
 
 		animate: {
 			opacity: 1,
-			top: '50%',
-			left: '50%',
-			x: '50%',
-			transform: 'translate(-50%, -50%) scale(1)'
+			x: '-50%',
+			y: '-50%',
 		},
 
 		exit: {
 			opacity: 0,
-			top: '50%',
-			left: '50%',
-			x: '50%',
-			transform: 'translate(-50%, -50%) scale(0.9)'
+			x: '-50%',
+			y: '-40%',
 		}
 	};
 

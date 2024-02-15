@@ -20,6 +20,7 @@ import sortTodosByCompletion from '../utils/sortTodosByCompletion';
 
 // icons
 import { FaUndoAlt } from "react-icons/fa";
+import Modal from './Modal';
 
 function TodoApp() {
 	const inputBarRef = useRef(null);
@@ -34,6 +35,10 @@ function TodoApp() {
 	const [notifIsVisible, setNotifIsVisible] = useState(false);
 	const [notifContent, setNotifContent] = useState(null);
 	const hideNotifTimeOutRef = useRef(null);
+
+	// modal
+	const [modalIsVisible, setModalIsVisible] = useState(false);
+	const [modalContent, setModalContent] = useState(null);
 
 	const allTodos = Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse();
 
@@ -177,6 +182,18 @@ function TodoApp() {
 		}, 600);
 	};
 
+	// toggle modal
+	const handleToggleModal = (content) => {
+		if (content === null) {
+			setModalIsVisible(false);
+			setModalContent(null);
+			return;
+		};
+
+		setModalContent(content);
+		setModalIsVisible(true);
+	};
+
 	return (
 		<div className={styles.todoApp}>
 			{/* <h1>DoVibe</h1> */}
@@ -201,6 +218,7 @@ function TodoApp() {
 					date ? todos[date] : allTodos
 				}
 				date={date}
+				showCustomModal={handleToggleModal}
 				onRenameTodo={handleRenameTodo}
 				onRemoveTodo={handleRemoveTodo}
 				onMarkTodo={handleMarkTodo}
@@ -210,6 +228,12 @@ function TodoApp() {
 			<Footer />
 
 			<AnimatePresence>
+				{modalIsVisible && (
+					<Modal onClose={() => setModalIsVisible(false)}>
+						{modalContent}
+					</Modal>
+				)}
+
 				{notifIsVisible && (
 					<Notification
 						onHoverStart={handleNotifHoverStart}

@@ -12,13 +12,26 @@ import { FaCheck } from "react-icons/fa";
 // components
 import Modal from '../components/Modal';
 
-function TodoItem({ index, title, id, bin, isCompleted, onRenameTodo, onRemoveTodo, onMarkTodo }) {
+function TodoItem({ index, title, id, bin, isCompleted, showCustomModal, onRenameTodo, onRemoveTodo, onMarkTodo }) {
 	const todoRef = useRef(null);
 	const [delay, setDelay] = useState(false);
-	const [newTitle, setNewTitle] = useState(title);
 
-	// modal
-	const [modalIsVisible, setModalIsVisible] = useState(false);
+	const handleRename = () => {
+		showCustomModal(
+			<form
+				action="submit"
+				onSubmit={(e) => {
+					e.preventDefault();
+					onRenameTodo(bin, id, e.target.newTitle.value);
+					showCustomModal(null);
+				}}
+			>
+				<label htmlFor="newTitle">Enter new title:</label>
+				<input type="text" name="newTitle" id="newTitle" defaultValue={title} autoFocus />
+				<button type="submit">Rename</button>
+			</form>
+		)
+	};
 
 	const handleRemove = () => {
 		setDelay(true);
@@ -76,26 +89,12 @@ function TodoItem({ index, title, id, bin, isCompleted, onRenameTodo, onRemoveTo
 					</div>
 
 					<div className={styles.btnWrapper}>
-						<button title="Rename" className={styles.btnRename} onClick={() => setModalIsVisible(true)}><HiMiniPencilSquare /></button>
+						<button title="Rename" className={styles.btnRename} onClick={handleRename}><HiMiniPencilSquare /></button>
 						<button title='Remove' className={styles.btnRemove} onClick={handleRemove}><FaTrash /></button>
 						<button title='Toggle Todo Status' className={styles.btnMark} onClick={handleMark}><FaCheck /></button>
 					</div>
 				</div>
 			</motion.li>
-
-			{modalIsVisible && (
-				<Modal key={`${'modal' - title}`} onClose={() => setModalIsVisible(false)}>
-					<form className={styles.modalForm} action="submit" onSubmit={(e) => {
-						e.preventDefault();
-						onRenameTodo(bin, id, newTitle);
-						setModalIsVisible(false);
-					}}>
-						<label htmlFor="newTitle">Enter new title:</label>
-						<input type="text" name="newTitle" id="newTitle" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} autoFocus />
-						<button className={styles.modalSubmitBtn} type="submit">Rename</button>
-					</form>
-				</Modal>
-			)}
 		</>
 	);
 }
