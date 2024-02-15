@@ -27,7 +27,7 @@ function TodoList({ list, showCustomModal, onRenameTodo, onRemoveTodo, onMarkTod
 	}, [isOnlyUncompleted]);
 
 	return (
-		<div className={styles.todoList}>
+		<ul className={styles.todoList}>
 			<AnimatePresence>
 				{list
 					? (showFiltered ? handleFilterList() : list).map((item, index) => {
@@ -60,7 +60,7 @@ function TodoList({ list, showCustomModal, onRenameTodo, onRemoveTodo, onMarkTod
 					: <span>No tasks here</span>
 				}
 			</AnimatePresence>
-		</div>
+		</ul>
 	);
 }
 

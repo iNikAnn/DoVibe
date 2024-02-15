@@ -229,13 +229,16 @@ function TodoApp() {
 
 			<AnimatePresence>
 				{modalIsVisible && (
-					<Modal onClose={() => setModalIsVisible(false)}>
+					<Modal
+						key={'modal'}
+						onClose={() => setModalIsVisible(false)}>
 						{modalContent}
 					</Modal>
 				)}
 
 				{notifIsVisible && (
 					<Notification
+						key={'notif'}
 						onHoverStart={handleNotifHoverStart}
 						onHoverEnd={handleNotifHoverEnd}
 					>

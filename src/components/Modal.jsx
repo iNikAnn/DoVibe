@@ -27,6 +27,10 @@ function Modal({ children, onClose }) {
 		}
 	};
 
+	// when creating custom modal...
+	// for 'Cancel' buttons, add the attribute: data-type='cancel'
+	// for 'Submit' buttons, add the attribute: type='submit'
+
 	return (
 		<>
 			<div className={styles.overlay}></div>

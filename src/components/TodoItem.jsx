@@ -1,16 +1,13 @@
 import styles from '../css/TodoItem.module.css';
 
 // react, framer
-import { Fragment, useRef, useState, } from 'react';
+import { useRef, useState, } from 'react';
 import { motion, } from 'framer-motion';
 
 // icons
 import { HiMiniPencilSquare } from "react-icons/hi2";
 import { FaTrash } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
-
-// components
-import Modal from '../components/Modal';
 
 function TodoItem({ index, title, id, bin, isCompleted, showCustomModal, onRenameTodo, onRemoveTodo, onMarkTodo }) {
 	const todoRef = useRef(null);
@@ -26,9 +23,12 @@ function TodoItem({ index, title, id, bin, isCompleted, showCustomModal, onRenam
 					showCustomModal(null);
 				}}
 			>
-				<label htmlFor="newTitle">Enter new title:</label>
+				<h3>Enter new title</h3>
 				<input type="text" name="newTitle" id="newTitle" defaultValue={title} autoFocus />
-				<button type="submit">Rename</button>
+				<div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem' }}>
+					<button style={{ flex: 1 }} data-type="cancel">Cancel</button>
+					<button style={{ flex: 1 }} type="submit">Rename</button>
+				</div>
 			</form>
 		)
 	};
