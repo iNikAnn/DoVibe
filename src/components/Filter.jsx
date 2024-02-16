@@ -3,7 +3,7 @@ import styles from '../css/Filter.module.css';
 // components
 import Tooltip from '../components/Tooltip';
 
-function Filter({ name, icon, tooltip, onChange }) {
+function Filter({ name, icon, text, tooltip, onChange }) {
 	return (
 		<div className={styles.filter}>
 			<Tooltip text={tooltip}>
@@ -20,6 +20,9 @@ function Filter({ name, icon, tooltip, onChange }) {
 					htmlFor={name}
 				>
 					{icon}
+					{text && (
+						<span>{text}</span>
+					)}
 				</label>
 			</Tooltip>
 		</div>

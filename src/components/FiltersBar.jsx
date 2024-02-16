@@ -44,24 +44,27 @@ function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, 
 				</button>
 			</Tooltip> */}
 
-			<Tooltip text="Show date picker">
-				<input className={styles.datePickerCheckbox} type="checkbox" name="datePicker" id="datePicker" />
-				<label
-					htmlFor="datePicker"
-					className={`${styles.label} ${styles.datePickerLabel}`}
-					onClick={() => setDatePickerIsHidden(!datePickerIsHidden)}
-				>
-					<FaCalendar />
-					{initialDate ? new Date(initialDate).toLocaleDateString() : 'All todos'}
-				</label>
-			</Tooltip>
+			<div className={styles.datePickerSwitcher}>
+				<Tooltip text="Show date picker">
+					<input type="checkbox" name="datePicker" id="datePicker" />
+					<label
+						htmlFor="datePicker"
+						onClick={() => setDatePickerIsHidden(!datePickerIsHidden)}
+					>
+						<FaCalendar />
+						{initialDate ? new Date(initialDate).toLocaleDateString() : 'All todos'}
+					</label>
+				</Tooltip>
+			</div>
 
 			<div className={styles.filtersRight}>
 				<Switcher
 					name="colorScheme"
+
 					iconLeft={<FaSun />}
 					tooltipLeft="Light"
 					onChangeLeft={() => document.documentElement.setAttribute('data-scheme', 'light')}
+
 					iconRight={<FaMoon />}
 					tooltipRight="Dark"
 					onChangeRight={() => document.documentElement.setAttribute('data-scheme', 'dark')}
@@ -71,10 +74,12 @@ function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, 
 
 				<Switcher
 					name="viewMode"
+
 					iconLeft={<FaCalendarAlt />}
 					tooltipLeft="Show all todos"
 					checkedLeft={initialDate ? false : true}
 					onChangeLeft={() => onChangeViewMode('')}
+
 					iconRight={<FaCalendarDay />}
 					tooltipRight="Show todos for the day"
 					checkedRight={initialDate ? true : false}
@@ -85,6 +90,7 @@ function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, 
 
 				<Filter
 					name="onlyUncompleted"
+
 					icon={<FaListAlt />}
 					tooltip="Show only uncompleted todos"
 					onChange={setOnlyUncompleted}

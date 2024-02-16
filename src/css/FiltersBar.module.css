@@ -24,6 +24,49 @@
 	height: 100%;
 }
 
+/* datePickerSwitcher */
+.datePickerSwitcher {
+	position: relative;
+	display: flex;
+	align-items: center;
+
+	height: var(--filter-height);
+
+	background-color: var(--bg-color-secondary);
+	border-radius: var(--filter-border-radius);
+	box-shadow: var(--box-shadow-primary);
+
+	padding: var(--filter-padding);
+}
+
+.datePickerSwitcher input {
+	position: absolute;
+	appearance: none;
+}
+
+.datePickerSwitcher label {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.4rem;
+
+	height: var(--filter-height);
+
+	color: var(--text-color-primary);
+
+	cursor: pointer;
+}
+
+.datePickerSwitcher label svg {
+	color: var(--text-color-dimmed);
+	transition: color 0.3s ease;
+}
+
+.datePickerSwitcher:hover label svg,
+.datePickerSwitcher input:checked + label svg {
+	color: var(--text-color-primary);
+}
+
 /* .datePickerBtn {
 	gap: 0.4rem;
 	height: var(--filter-height);
