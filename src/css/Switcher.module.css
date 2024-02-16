@@ -14,8 +14,9 @@
 
 	background-color: var(--bg-color-secondary);
 	border-radius: var(--border-radius-secondary);
-
 	box-shadow: var(--box-shadow-primary);
+
+	overflow: hidden;
 }
 
 /* input */
@@ -60,6 +61,7 @@
 	height: 100%;
 
 	background-color: var(--bg-color-tertiary);
+	box-shadow: var(--box-shadow-primary);
 	border-radius: var(--border-radius-secondary);
 
 	transition-property: left, transform;

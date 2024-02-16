@@ -9,7 +9,7 @@
 }
 
 .todoItemWrapper:hover {
-	background-color: var(--bg-color-secondary);
+	background-color: var(--bg-color-primary);
 }
 
 .todoItem {
@@ -37,9 +37,9 @@
 	background: linear-gradient(
 		to right,
 		transparent,
-		var(--bg-color-secondary),
-		var(--bg-color-secondary),
-		var(--bg-color-secondary)
+		var(--bg-color-primary),
+		var(--bg-color-primary),
+		var(--bg-color-primary)
 	);
 	border-radius: 0 0.5rem 0.5rem 0;
 	opacity: 0;
@@ -63,7 +63,7 @@
 }
 
 .btnWrapper button:hover {
-	background-color: var(--bg-color-tertiary);
+	background-color: var(--bg-color-secondary);
 	border-radius: 50%;
 }
 

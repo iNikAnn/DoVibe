@@ -3,7 +3,7 @@
 	position: sticky;
 	top: 0;
 	left: 0;
-	background-color: var(--bg-color-primary);
+	background-color: var(--bg);
 	border-radius: 0 0 2rem 2rem;
 	padding-top: 1rem;
 	z-index: 99;
@@ -19,7 +19,7 @@
 	width: 100%;
 	padding: 1rem;
 
-	background-color: var(--bg-color-secondary);
+	background-color: var(--bg-color-primary);
 	box-shadow: var(--box-shadow-primary);
 	border-radius: 3rem;
 	border: none;
