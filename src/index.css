@@ -10,7 +10,7 @@
 }
 
 html[data-scheme='dark'] {
-	--accent-color: #1971c2;
+	--accent-color: #1970c2;
 
 	--text-color-primary: #dfdfdf;
 	--text-color-dimmed: hsl(211, 20%, 30%);

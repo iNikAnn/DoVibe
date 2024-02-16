@@ -8,23 +8,28 @@
 }
 
 .highlightDuplicate {
-	animation: highlight 1s ease;
+	animation: highlight 2s ease;
 }
 
 @keyframes highlight {
 	0% {
-		filter: brightness(1);
+		/* filter: brightness(1); */
+		outline: 2px solid rgba(25, 112, 194, 0);
 	}
 	25% {
-		filter: brightness(1.5);
+		/* filter: brightness(1.5); */
+		outline: 2px solid rgba(25, 112, 194, 1);
 	}
 	50% {
-		filter: brightness(1);
+		/* filter: brightness(1); */
+		outline: 2px solid rgba(25, 112, 194, 0);
 	}
 	75% {
-		filter: brightness(1.5);
+		/* filter: brightness(1.5); */
+		outline: 2px solid rgba(25, 112, 194, 1);
 	}
 	100% {
-		filter: brightness(1);
+		/* filter: brightness(1); */
+		outline: 2px solid rgba(25, 112, 194, 0);
 	}
 }

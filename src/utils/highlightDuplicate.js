@@ -4,7 +4,7 @@ function highlightDuplicate(obj) {
 
 	setTimeout(() => {
 		el.classList.remove('highlightDuplicate');
-	}, 1000);
+	}, 2000);
 }
 
 export default highlightDuplicate;
