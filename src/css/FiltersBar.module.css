@@ -17,6 +17,13 @@
 	margin-top: 1rem;
 }
 
+.filtersRight {
+	display: flex;
+	align-items: center;
+
+	height: 100%;
+}
+
 /* .datePickerBtn {
 	gap: 0.4rem;
 	height: var(--filter-height);
@@ -92,118 +99,7 @@
 	cursor: pointer;
 }
 
-/* .fieldset {
-	display: flex;
-	align-items: center;
-	gap: 0.6rem;
-	border: none;
-} */
-
-/* .fieldset input:checked + .label {
-	background-color: var(--bg-color-tertiary);
-	color: var(--text-color-primary);
-} */
-
-/* .fieldset input:checked + .viewModeLabel { */
-/* .fieldset input:checked + div {
-	color: var(--text-color-primary);
-} */
-
-/* .modeWrapper {
-	position: relative;
-	outline: 1px solid tomato;
-	display: flex;
-	align-items: center;
-	background-color: var(--bg-color-secondary);
-	border-radius: var(--filter-border-radius);
-	height: var(--filter-height);
-} */
-
-/* .modeLabel {
-	position: relative;
-	transition: color 0.3s ease;
-	z-index: 5;
-} */
-
-/* .activeMode {
-	outline: 1px solid green;
-	position: absolute;
-	top: 0;
-	left: 0%;
-	transform: translateX(0%);
-	justify-self: flex-end;
-	width: var(--filter-width);
-	height: var(--filter-height);
-	background-color: var(--bg-color-tertiary);
-	border-radius: var(--filter-border-radius);
-	padding: var(--filter-padding);
-
-	transition-property: left, transform;
-	transition-duration: 0.3s;
-	transition-timing-function: ease;
-} */
-
-/* .inputLight:checked ~ .activeMode {
-	left: 0%;
-	transform: translateX(0%);
-} */
-
-/* .inputDark:checked ~ .activeMode {
-	left: 100%;
-	transform: translateX(-100%);
-} */
-
-/* .inputAll:checked ~ .activeMode {
-	left: 0%;
-	transform: translateX(0%);
-} */
-
-/* .inputToday:checked ~ .activeMode {
-	left: 100%;
-	transform: translateX(-100%);
-} */
-
-/* label */
-/* .filtersWrapper label {
-	cursor: pointer;
-	width: var(--filter-width);
-	height: var(--filter-height);
-} */
-
-/* .fieldset label,
-.datePickerBtn {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-} */
-
-/* .label {
-	display: flex;
-	align-items: center;
-	background-color: var(--bg-color-secondary);
-	border-radius: var(--filter-border-radius);
-	transition-property: background-color, color;
-	transition-duration: 0.3s;
-	transition-timing-function: ease;
-} */
-
-/* .label:hover,
-.modeLabel:hover {
-	background-color: var(--bg-color-tertiary);
-	color: var(--text-color-primary);
-} */
-
-/* .filtersWrapper input {
-	position: absolute;
-	top: 0;
-	left: 0;
-	appearance: none;
-} */
-
-.uncompletedTodo svg {
-	transform: scale(1.2);
-}
-
 .separator {
 	opacity: 0.5;
+	margin: 0 0.4rem;
 }

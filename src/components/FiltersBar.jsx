@@ -15,6 +15,7 @@ import { FaListAlt } from "react-icons/fa";
 // components
 import DatePicker from '../components/datepicker/DatePicker';
 import Switcher from '../components/Switcher';
+import Filter from './Filter';
 import Tooltip from '../components/Tooltip';
 
 function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, checkForUnfinishedTodosInDay }) {
@@ -55,47 +56,38 @@ function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, 
 				</label>
 			</Tooltip>
 
-			<Switcher
-				name="colorScheme"
+			<div className={styles.filtersRight}>
+				<Switcher
+					name="colorScheme"
+					iconLeft={<FaSun />}
+					tooltipLeft="Light"
+					iconRight={<FaMoon />}
+					tooltipRight="Dark"
+				/>
 
-				iconLeft={<FaSun />}
-				tooltipLeft="Light"
-
-				iconRight={<FaMoon />}
-				tooltipRight="Dark"
-			/>
-
-			<Switcher
-				name="viewMode"
-
-				iconLeft={<FaCalendarAlt />}
-				tooltipLeft="Show all todos"
-				checkedLeft={initialDate ? false : true}
-				onChangeLeft={() => onChangeViewMode('')}
-
-				iconRight={<FaCalendarDay />}
-				tooltipRight="Show todos for the day"
-				checkedRight={initialDate ? true : false}
-				onChangeRight={() => onChangeViewMode(new Date())}
-			/>
-
-			<fieldset className={styles.fieldset}>
 				<span span className={styles.separator} >|</span>
 
-				<Tooltip text="Show only uncompleted todos">
-					<input
-						type="checkbox"
-						name=""
-						id="uncompletedTodo"
-						onChange={(e) => setOnlyUncompleted(e.target.checked)}
-					/>
+				<Switcher
+					name="viewMode"
+					iconLeft={<FaCalendarAlt />}
+					tooltipLeft="Show all todos"
+					checkedLeft={initialDate ? false : true}
+					onChangeLeft={() => onChangeViewMode('')}
+					iconRight={<FaCalendarDay />}
+					tooltipRight="Show todos for the day"
+					checkedRight={initialDate ? true : false}
+					onChangeRight={() => onChangeViewMode(new Date())}
+				/>
 
-					<label className={`${styles.label} ${styles.uncompletedTodo}`} htmlFor="uncompletedTodo">
-						<span>Uncompleted</span>
-						<FaListAlt />
-					</label>
-				</Tooltip>
-			</fieldset>
+				<span span className={styles.separator} >|</span>
+
+				<Filter
+					name="onlyUncompleted"
+					icon={<FaListAlt />}
+					tooltip="Show only uncompleted todos"
+					onChange={setOnlyUncompleted}
+				/>
+			</div>
 
 			<AnimatePresence>
 				{datePickerIsHidden && (

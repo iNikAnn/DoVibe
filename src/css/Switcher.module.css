@@ -18,6 +18,7 @@
 
 /* input */
 .input {
+	position: absolute;
 	appearance: none;
 }
 
