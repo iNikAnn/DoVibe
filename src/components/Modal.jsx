@@ -31,11 +31,30 @@ function Modal({ children, onClose }) {
 	// for 'Cancel' buttons, add the attribute: data-type='cancel'
 	// for 'Submit' buttons, add the attribute: type='submit'
 
+	const overlayVariants = {
+		initial: {
+			opacity: 0
+		},
+
+		animate: {
+			opacity: 1
+		},
+
+		exit: {
+			opacity: 0
+		},
+	};
+
 	return (
 		<>
-			<div className={styles.overlay}></div>
+			<motion.div
+				key={'overlay'}
+				{...overlayVariants}
+				className={styles.overlay}
+			/>
 
 			<motion.div
+				key={'modal'}
 				{...modalVariants}
 				className={styles.modal}
 			>

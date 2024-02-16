@@ -4,9 +4,9 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
-	/* background-color: black; */
-	/* opacity: 0.1; */
-	z-index: 99;
+	backdrop-filter: blur(5px);
+	opacity: 1;
+	z-index: 200;
 }
 
 .modal {
