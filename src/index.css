@@ -9,7 +9,7 @@
 	border-radius: 2px;
 }
 
-:root {
+html[data-scheme='dark'] {
 	--accent-color: #1971c2;
 
 	--text-color-primary: #dfdfdf;
@@ -22,6 +22,23 @@
 	--box-shadow-primary: 0px 0px 15px rgba(0, 0, 0, 0.1);
 
 	--border-radius-primary: 0.6rem;
+	--border-radius-secondary: 0.4rem;
+}
+
+html[data-scheme='light'] {
+	--accent-color: #1971c2;
+
+	--text-color-primary: #111111;
+	--text-color-dimmed: hsl(209, 37%, 78%);
+
+	--bg-color-primary: #f0f0f0;
+	--bg-color-secondary: #ffffff;
+	--bg-color-tertiary: hsl(0, 0%, 90%);
+
+	--box-shadow-primary: 0px 0px 15px rgba(0, 0, 0, 0.1);
+
+	--border-radius-primary: 0.6rem;
+	--border-radius-secondary: 0.4rem;
 }
 
 * {

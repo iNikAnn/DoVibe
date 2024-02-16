@@ -6,12 +6,16 @@ import { AnimatePresence } from 'framer-motion';
 
 // icons
 import { FaCalendar } from "react-icons/fa";
+import { FaSun } from "react-icons/fa";
+import { FaMoon } from "react-icons/fa";
 import { FaCalendarAlt } from "react-icons/fa";
 import { FaCalendarDay } from "react-icons/fa";
 import { FaListAlt } from "react-icons/fa";
 
 // components
 import DatePicker from '../components/datepicker/DatePicker';
+import Switcher from '../components/Switcher';
+import Filter from './Filter';
 import Tooltip from '../components/Tooltip';
 
 function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, checkForUnfinishedTodosInDay }) {
@@ -40,69 +44,58 @@ function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, 
 				</button>
 			</Tooltip> */}
 
-			<Tooltip text="Show date picker">
-				<input className={styles.datePickerCheckbox} type="checkbox" name="datePicker" id="datePicker" />
-				<label
-					htmlFor="datePicker"
-					className={`${styles.label} ${styles.datePickerLabel}`}
-					onClick={() => setDatePickerIsHidden(!datePickerIsHidden)}
-				>
-					<FaCalendar />
-					{initialDate ? new Date(initialDate).toLocaleDateString() : 'All todos'}
-				</label>
-			</Tooltip>
-
-			<fieldset className={styles.fieldset}>
-				<div className={styles.viewModeWrapper}>
-					<input
-						className={styles.inputAll}
-						type="radio"
-						name="range"
-						id="all"
-						onChange={() => onChangeViewMode('')}
-						checked={initialDate ? false : true}
-					/>
-					<Tooltip text="Show all todos">
-						<label className={styles.viewModeLabel} htmlFor="all">
-							{/* <span>All</span> */}
-							<FaCalendarAlt />
-						</label>
-					</Tooltip>
-
-					<input
-						className={styles.inputToday}
-						type="radio"
-						name="range"
-						id="oneDay"
-						onChange={() => onChangeViewMode(new Date())}
-						checked={initialDate ? true : false}
-					/>
-					<Tooltip text="Show todos for the day">
-						<label className={styles.viewModeLabel} htmlFor="oneDay">
-							{/* <span>Day</span> */}
-							<FaCalendarDay />
-						</label>
-					</Tooltip>
-
-					<div className={styles.activeViewMode}></div>
-				</div>
-
-				<span className={styles.separator}>|</span>
-
-				<Tooltip text="Show only uncompleted todos">
-					<input
-						type="checkbox"
-						name=""
-						id="uncompletedTodo"
-						onChange={(e) => setOnlyUncompleted(e.target.checked)}
-					/>
-
-					<label className={`${styles.label} ${styles.uncompletedTodo}`} htmlFor="uncompletedTodo">
-						{/* <span>Uncompleted</span> */}
-						<FaListAlt />
+			<div className={styles.datePickerSwitcher}>
+				<Tooltip text="Show date picker">
+					<input type="checkbox" name="datePicker" id="datePicker" />
+					<label
+						htmlFor="datePicker"
+						onClick={() => setDatePickerIsHidden(!datePickerIsHidden)}
+					>
+						<FaCalendar />
+						{initialDate ? new Date(initialDate).toLocaleDateString() : 'All todos'}
 					</label>
 				</Tooltip>
-			</fieldset>
+			</div>
+
+			<div className={styles.filtersRight}>
+				<Switcher
+					name="colorScheme"
+
+					iconLeft={<FaSun />}
+					tooltipLeft="Light"
+					onChangeLeft={() => document.documentElement.setAttribute('data-scheme', 'light')}
+
+					iconRight={<FaMoon />}
+					tooltipRight="Dark"
+					onChangeRight={() => document.documentElement.setAttribute('data-scheme', 'dark')}
+				/>
+
+				<span span className={styles.separator} >|</span>
+
+				<Switcher
+					name="viewMode"
+
+					iconLeft={<FaCalendarAlt />}
+					tooltipLeft="Show all todos"
+					checkedLeft={initialDate ? false : true}
+					onChangeLeft={() => onChangeViewMode('')}
+
+					iconRight={<FaCalendarDay />}
+					tooltipRight="Show todos for the day"
+					checkedRight={initialDate ? true : false}
+					onChangeRight={() => onChangeViewMode(new Date())}
+				/>
+
+				<span span className={styles.separator} >|</span>
+
+				<Filter
+					name="onlyUncompleted"
+
+					icon={<FaListAlt />}
+					tooltip="Show only uncompleted todos"
+					onChange={setOnlyUncompleted}
+				/>
+			</div>
 
 			<AnimatePresence>
 				{datePickerIsHidden && (
@@ -114,7 +107,7 @@ function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, 
 					/>
 				)}
 			</AnimatePresence>
-		</div>
+		</div >
 	);
 }
 

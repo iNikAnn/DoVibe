@@ -1,0 +1,55 @@
+:root {
+	--height: 2rem;
+	--width: 2.6rem;
+}
+
+/* filter */
+.filter {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	height: var(--height);
+	width: var(--width);
+
+	box-shadow: var(--box-shadow-primary);
+}
+
+/* input */
+.input {
+	position: absolute;
+	appearance: none;
+}
+
+/* label */
+.label {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: var(--width);
+	height: var(--height);
+
+	background-color: var(--bg-color-secondary);
+	border-radius: var(--border-radius-secondary);
+
+	transition: background-color 0.3s ease;
+
+	cursor: pointer;
+}
+
+.input:checked + .label {
+	background-color: var(--bg-color-tertiary);
+}
+
+/* icon */
+.label svg {
+	transition: color 0.3s ease;
+}
+
+.label:hover,
+.input:checked + .label svg {
+	color: var(--text-color-primary);
+}
