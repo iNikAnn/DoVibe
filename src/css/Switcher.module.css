@@ -1,0 +1,77 @@
+:root {
+	--height: 2rem;
+	--width: 2.6rem;
+}
+
+/* switcher */
+.switcher {
+	/* outline: 2px solid tomato; */
+	position: relative;
+	display: flex;
+	align-items: center;
+
+	height: var(--height);
+
+	background-color: var(--bg-color-secondary);
+	border-radius: var(--border-radius-secondary);
+}
+
+/* input */
+.input {
+	appearance: none;
+}
+
+/* label */
+.label {
+	/* outline: 1px solid green; */
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: var(--width);
+	height: var(--height);
+
+	cursor: pointer;
+
+	z-index: 1;
+}
+
+/* icon */
+.label svg {
+	transition: color 0.3s ease;
+}
+
+.label:hover svg,
+.input:checked + div .label svg {
+	color: var(--text-color-primary);
+}
+
+/* highlight */
+.highlight {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	width: var(--width);
+	height: 100%;
+
+	background-color: var(--bg-color-tertiary);
+	border-radius: var(--border-radius-secondary);
+
+	transition-property: left, transform;
+	transition-duration: 0.3s;
+	transition-timing-function: ease;
+
+	z-index: 0;
+}
+
+.inputLeft:checked ~ .highlight {
+	left: 0;
+	transform: translateX(0);
+}
+
+.inputRigth:checked ~ .highlight {
+	left: 100%;
+	transform: translateX(-100%);
+}

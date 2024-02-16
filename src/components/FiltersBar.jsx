@@ -14,6 +14,7 @@ import { FaListAlt } from "react-icons/fa";
 
 // components
 import DatePicker from '../components/datepicker/DatePicker';
+import Switcher from '../components/Switcher';
 import Tooltip from '../components/Tooltip';
 
 function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, checkForUnfinishedTodosInDay }) {
@@ -54,75 +55,32 @@ function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, 
 				</label>
 			</Tooltip>
 
+			<Switcher
+				name="colorScheme"
+
+				iconLeft={<FaSun />}
+				tooltipLeft="Light"
+
+				iconRight={<FaMoon />}
+				tooltipRight="Dark"
+			/>
+
+			<Switcher
+				name="viewMode"
+
+				iconLeft={<FaCalendarAlt />}
+				tooltipLeft="Show all todos"
+				checkedLeft={initialDate ? false : true}
+				onChangeLeft={() => onChangeViewMode('')}
+
+				iconRight={<FaCalendarDay />}
+				tooltipRight="Show todos for the day"
+				checkedRight={initialDate ? true : false}
+				onChangeRight={() => onChangeViewMode(new Date())}
+			/>
+
 			<fieldset className={styles.fieldset}>
-				<div className={styles.modeWrapper}>
-					<input
-						className={styles.lightInput}
-						type="radio"
-						name="schemeSwticher"
-						id="lightScheme"
-					/>
-					<Tooltip text="Light">
-						<label
-							className={styles.modeLabel}
-							htmlFor="lightScheme">
-							<FaSun />
-						</label>
-					</Tooltip>
-
-					<input
-						className={styles.inputDark}
-						type="radio"
-						name="schemeSwticher"
-						id="darkScheme"
-					/>
-					<Tooltip text="Dark">
-						<label
-							className={styles.modeLabel}
-							htmlFor="darkScheme">
-							<FaMoon />
-						</label>
-					</Tooltip>
-					<div className={styles.activeMode}></div>
-				</div>
-
-				<span className={styles.separator}>|</span>
-
-				<div className={styles.modeWrapper}>
-					<input
-						className={styles.inputAll}
-						type="radio"
-						name="range"
-						id="all"
-						onChange={() => onChangeViewMode('')}
-						checked={initialDate ? false : true}
-					/>
-					<Tooltip text="Show all todos">
-						<label className={styles.modeLabel} htmlFor="all">
-							{/* <span>All</span> */}
-							<FaCalendarAlt />
-						</label>
-					</Tooltip>
-
-					<input
-						className={styles.inputToday}
-						type="radio"
-						name="range"
-						id="oneDay"
-						onChange={() => onChangeViewMode(new Date())}
-						checked={initialDate ? true : false}
-					/>
-					<Tooltip text="Show todos for the day">
-						<label className={styles.modeLabel} htmlFor="oneDay">
-							{/* <span>Day</span> */}
-							<FaCalendarDay />
-						</label>
-					</Tooltip>
-
-					<div className={styles.activeMode}></div>
-				</div>
-
-				<span className={styles.separator}>|</span>
+				<span span className={styles.separator} >|</span>
 
 				<Tooltip text="Show only uncompleted todos">
 					<input
@@ -133,7 +91,7 @@ function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, 
 					/>
 
 					<label className={`${styles.label} ${styles.uncompletedTodo}`} htmlFor="uncompletedTodo">
-						{/* <span>Uncompleted</span> */}
+						<span>Uncompleted</span>
 						<FaListAlt />
 					</label>
 				</Tooltip>
@@ -149,7 +107,7 @@ function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, 
 					/>
 				)}
 			</AnimatePresence>
-		</div>
+		</div >
 	);
 }
 
