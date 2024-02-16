@@ -6,12 +6,12 @@ import { useState } from 'react';
 // icons
 import { MdLibraryAdd } from "react-icons/md";
 
-function InputBar({ inputBarRef, date, setDate, onSubmit }) {
+function InputBar({ inputBarRef, onSubmit }) {
 	const [input, setInput] = useState('');
 
 
 	const handleChange = (e) => {
-		setInput(e.target.value.slice(0, 55)); // restrict input length
+		setInput(e.target.value);
 	};
 
 	const handleSubmit = (e) => {
@@ -39,12 +39,12 @@ function InputBar({ inputBarRef, date, setDate, onSubmit }) {
 					onChange={(e) => handleChange(e)}
 				/>
 
-				<div className={styles.btnWrapper}>
-					<button className={styles.btn}>
-						<span>Create</span>
-						<span className={styles.btnIconWrapper}><MdLibraryAdd /></span>
-					</button>
-				</div>
+				{/* <div className={styles.btnWrapper}> */}
+				<button className={styles.btn}>
+					<span>Create</span>
+					<span className={styles.btnIconWrapper}><MdLibraryAdd /></span>
+				</button>
+				{/* </div> */}
 			</form>
 		</div>
 	);

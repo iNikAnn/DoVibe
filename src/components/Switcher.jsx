@@ -54,7 +54,7 @@ function Switcher(props) {
 				</label>
 			</Tooltip>
 
-			<div className={styles.highlight}></div>
+			<div className={styles.highlight} />
 		</div>
 	);
 }

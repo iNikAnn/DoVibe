@@ -90,3 +90,7 @@ li {
 input {
 	border: none;
 }
+
+.focus {
+	outline: 2px solid var(--accent-color);
+}

@@ -10,6 +10,7 @@ import InputBar from './InputBar';
 import FiltersBar from './FiltersBar';
 import TodoList from './TodoList';
 import Footer from './Footer';
+import Modal from '../components/Modal';
 import Notification from './Hotification';
 
 // utils
@@ -20,11 +21,10 @@ import sortTodosByCompletion from '../utils/sortTodosByCompletion';
 
 // icons
 import { FaUndoAlt } from "react-icons/fa";
-import Modal from './Modal';
 
 function TodoApp() {
 	const inputBarRef = useRef(null);
-	// const today = new Date().toISOString().slice(0, 10);
+	console.log(inputBarRef);
 	const today = getFormattedDate(new Date());
 
 	const [date, setDate] = useState(today);
@@ -56,11 +56,30 @@ function TodoApp() {
 			};
 		};
 
-		inputBarRef.current.focus(); // highlight the input after loading or changing the date
+
 		window.addEventListener('keydown', handleChangeDate);
 
 		return () => window.removeEventListener('keydown', handleChangeDate);
 	}, [date, isOnlyUncompleted]);
+
+	useEffect(() => {
+		const handleHighlightInputBar = () => {
+			document.querySelector('form').classList.add('focus');
+		};
+
+		const handleBlurInputBar = () => {
+			document.querySelector('form').classList.remove('focus');
+		};
+
+		inputBarRef.current.addEventListener('focus', handleHighlightInputBar);
+		inputBarRef.current.addEventListener('blur', handleBlurInputBar);
+		inputBarRef.current.focus(); // highlight the input after loading or changing the date
+
+		return () => {
+			inputBarRef.current.removeEventListener('focus', handleHighlightInputBar);
+			inputBarRef.current.removeEventListener('blur', handleBlurInputBar);
+		}
+	}, []);
 
 	const checkForUnfinishedTodosInDay = (date) => {
 		const formattedDate = getFormattedDate(date);

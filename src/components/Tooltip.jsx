@@ -33,7 +33,7 @@ function Tooltip({ text, children }) {
 				transform: 'translateX(-50%)'
 			});
 		};
-	}, [])
+	}, []);
 
 	return (
 		<div

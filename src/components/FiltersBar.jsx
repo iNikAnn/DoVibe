@@ -70,7 +70,7 @@ function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, 
 					onChangeRight={() => document.documentElement.setAttribute('data-scheme', 'dark')}
 				/>
 
-				<span span className={styles.separator} >|</span>
+				<span className={styles.separator}>|</span>
 
 				<Switcher
 					name="viewMode"
@@ -86,7 +86,7 @@ function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, 
 					onChangeRight={() => onChangeViewMode(new Date())}
 				/>
 
-				<span span className={styles.separator} >|</span>
+				<span className={styles.separator}>|</span>
 
 				<Filter
 					name="onlyUncompleted"
