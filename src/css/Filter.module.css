@@ -12,6 +12,8 @@
 
 	height: var(--height);
 	width: var(--width);
+
+	box-shadow: var(--box-shadow-primary);
 }
 
 /* input */

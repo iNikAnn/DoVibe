@@ -61,8 +61,10 @@ function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, 
 					name="colorScheme"
 					iconLeft={<FaSun />}
 					tooltipLeft="Light"
+					onChangeLeft={() => document.documentElement.setAttribute('data-scheme', 'light')}
 					iconRight={<FaMoon />}
 					tooltipRight="Dark"
+					onChangeRight={() => document.documentElement.setAttribute('data-scheme', 'dark')}
 				/>
 
 				<span span className={styles.separator} >|</span>
