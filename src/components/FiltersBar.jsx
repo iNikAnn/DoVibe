@@ -18,7 +18,7 @@ import Switcher from '../components/Switcher';
 import Filter from './Filter';
 import Tooltip from '../components/Tooltip';
 
-function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, checkForUnfinishedTodosInDay }) {
+function FiltersBar({ todos, initialDate, colorScheme, onChangeScheme, onChangeViewMode, setOnlyUncompleted, checkForUnfinishedTodosInDay }) {
 	const [datePickerIsHidden, setDatePickerIsHidden] = useState(false);
 
 	return (
@@ -63,11 +63,13 @@ function FiltersBar({ todos, initialDate, onChangeViewMode, setOnlyUncompleted, 
 
 					iconLeft={<FaSun />}
 					tooltipLeft="Light"
-					onChangeLeft={() => document.documentElement.setAttribute('data-scheme', 'light')}
+					checkedLeft={colorScheme === 'light'}
+					onChangeLeft={() => onChangeScheme('light')}
 
 					iconRight={<FaMoon />}
 					tooltipRight="Dark"
-					onChangeRight={() => document.documentElement.setAttribute('data-scheme', 'dark')}
+					checkedRight={colorScheme === 'dark'}
+					onChangeRight={() => onChangeScheme('dark')}
 				/>
 
 				<span className={styles.separator}>|</span>

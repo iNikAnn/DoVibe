@@ -24,14 +24,14 @@ function Switcher(props) {
 				className={`${styles.input} ${styles.inputLeft}`}
 				type="radio"
 				name={name}
-				id={name + 'inputLeft'}
+				id={name + 'InputLeft'}
 				checked={checkedLeft}
 				onChange={onChangeLeft}
 			/>
 			<Tooltip text={tooltipLeft}>
 				<label
 					className={styles.label}
-					htmlFor={name + 'inputLeft'}
+					htmlFor={name + 'InputLeft'}
 				>
 					{iconLeft}
 				</label>

@@ -29,6 +29,15 @@ function TodoApp() {
 	const [date, setDate] = useState(today);
 	const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || {});
 
+	// color scheme
+	const [colorScheme, setColorScheme] = useState(() => {
+		if (localStorage.getItem('scheme')) {
+			return localStorage.getItem('scheme');
+		} else {
+			return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+		};
+	});
+
 	// filters
 	const [isOnlyUncompleted, setOnlyUncompleted] = useState(false);
 
@@ -47,6 +56,11 @@ function TodoApp() {
 	useEffect(() => {
 		localStorage.setItem('todos', JSON.stringify(todos));
 	}, [todos]);
+
+	// initialize scheme on first load
+	useEffect(() => {
+		document.documentElement.setAttribute('data-scheme', colorScheme);
+	}, []);
 
 	// highlights the inputbar parent form based on input focus
 	useEffect(() => {
@@ -96,6 +110,15 @@ function TodoApp() {
 		};
 
 		return false;
+	};
+
+	// change color scheme
+	const handleChangeScheme = (newScheme) => {
+		document.documentElement.setAttribute('data-scheme', newScheme);
+
+		localStorage.setItem('scheme', newScheme);
+
+		setColorScheme(newScheme);
 	};
 
 	// change view mode
@@ -227,7 +250,7 @@ function TodoApp() {
 
 	return (
 		<div className={styles.todoApp}>
-			{/* <h1>DoVibe</h1> */}
+			<h1>DoVibe</h1>
 
 			<InputBar
 				inputBarRef={inputBarRef}
@@ -238,6 +261,8 @@ function TodoApp() {
 				todos={todos}
 				initialDate={date}
 				setDate={setDate}
+				colorScheme={colorScheme}
+				onChangeScheme={handleChangeScheme}
 				onChangeViewMode={handleChangeViewMode}
 				setOnlyUncompleted={setOnlyUncompleted}
 				checkForUnfinishedTodosInDay={checkForUnfinishedTodosInDay}
