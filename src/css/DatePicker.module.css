@@ -16,20 +16,36 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+
+	margin-bottom: 0.4rem;
+}
+
+/* controls */
+.controlsWrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+}
+
+.controls {
+	border-radius: var(--border-radius-secondary);
+	box-shadow: var(--box-shadow-primary);
+
+	overflow: hidden;
 }
 
 .controls button {
-	width: 2rem;
-	height: 2rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: unset;
-	border-radius: 50%;
-}
 
-.controls button:hover {
-	background-color: var(--bg-color-tertiary);
+	width: 2rem;
+	height: 2rem;
+
+	background-color: var(--bg-color-secondary);
+	color: inherit;
+	border-radius: var(--border-radius-secondary);
+	box-shadow: var(--box-shadow-primary);
 }
 
 .controls button svg {
@@ -60,7 +76,8 @@
 	height: 2rem;
 	width: 100%;
 
-	background-color: var(--bg-color-secondary);
+	background-color: var(--bg-color-tertiary);
+	color: inherit;
 	border-radius: var(--border-radius-secondary);
 	box-shadow: var(--box-shadow-primary);
 

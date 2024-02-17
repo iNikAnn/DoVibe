@@ -2,13 +2,12 @@
 	/* outline: 1px solid tomato; */
 	position: relative;
 	border-radius: 0.5rem;
-	/* min-height: 3rem; */
-	/* opacity: 0; */
-	will-change: max-height;
+	will-change: height;
 }
 
 .todoItemWrapper:hover {
 	background-color: var(--bg-color-primary);
+	box-shadow: var(--box-shadow-primary);
 }
 
 .todoItem {

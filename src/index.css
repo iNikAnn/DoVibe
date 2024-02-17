@@ -9,6 +9,13 @@
 	border-radius: 2px;
 }
 
+:root {
+	--box-shadow-primary: 0px 0px 15px rgba(0, 0, 0, 0.05);
+
+	--border-radius-primary: 0.6rem;
+	--border-radius-secondary: 0.4rem;
+}
+
 html[data-scheme='dark'] {
 	--accent-color: #1970c2;
 
@@ -16,34 +23,22 @@ html[data-scheme='dark'] {
 	--text-color-dimmed: hsl(211, 20%, 30%);
 
 	--bg: #1a2026;
-	/* --bg-color-primary: hsl(210, 19%, 15%);
-	--bg-color-secondary: hsl(210, 21%, 19%);
-	--bg-color-tertiary: hsl(211, 20%, 23%); */
 	--bg-color-primary: hsl(210, 19%, 15%);
 	--bg-color-secondary: hsl(210, 19%, 19%);
 	--bg-color-tertiary: hsl(210, 19%, 23%);
-
-	--box-shadow-primary: 0px 0px 15px rgba(0, 0, 0, 0.1);
-
-	--border-radius-primary: 0.6rem;
-	--border-radius-secondary: 0.4rem;
 }
 
 html[data-scheme='light'] {
-	--accent-color: #1971c2;
+	--accent-color: hsl(209, 80%, 60%);
 
-	--text-color-primary: #111111;
-	--text-color-dimmed: hsl(209, 37%, 78%);
+	--text-color-primary: #010101;
+	--text-color-dimmed: #cccccc;
 
 	--bg: #f0f0f0;
-	--bg-color-primary: #f0f0f0;
-	--bg-color-secondary: #ffffff;
-	--bg-color-tertiary: hsl(0, 0%, 90%);
-
-	--box-shadow-primary: 0px 0px 15px rgba(0, 0, 0, 0.1);
-
-	--border-radius-primary: 0.6rem;
-	--border-radius-secondary: 0.4rem;
+	--bg-color-primary: hsl(0, 0%, 97%);
+	/* --bg-color-secondary: hsl(0, 0%, 92%); */
+	--bg-color-secondary: transparent;
+	--bg-color-tertiary: hsl(0, 0%, 100%);
 }
 
 * {

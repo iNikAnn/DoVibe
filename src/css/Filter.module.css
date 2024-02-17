@@ -13,6 +13,7 @@
 	height: var(--height);
 	width: var(--width);
 
+	border-radius: var(--border-radius-secondary);
 	box-shadow: var(--box-shadow-primary);
 }
 

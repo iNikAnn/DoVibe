@@ -82,8 +82,7 @@ function TodoItem({ index, title, id, bin, isCompleted, showCustomModal, onRenam
 	return (
 		<>
 			<motion.li
-				// {...(motionOn ? itemVariants : {})}
-				{...itemVariants}
+				{...(motionOn ? itemVariants : {})}
 				custom={index}
 			>
 				<div ref={todoRef} data-id={id} className={`${styles.todoItemWrapper}`}>

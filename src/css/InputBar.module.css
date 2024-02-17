@@ -58,12 +58,13 @@
 	gap: 1rem;
 }
 
-.btn {
+.createBtn {
 	display: flex;
 	align-items: center;
 	gap: 0.4rem;
 	background-color: var(--accent-color);
-	color: var(--text-color-primary);
+	/* color: var(--text-color-primary); */
+	color: #dfdfdf;
 	font-weight: 600;
 	border-radius: 0.4rem;
 	height: 2rem;

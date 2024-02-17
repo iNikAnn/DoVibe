@@ -40,7 +40,7 @@ function InputBar({ inputBarRef, onSubmit }) {
 				/>
 
 				{/* <div className={styles.btnWrapper}> */}
-				<button className={styles.btn}>
+				<button className={styles.createBtn}>
 					<span>Create</span>
 					<span className={styles.btnIconWrapper}><MdLibraryAdd /></span>
 				</button>
