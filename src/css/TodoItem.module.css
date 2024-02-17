@@ -2,8 +2,7 @@
 	/* outline: 1px solid tomato; */
 	position: relative;
 	border-radius: 0.5rem;
-	max-height: 3rem;
-	/* max-height: 0; */
+	/* min-height: 3rem; */
 	/* opacity: 0; */
 	will-change: max-height;
 }

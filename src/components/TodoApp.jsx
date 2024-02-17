@@ -24,11 +24,12 @@ import { FaUndoAlt } from "react-icons/fa";
 
 function TodoApp() {
 	const inputBarRef = useRef(null);
-	console.log(inputBarRef);
-	const today = getFormattedDate(new Date());
 
+	const today = getFormattedDate(new Date());
 	const [date, setDate] = useState(today);
 	const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || {});
+
+	// filters
 	const [isOnlyUncompleted, setOnlyUncompleted] = useState(false);
 
 	// notification
@@ -47,6 +48,25 @@ function TodoApp() {
 		localStorage.setItem('todos', JSON.stringify(todos));
 	}, [todos]);
 
+	// highlights the inputbar parent form based on input focus
+	useEffect(() => {
+		const handleHighlightInputBar = () => {
+			inputBarRef.current.closest('form').classList.add('focus');
+		};
+
+		const handleBlurInputBar = () => {
+			inputBarRef.current.closest('form').classList.remove('focus');
+		};
+
+		inputBarRef.current.addEventListener('focus', handleHighlightInputBar);
+		inputBarRef.current.addEventListener('blur', handleBlurInputBar);
+
+		return () => {
+			inputBarRef.current.removeEventListener('focus', handleHighlightInputBar);
+			inputBarRef.current.removeEventListener('blur', handleBlurInputBar);
+		}
+	}, []);
+
 	// change the date by pressing comma / period
 	useEffect(() => {
 		const handleChangeDate = (e) => {
@@ -56,31 +76,18 @@ function TodoApp() {
 			};
 		};
 
-
 		window.addEventListener('keydown', handleChangeDate);
+		inputBarRef.current.focus();  // highlight the input after loading or changing the date
 
 		return () => window.removeEventListener('keydown', handleChangeDate);
-	}, [date, isOnlyUncompleted]);
+	}, [date]);
 
+	// activate input on filter toggle
 	useEffect(() => {
-		const handleHighlightInputBar = () => {
-			document.querySelector('form').classList.add('focus');
-		};
+		inputBarRef.current.focus();
+	}, [isOnlyUncompleted]);
 
-		const handleBlurInputBar = () => {
-			document.querySelector('form').classList.remove('focus');
-		};
-
-		inputBarRef.current.addEventListener('focus', handleHighlightInputBar);
-		inputBarRef.current.addEventListener('blur', handleBlurInputBar);
-		inputBarRef.current.focus(); // highlight the input after loading or changing the date
-
-		return () => {
-			inputBarRef.current.removeEventListener('focus', handleHighlightInputBar);
-			inputBarRef.current.removeEventListener('blur', handleBlurInputBar);
-		}
-	}, []);
-
+	// checks if there are unfinished todos for a specific date
 	const checkForUnfinishedTodosInDay = (date) => {
 		const formattedDate = getFormattedDate(date);
 

@@ -47,19 +47,17 @@ function TodoItem({ index, title, id, bin, isCompleted, showCustomModal, onRenam
 		onMarkTodo(bin, id);
 	};
 
-	const liVariants = {
+	const itemVariants = {
 		initial: {
-			y: '-2rem',
 			opacity: 0,
-			maxHeight: 0,
-			transform: 'scale(1)',
+			height: 0,
+			transform: 'translateY(-2rem) scale(1)',
 		},
 
 		animate: (custom) => ({
-			y: 0,
 			opacity: 1,
-			maxHeight: '3rem',
-			transform: 'scale(1)',
+			height: 'auto',
+			transform: 'translateY(0) scale(1)',
 
 			transition: {
 				ease: 'easeOut',
@@ -70,13 +68,13 @@ function TodoItem({ index, title, id, bin, isCompleted, showCustomModal, onRenam
 
 		exit: {
 			opacity: 0,
-			maxHeight: 0,
-			transform: `scale(${delay ? .9 : 1})`,
+			height: 0,
+			transform: `translateY(0) scale(${delay ? .9 : 1})`,
 
 			transition: {
 				ease: 'easeOut',
 				duration: .3,
-				maxHeight: { delay: delay ? .3 : 0 }
+				height: { delay: delay ? .3 : 0 }
 			}
 		}
 	};
@@ -84,7 +82,8 @@ function TodoItem({ index, title, id, bin, isCompleted, showCustomModal, onRenam
 	return (
 		<>
 			<motion.li
-				{...(motionOn ? liVariants : {})}
+				// {...(motionOn ? itemVariants : {})}
+				{...itemVariants}
 				custom={index}
 			>
 				<div ref={todoRef} data-id={id} className={`${styles.todoItemWrapper}`}>
