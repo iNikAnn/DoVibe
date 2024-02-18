@@ -223,7 +223,7 @@ function TodoApp() {
 		const updatedTodos = { ...todos };
 		updatedTodos[bin] = updatedTodos[bin].map((todo) => {
 			return (todo.id === id)
-				? { ...todo, isCompleted: !todo.isCompleted, date: Date.now() }
+				? { ...todo, isCompleted: !todo.isCompleted, date: Date.now(), id: uuidv4() }
 				: { ...todo };
 		});
 
@@ -234,6 +234,29 @@ function TodoApp() {
 		setTimeout(() => {
 			setTodos(updatedTodos);
 		}, 600);
+	};
+
+	// reorder todo
+	const handleReorderTodo = (reorderedList) => {
+		// console.log(reorderedList);
+
+		reorderedList = reorderedList.map((todo, index) => {
+			const nextTodo = reorderedList[index + 1];
+
+			if (nextTodo) {
+				return todo.date < nextTodo.date ? { ...todo, date: nextTodo.date + 1 } : { ...todo };
+			};
+
+			return { ...todo }
+		});
+
+		// console.log(reorderedList);
+		// debugger
+
+		const updatedTodos = { ...todos }
+		updatedTodos[date] = reorderedList;
+
+		setTodos(updatedTodos);
 	};
 
 	// toggle modal
@@ -275,6 +298,7 @@ function TodoApp() {
 				}
 				date={date}
 				showCustomModal={handleToggleModal}
+				onReorderTodo={handleReorderTodo}
 				onRenameTodo={handleRenameTodo}
 				onRemoveTodo={handleRemoveTodo}
 				onMarkTodo={handleMarkTodo}
