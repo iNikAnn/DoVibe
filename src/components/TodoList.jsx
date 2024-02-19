@@ -1,7 +1,7 @@
 import styles from '../css/TodoList.module.css';
 
 // react, framer
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, Reorder } from 'framer-motion';
 
 // components
@@ -12,6 +12,10 @@ function TodoList({ list, showCustomModal, onReorderTodo, onRenameTodo, onRemove
 
 	// motion
 	const [delay, setDelay] = useState(false);
+
+	// reorder
+	const [movedItemIndex, setMovedItemIndex] = useState();
+	// const movedItemIndex = useRef(null);
 
 	let prevDate = null;
 
@@ -111,7 +115,7 @@ function TodoList({ list, showCustomModal, onReorderTodo, onRenameTodo, onRemove
 
 	return (
 		<div className={styles.todoList}>
-			<Reorder.Group axis="y" values={list ? list : []} onReorder={onReorderTodo}>
+			<Reorder.Group axis="y" values={list ? list : []} onReorder={(reorderedList) => onReorderTodo(reorderedList, movedItemIndex)}>
 				<AnimatePresence>
 					{list
 						? (showFiltered ? handleFilterList() : list).map((item, index) => {
@@ -132,6 +136,8 @@ function TodoList({ list, showCustomModal, onReorderTodo, onRenameTodo, onRemove
 										value={item}
 										{...itemVariants}
 										custom={index}
+										style={{ position: 'relative' }}
+										onDrag={() => setMovedItemIndex(index)}
 									>
 										<TodoItem
 											{...item}
@@ -147,7 +153,7 @@ function TodoList({ list, showCustomModal, onReorderTodo, onRenameTodo, onRemove
 					}
 				</AnimatePresence>
 			</Reorder.Group>
-		</div>
+		</div >
 	);
 }
 

@@ -237,23 +237,29 @@ function TodoApp() {
 	};
 
 	// reorder todo
-	const handleReorderTodo = (reorderedList) => {
-		// console.log(reorderedList);
+	const handleReorderTodo = (reorderedList, movedItemIndex) => {
+		if (date) {
+			const targetId = todos[date][movedItemIndex].id;
 
-		reorderedList = reorderedList.map((todo, index) => {
-			const nextTodo = reorderedList[index + 1];
+			reorderedList = reorderedList.map((todo, index) => {
+				if (todo.id === targetId) {
+					const prevItem = reorderedList[index - 1];
+					const nextItem = reorderedList[index + 1];
 
-			if (nextTodo) {
-				return todo.date < nextTodo.date ? { ...todo, date: nextTodo.date + 1 } : { ...todo };
-			};
+					const updatedDate = (prevItem && nextItem)
+						? ((prevItem.date + nextItem.date) / 2)
+						: !prevItem
+							? Date.now()
+							: prevItem.date / 2;
 
-			return { ...todo }
-		});
+					return { ...todo, date: updatedDate };
+				};
 
-		// console.log(reorderedList);
-		// debugger
+				return { ...todo };
+			});
+		};
 
-		const updatedTodos = { ...todos }
+		const updatedTodos = { ...todos };
 		updatedTodos[date] = reorderedList;
 
 		setTodos(updatedTodos);
