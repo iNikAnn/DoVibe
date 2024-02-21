@@ -25,10 +25,6 @@ import { FaUndoAlt } from "react-icons/fa";
 function TodoApp() {
 	const inputBarRef = useRef(null);
 
-	const today = getFormattedDate(new Date());
-	const [date, setDate] = useState(today);
-	const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || {});
-
 	// color scheme
 	const [colorScheme, setColorScheme] = useState(() => {
 		if (localStorage.getItem('scheme')) {
@@ -37,6 +33,14 @@ function TodoApp() {
 			return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 		};
 	});
+
+	// date
+	const today = getFormattedDate(new Date());
+	const [date, setDate] = useState(today);
+
+	// todos
+	const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || {});
+	const allTodos = Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse();
 
 	// filters
 	const [isOnlyUncompleted, setOnlyUncompleted] = useState(false);
@@ -49,8 +53,6 @@ function TodoApp() {
 	// modal
 	const [modalIsVisible, setModalIsVisible] = useState(false);
 	const [modalContent, setModalContent] = useState(null);
-
-	const allTodos = Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse();
 
 	// save todos to local storage
 	useEffect(() => {
@@ -237,30 +239,64 @@ function TodoApp() {
 	};
 
 	// reorder todo
-	const handleReorderTodo = (reorderedList, movedItemIndex) => {
-		if (date) {
-			const targetId = todos[date][movedItemIndex].id;
+	const handleReorderTodo = (reorderedList, movedTodo) => {
+		if (!movedTodo || movedTodo.type === 'dateSeparator') return;
 
-			reorderedList = reorderedList.map((todo, index) => {
-				if (todo.id === targetId) {
-					const prevItem = reorderedList[index - 1];
-					const nextItem = reorderedList[index + 1];
+		const updatedIndex = reorderedList.indexOf(reorderedList.find((item) => item.id === movedTodo.id));
+		const prev = reorderedList[updatedIndex - 1];
+		const next = reorderedList[updatedIndex + 1];
 
-					const updatedDate = (prevItem && nextItem)
-						? ((prevItem.date + nextItem.date) / 2)
-						: !prevItem
-							? Date.now()
-							: prevItem.date / 2;
+		const hasDateSeparatorBelow = !!reorderedList
+			.slice(updatedIndex)
+			.find((el) => el.type === 'dateSeparator');
 
-					return { ...todo, date: updatedDate };
-				};
+		if ((!prev && next.type === 'dateSeparator') || (prev && (prev.isCompleted && (!next || !hasDateSeparatorBelow)))) return;
 
-				return { ...todo };
+		let updatedDate = (prev && next && prev.date !== undefined && next.date !== undefined && !next.isCompleted && !prev.isCompleted)
+			? (Math.floor((prev.date + next.date) / 2))
+			: !prev || prev.date === undefined
+				? Date.now() // set the current timestamp if there are no other todos above
+				: Math.floor(prev.date / 2); // halfway based on the timestamp of the previous todo if no todos below
+
+		const updatedTodos = { ...todos };
+		const isMovedToAnotherDay = prev && (prev.bin !== movedTodo.bin || (prev.isCompleted && next));
+		let targetBin = movedTodo.bin;
+
+		if (isMovedToAnotherDay) {
+			// remove the todo from its original bin
+			updatedTodos[movedTodo.bin] = updatedTodos[movedTodo.bin].filter((todo) => todo.id !== movedTodo.id);
+
+			// if move down
+			if (prev.isCompleted && prev.bin === movedTodo.bin) {
+				updatedDate = Date.now();
+
+				// find the first date separator bin after the updatedIndex
+				targetBin = reorderedList.slice(updatedIndex).find((el) => el.type === 'dateSeparator').bin;
+			}
+			// if move up
+			else if (prev.isCompleted && prev.bin !== movedTodo.bin) {
+				const lastUncompletedTodo = reorderedList.find((todo, index, arr) => {
+					return todo.bin === prev.bin && todo.type !== 'dateSeparator' && arr[index + 1].isCompleted;
+				});
+
+				updatedDate = lastUncompletedTodo ? Math.floor(lastUncompletedTodo.date / 2) : Date.now();
+
+				targetBin = prev.bin;
+			}
+			else {
+				targetBin = prev.bin;
+			};
+
+			// add the todo to the target bin
+			updatedTodos[targetBin] = [{ ...movedTodo, bin: targetBin, date: updatedDate }, ...updatedTodos[targetBin]];
+		} else {
+			// update the date of the todo in its original bin
+			updatedTodos[movedTodo.bin] = updatedTodos[movedTodo.bin].map((todo) => {
+				return todo.id === movedTodo.id ? { ...todo, date: updatedDate } : { ...todo };
 			});
 		};
 
-		const updatedTodos = { ...todos };
-		updatedTodos[date] = reorderedList;
+		updatedTodos[targetBin] = sortTodosByCompletion(updatedTodos[targetBin]);
 
 		setTodos(updatedTodos);
 	};

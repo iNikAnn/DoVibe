@@ -1,32 +1,41 @@
 import styles from '../css/TodoList.module.css';
 
 // react, framer
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AnimatePresence, Reorder } from 'framer-motion';
 
 // components
 import TodoItem from './TodoItem';
 
-function TodoList({ list, showCustomModal, onReorderTodo, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUncompleted }) {
+// utils
+import insertDateSeparator from '../utils/insertDateSeparator';
+
+function TodoList({ list, date, showCustomModal, onReorderTodo, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUncompleted }) {
+	const [isDragging, setIsDragging] = useState(false);
 	const [showFiltered, setShowFiltered] = useState(false);
+
+	if (!date) {
+		list = insertDateSeparator(list);
+	};
 
 	// motion
 	const [delay, setDelay] = useState(false);
 
 	// reorder
 	const [movedItemIndex, setMovedItemIndex] = useState();
-	// const movedItemIndex = useRef(null);
-
-	let prevDate = null;
 
 	const handleFilterList = () => {
-		if (list) {
-			let filteredList = list.slice();
-			if (isOnlyUncompleted) filteredList = filteredList.filter((todo) => todo.isCompleted === false);
-			return filteredList;
-		};
+		if (!list) return list;
 
-		return list;
+		let filteredList = list.slice();
+		if (isOnlyUncompleted) filteredList = filteredList.filter((todo) => !todo.isCompleted);
+
+		// ensuring only days with uncomplete tasks are displayed
+		filteredList = filteredList.filter((el, index, arr) => {
+			return !(el.type === 'dateSeparator' && ((arr[index + 1] && (arr[index + 1].type === 'dateSeparator' || arr[index + 1].isCompleted)) || !arr[index + 1]));
+		});
+
+		return filteredList;
 	};
 
 	// timeout to ensure the removal animation completes before updating the state
@@ -113,41 +122,69 @@ function TodoList({ list, showCustomModal, onReorderTodo, onRenameTodo, onRemove
 		}
 	};
 
+	const isDraggable = (index) => {
+		const array = showFiltered ? handleFilterList() : list;
+
+		if (index >= 0 && index < array.length) {
+			const prev = array[index - 1];
+			const next = array[index + 1];
+
+			if (
+				array[index].type === 'dateSeparator' ||
+				array[index].isCompleted ||
+				(prev && prev.type === 'dateSeparator' && (!next || (next && next.type === 'dateSeparator')))
+			) {
+				return false;
+			};
+		};
+
+		return true;
+	};
+
 	return (
 		<div className={styles.todoList}>
-			<Reorder.Group axis="y" values={list ? list : []} onReorder={(reorderedList) => onReorderTodo(reorderedList, movedItemIndex)}>
+			<Reorder.Group
+				axis="y"
+				values={list ? list : []}
+				onReorder={(reorderedList) => onReorderTodo(reorderedList, showFiltered ? handleFilterList()[movedItemIndex] : list[movedItemIndex])}
+			>
 				<AnimatePresence>
 					{list
 						? (showFiltered ? handleFilterList() : list).map((item, index) => {
-							const currDate = item.bin;
-							const binTitle = new Date(currDate).toLocaleDateString(); // the date format adheres to the user's preferences
-							// the date is added only once for each day
-
-							const binTitleWrapper = (currDate !== prevDate)
-								? <small key={item.bin} className={`${styles.binTitle}`}>{binTitle}</small>
-								: null;
-							prevDate = currDate;
-
 							return (
-								<Fragment key={'fragment' + item.id}>
-									{/* {!date && binTitleWrapper} */}
-									<Reorder.Item
-										key={item.id}
-										value={item}
-										{...itemVariants}
-										custom={index}
-										style={{ position: 'relative' }}
-										onDrag={() => setMovedItemIndex(index)}
-									>
-										<TodoItem
+								<Reorder.Item
+									key={item.id}
+									value={item}
+									{...itemVariants}
+									custom={index}
+
+									style={{
+										position: 'relative',
+										cursor: item.type === 'dateSeparator' || item.isCompleted || !isDraggable(index) ? 'auto' : isDragging ? 'grabbing' : 'grab',
+									}}
+
+									className={item.type === 'dateSeparator' ? styles.binTitle : ''}
+
+									dragListener={isDraggable(index)}
+
+									onDrag={() => {
+										setIsDragging(true);
+										setMovedItemIndex(index);
+									}}
+
+									onDragEnd={() => setIsDragging(false)}
+								>
+									{item.type === 'dateSeparator'
+										? <div>{item.bin}</div>
+										: <TodoItem
 											{...item}
 											onRename={handleRenameTodo}
 											onRemove={handleRemoveTodo}
 											onMark={handleMarkTodo}
 										/>
-									</Reorder.Item>
-								</Fragment>
-							);
+									}
+								</Reorder.Item>
+							)
 						})
 						: <span key={'noTaskMsg'}>No tasks here</span>
 					}
