@@ -1,8 +1,10 @@
 import styles from '../css/Switcher.module.css';
 
+// react
+import { useEffect, useState } from 'react';
+
 // components
 import Tooltip from '../components/Tooltip';
-import { useEffect, useRef, useState } from 'react';
 
 function Switcher(props) {
 	const {
@@ -21,28 +23,17 @@ function Switcher(props) {
 		onChangeRight
 	} = props;
 
-	const inputLeftRef = useRef(null);
-	const inputRightRef = useRef(null);
-
 	const [leftColor, setLeftColor] = useState('');
 	const [rightColor, setRightColor] = useState('');
 
 	useEffect(() => {
-		if (inputLeftRef.current) {
-			const color = inputLeftRef.current.checked ? activeLeftColor : '';
-			setLeftColor(color);
-		};
-
-		if (inputRightRef.current) {
-			const color = inputRightRef.current.checked ? activeRightColor : '';
-			setRightColor(color);
-		};
-	}, [inputLeftRef.current?.checked, inputRightRef.current?.checked]);
+		setLeftColor(checkedLeft ? activeLeftColor : '');
+		setRightColor(checkedRight ? activeRightColor : '');
+	}, [checkedLeft, checkedRight]);
 
 	return (
 		<div className={styles.switcher}>
 			<input
-				ref={inputLeftRef}
 				className={`${styles.input} ${styles.inputLeft}`}
 				type="radio"
 				name={name}
@@ -61,7 +52,6 @@ function Switcher(props) {
 			</Tooltip>
 
 			<input
-				ref={inputRightRef}
 				className={`${styles.input} ${styles.inputRigth}`}
 				type="radio"
 				name={name}
