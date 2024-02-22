@@ -9,38 +9,23 @@ import TodoItem from './TodoItem';
 
 // utils
 import insertDateSeparator from '../utils/insertDateSeparator';
+import filterTodoList from '../utils/filterTodoList';
 import isTodoDraggable from '../utils/isTodoDraggable';
 
 function TodoList({ list, date, showCustomModal, onReorderTodo, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUncompleted }) {
+	const [delay, setDelay] = useState(false);
 	const [isDragging, setIsDragging] = useState(false);
+	const [movedItemIndex, setMovedItemIndex] = useState();
+
 	const needFiltering = isOnlyUncompleted;
+	const filters = [[isOnlyUncompleted, 'isCompleted']];
 
 	if (!date) {
 		list = insertDateSeparator(list);
 	};
 
 	if (needFiltering) {
-		list = handleFilterList();
-	};
-
-	// motion
-	const [delay, setDelay] = useState(false);
-
-	// reorder
-	const [movedItemIndex, setMovedItemIndex] = useState();
-
-	function handleFilterList() {
-		if (!list) return list;
-
-		let filteredList = list.slice();
-		if (isOnlyUncompleted) filteredList = filteredList.filter((todo) => !todo.isCompleted);
-
-		// ensuring only days with uncomplete tasks are displayed
-		filteredList = filteredList.filter((el, index, arr) => {
-			return !(el.type === 'dateSeparator' && ((arr[index + 1] && (arr[index + 1].type === 'dateSeparator' || arr[index + 1].isCompleted)) || !arr[index + 1]));
-		});
-
-		return filteredList;
+		list = filterTodoList(list, filters);
 	};
 
 	const handleRenameTodo = (bin, id, title) => {
