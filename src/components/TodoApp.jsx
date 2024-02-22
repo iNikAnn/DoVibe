@@ -287,6 +287,8 @@ function TodoApp() {
 				targetBin = prev.bin;
 			};
 
+			if (isTodoDuplicate(todos[targetBin], movedTodo.title)) return;
+
 			// add the todo to the target bin
 			updatedTodos[targetBin] = [{ ...movedTodo, bin: targetBin, date: updatedDate }, ...updatedTodos[targetBin]];
 		} else {

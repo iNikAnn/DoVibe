@@ -57,12 +57,13 @@
 	justify-content: center;
 	background-color: unset;
 	width: 2.5rem;
-	height: 2.5rem;
+	height: 2rem;
+	border-radius: var(--border-radius-secondary);
 }
 
 .btnWrapper button:hover {
 	background-color: var(--bg-color-secondary);
-	border-radius: 50%;
+	/* border-radius: 50%; */
 }
 
 .btnWrapper svg {
