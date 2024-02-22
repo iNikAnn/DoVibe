@@ -1,7 +1,7 @@
 import styles from '../css/TodoList.module.css';
 
 // react, framer
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AnimatePresence, Reorder } from 'framer-motion';
 
 // components
@@ -9,13 +9,18 @@ import TodoItem from './TodoItem';
 
 // utils
 import insertDateSeparator from '../utils/insertDateSeparator';
+import isTodoDraggable from '../utils/isTodoDraggable';
 
 function TodoList({ list, date, showCustomModal, onReorderTodo, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUncompleted }) {
 	const [isDragging, setIsDragging] = useState(false);
-	const [showFiltered, setShowFiltered] = useState(false);
+	const needFiltering = isOnlyUncompleted;
 
 	if (!date) {
 		list = insertDateSeparator(list);
+	};
+
+	if (needFiltering) {
+		list = handleFilterList();
 	};
 
 	// motion
@@ -24,7 +29,7 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onRenameTodo, on
 	// reorder
 	const [movedItemIndex, setMovedItemIndex] = useState();
 
-	const handleFilterList = () => {
+	function handleFilterList() {
 		if (!list) return list;
 
 		let filteredList = list.slice();
@@ -37,11 +42,6 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onRenameTodo, on
 
 		return filteredList;
 	};
-
-	// timeout to ensure the removal animation completes before updating the state
-	useEffect(() => {
-		setShowFiltered(isOnlyUncompleted);
-	}, [isOnlyUncompleted]);
 
 	const handleRenameTodo = (bin, id, title) => {
 		showCustomModal(
@@ -122,35 +122,18 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onRenameTodo, on
 		}
 	};
 
-	const isDraggable = (index) => {
-		const array = showFiltered ? handleFilterList() : list;
-
-		if (index >= 0 && index < array.length) {
-			const prev = array[index - 1];
-			const next = array[index + 1];
-
-			if (
-				array[index].type === 'dateSeparator' ||
-				array[index].isCompleted ||
-				(prev && prev.type === 'dateSeparator' && (!next || (next && next.type === 'dateSeparator')))
-			) {
-				return false;
-			};
-		};
-
-		return true;
-	};
-
 	return (
 		<div className={styles.todoList}>
 			<Reorder.Group
 				axis="y"
 				values={list ? list : []}
-				onReorder={(reorderedList) => onReorderTodo(reorderedList, showFiltered ? handleFilterList()[movedItemIndex] : list[movedItemIndex])}
+				onReorder={(reorderedList) => onReorderTodo(reorderedList, list[movedItemIndex])}
 			>
 				<AnimatePresence>
 					{list
-						? (showFiltered ? handleFilterList() : list).map((item, index) => {
+						? list.map((item, index) => {
+							const isDraggable = isTodoDraggable(list, index);
+
 							return (
 								<Reorder.Item
 									key={item.id}
@@ -160,12 +143,12 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onRenameTodo, on
 
 									style={{
 										position: 'relative',
-										cursor: item.type === 'dateSeparator' || item.isCompleted || !isDraggable(index) ? 'auto' : isDragging ? 'grabbing' : 'grab',
+										cursor: item.type === 'dateSeparator' || item.isCompleted || !isDraggable ? 'auto' : isDragging ? 'grabbing' : 'grab',
 									}}
 
 									className={item.type === 'dateSeparator' ? styles.binTitle : ''}
 
-									dragListener={isDraggable(index)}
+									dragListener={isDraggable}
 
 									onDrag={() => {
 										setIsDragging(true);
