@@ -87,7 +87,7 @@ function TodoApp() {
 	// change the date by pressing comma / period
 	useEffect(() => {
 		const handleChangeDate = (e) => {
-			if (((e.ctrlKey || e.metaKey) && e.shiftKey)
+			if (((e.ctrlKey || e.metaKey) && e.altKey)
 				&& (e.code === 'Comma' || e.code === 'Period')) {
 				setDate(modifyDateByOneDay(date, e.code));
 			};

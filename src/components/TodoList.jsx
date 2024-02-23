@@ -1,7 +1,7 @@
 import styles from '../css/TodoList.module.css';
 
 // react, framer
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AnimatePresence, Reorder, motion } from 'framer-motion';
 
 // components
