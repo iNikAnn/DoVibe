@@ -99,11 +99,6 @@ function TodoApp() {
 		return () => window.removeEventListener('keydown', handleChangeDate);
 	}, [date]);
 
-	// activate input on filter toggle
-	useEffect(() => {
-		inputBarRef.current.focus();
-	}, [isOnlyUncompleted]);
-
 	// checks if there are unfinished todos for a specific date
 	const checkForUnfinishedTodosInDay = (date) => {
 		const formattedDate = getFormattedDate(date);
