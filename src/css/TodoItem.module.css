@@ -3,7 +3,7 @@
 	position: relative;
 	border-radius: var(--border-radius-primary);
 	min-height: 3rem;
-	padding: 1rem 1rem;
+	padding: 1rem;
 	will-change: height;
 }
 

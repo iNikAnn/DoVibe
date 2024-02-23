@@ -7,9 +7,13 @@
 .binTitle {
 	/* outline: 1px solid tomato; */
 	text-align: left;
-	color: var(--text-color-dimmed);
-	margin: 2rem 0 0.6rem 0;
+	/* color: var(--text-color-dimmed); */
+	font-weight: 600;
+	color: #ffcc66;
 	opacity: 1;
+
+	/* padding-left: 1rem; */
+	margin: 2rem 0 0.6rem 0;
 }
 
 .binTitle:first-child {

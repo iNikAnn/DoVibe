@@ -78,6 +78,7 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onRenameTodo, on
 			height: 0,
 			translateY: '-2rem',
 			scale: 1,
+			margin: 0,
 		},
 
 		animate: (index) => ({
@@ -85,6 +86,7 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onRenameTodo, on
 			height: 'auto',
 			translateY: 0,
 			scale: 1,
+			margin: 'auto',
 
 			transition: {
 				ease: 'easeOut',
@@ -98,6 +100,7 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onRenameTodo, on
 			height: 0,
 			translateY: 0,
 			scale: delay ? .9 : 1,
+			margin: 0,
 
 			transition: {
 				ease: 'easeOut',
@@ -105,6 +108,13 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onRenameTodo, on
 				height: { delay: delay ? .3 : 0 }
 			}
 		}
+	};
+
+	const dateSeparatorVariants = {
+		animate: (index) => ({
+			...itemVariants.animate(),
+			margin: index ? '2rem 0 0.6rem 0' : '0.6rem 0 0.6rem 0',
+		})
 	};
 
 	return (
@@ -124,6 +134,7 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onRenameTodo, on
 									key={item.id}
 									value={item}
 									{...itemVariants}
+									animate={item.type === 'dateSeparator' ? dateSeparatorVariants.animate : itemVariants.animate}
 									custom={index}
 
 									style={{
