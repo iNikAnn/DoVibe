@@ -1,0 +1,24 @@
+.btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: unset;
+	width: 2.5rem;
+	height: 2rem;
+	border-radius: var(--border-radius-secondary);
+}
+
+.btn:hover {
+	background-color: var(--bg-color-secondary);
+	box-shadow: var(--box-shadow-primary);
+}
+
+/* icon */
+.btn svg {
+	width: 0.8rem;
+	height: 0.8rem;
+}
+
+.btn:focus-visible {
+	outline: var(--focus-primary);
+}

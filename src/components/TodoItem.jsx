@@ -3,6 +3,9 @@ import styles from '../css/TodoItem.module.css';
 // react, framer
 import { useRef } from 'react';
 
+// components
+import TodoActionBtn from './TodoActionBtn';
+
 // icons
 import { HiMiniPencilSquare } from "react-icons/hi2";
 import { FaTrash } from "react-icons/fa";
@@ -22,9 +25,26 @@ function TodoItem({ title, id, bin, isCompleted, onRename, onRemove, onMark }) {
 			</div>
 
 			<div className={styles.btnWrapper}>
-				<button title="Rename" className={styles.btnRename} onClick={() => onRename(bin, id, title)}><HiMiniPencilSquare /></button>
-				<button title='Remove' className={styles.btnRemove} onClick={() => onRemove(bin, id)}><FaTrash /></button>
-				<button title='Toggle Todo Status' className={styles.btnMark} onClick={() => onMark(bin, id)}><FaCheck /></button>
+				<TodoActionBtn
+					title="Rename todo"
+					icon={<HiMiniPencilSquare />}
+					iconColor="#7fc7ff"
+					onClick={() => onRename(bin, id, title)}
+				/>
+
+				<TodoActionBtn
+					title='Remove todo'
+					icon={<FaTrash />}
+					iconColor="#e4717a"
+					onClick={() => onRemove(bin, id)}
+				/>
+
+				<TodoActionBtn
+					title='Toggle Todo Status'
+					icon={<FaCheck />}
+					iconColor="#3eb489"
+					onClick={() => onMark(bin, id)}
+				/>
 			</div>
 		</div>
 	);

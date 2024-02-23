@@ -28,9 +28,12 @@
 	top: 50%;
 	right: 0;
 	transform: translateY(-50%);
+
 	display: flex;
 	align-items: center;
+
 	height: 100%;
+
 	background: linear-gradient(
 		to right,
 		transparent,
@@ -40,6 +43,7 @@
 	);
 	border-radius: 0 0.5rem 0.5rem 0;
 	opacity: 0;
+
 	padding: 0 0.6rem 0 3rem;
 	pointer-events: none;
 	/* z-index: 9; */
@@ -48,43 +52,6 @@
 .todoItemWrapper:hover .btnWrapper {
 	opacity: 1;
 	pointer-events: all;
-}
-
-.btnWrapper button {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: unset;
-	width: 2.5rem;
-	height: 2rem;
-	border-radius: var(--border-radius-secondary);
-}
-
-.btnWrapper button:hover {
-	background-color: var(--bg-color-secondary);
-	box-shadow: var(--box-shadow-primary);
-	/* border-radius: 50%; */
-}
-
-.btnWrapper svg {
-	width: 0.8rem;
-	height: 0.8rem;
-}
-
-.btnRename svg {
-	width: 0.95rem;
-	height: 0.95rem;
-	color: #7fc7ff;
-}
-
-.btnRemove svg {
-	color: #e4717a;
-}
-
-.btnMark svg {
-	width: 0.95rem;
-	height: 0.95rem;
-	color: #3eb489;
 }
 
 /* state */
