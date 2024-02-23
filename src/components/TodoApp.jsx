@@ -17,6 +17,7 @@ import Notification from './Hotification';
 import getFormattedDate from '../utils/getFormattedDate';
 import modifyDateByOneDay from '../utils/modifyDateByOneDay';
 import isTodoDuplicate from '../utils/isTodoDuplicate';
+import isIdDuplicate from '../utils/isIdDuplicate';
 import sortTodosByCompletion from '../utils/sortTodosByCompletion';
 
 // icons
@@ -240,7 +241,7 @@ function TodoApp() {
 
 	// reorder todo
 	const handleReorderTodo = (reorderedList, movedTodo) => {
-		if (!movedTodo || movedTodo.type === 'dateSeparator') return;
+		if (!movedTodo || movedTodo.type === 'dateSeparator' || isIdDuplicate(reorderedList)) return;
 
 		const updatedIndex = reorderedList.indexOf(reorderedList.find((item) => item.id === movedTodo.id));
 		const prev = reorderedList[updatedIndex - 1];
