@@ -69,7 +69,9 @@ function Switcher(props) {
 				</label>
 			</Tooltip>
 
-			<div className={styles.highlight} />
+			<div className={styles.highlightWrapper}>
+				<div className={styles.highlight} />
+			</div>
 		</div>
 	);
 }

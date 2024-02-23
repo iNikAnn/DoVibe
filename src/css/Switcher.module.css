@@ -15,8 +15,6 @@
 	background-color: var(--bg-color-secondary);
 	border-radius: var(--border-radius-secondary);
 	box-shadow: var(--box-shadow-primary);
-
-	/* overflow: hidden; */
 }
 
 /* input */
@@ -52,6 +50,17 @@
 }
 
 /* highlight */
+.highlightWrapper {
+	/* outline: 1px solid red; */
+	position: absolute;
+	width: 100%;
+	height: 100%;
+
+	border-radius: var(--border-radius-secondary);
+
+	overflow: hidden;
+}
+
 .highlight {
 	position: absolute;
 	top: 0;
@@ -61,8 +70,7 @@
 	height: 100%;
 
 	background-color: var(--bg-color-tertiary);
-	/* box-shadow: var(--box-shadow-primary); */
-	/* box-shadow: 0 0 10px red; */
+	box-shadow: var(--box-shadow-primary);
 	border-radius: var(--border-radius-secondary);
 
 	transition-property: left, transform;
@@ -72,12 +80,12 @@
 	z-index: 0;
 }
 
-.inputLeft:checked ~ .highlight {
+.inputLeft:checked ~ .highlightWrapper .highlight {
 	left: 0;
 	transform: translateX(0);
 }
 
-.inputRigth:checked ~ .highlight {
+.inputRigth:checked ~ .highlightWrapper .highlight {
 	left: 100%;
 	transform: translateX(-100%);
 }
