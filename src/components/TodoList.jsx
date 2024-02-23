@@ -1,8 +1,8 @@
 import styles from '../css/TodoList.module.css';
 
 // react, framer
-import { useState } from 'react';
-import { AnimatePresence, Reorder } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { AnimatePresence, Reorder, motion } from 'framer-motion';
 
 // components
 import TodoItem from './TodoItem';
@@ -57,7 +57,7 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onRenameTodo, on
 
 		setTimeout(() => {
 			setDelay(false);
-		}, 600);
+		}, 1200);
 	};
 
 	const handleMarkTodo = (bin, id) => {
@@ -86,7 +86,7 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onRenameTodo, on
 			height: 'auto',
 			translateY: 0,
 			scale: 1,
-			margin: 'auto',
+			margin: 0,
 
 			transition: {
 				ease: 'easeOut',
@@ -105,7 +105,7 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onRenameTodo, on
 			transition: {
 				ease: 'easeOut',
 				duration: .3,
-				height: { delay: delay ? .3 : 0 }
+				// height: { delay: delay ? .3 : 0 }
 			}
 		}
 	};
@@ -124,7 +124,7 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onRenameTodo, on
 				values={list ? list : []}
 				onReorder={(reorderedList) => onReorderTodo(reorderedList, list[movedItemIndex])}
 			>
-				<AnimatePresence>
+				<AnimatePresence mode="popLayout">
 					{list
 						? list.map((item, index) => {
 							const isDraggable = isTodoDraggable(list, index);
@@ -164,8 +164,16 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onRenameTodo, on
 									}
 								</Reorder.Item>
 							)
-						})
-						: <span key={'noTaskMsg'}>No tasks here</span>
+						}
+						) : (
+							<motion.li
+								key={'noTaskMsg'}
+								{...itemVariants}
+								className={styles.noTaskMsg}
+							>
+								No tasks here
+							</motion.li>
+						)
 					}
 				</AnimatePresence>
 			</Reorder.Group>

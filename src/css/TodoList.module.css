@@ -4,6 +4,10 @@
 	margin: 1rem 0;
 }
 
+.noTaskMsg {
+	padding: 1rem;
+}
+
 .binTitle {
 	/* outline: 1px solid tomato; */
 	text-align: left;
