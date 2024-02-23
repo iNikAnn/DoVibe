@@ -299,6 +299,8 @@ function TodoApp() {
 			});
 		};
 
+		if (isNaN(updatedDate)) return;
+
 		updatedTodos[targetBin] = sortTodosByCompletion(updatedTodos[targetBin]);
 
 		setTodos(updatedTodos);
