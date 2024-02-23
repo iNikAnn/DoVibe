@@ -63,13 +63,13 @@ function FiltersBar({ todos, initialDate, colorScheme, onChangeScheme, onChangeV
 
 					iconLeft={<FaSun />}
 					activeLeftColor='#ffcc66'
-					tooltipLeft="Light"
+					tooltipLeft="Light scheme"
 					checkedLeft={colorScheme === 'light'}
 					onChangeLeft={() => onChangeScheme('light')}
 
 					iconRight={<FaMoon />}
 					activeRightColor='#bb88ff'
-					tooltipRight="Dark"
+					tooltipRight="Dark scheme"
 					checkedRight={colorScheme === 'dark'}
 					onChangeRight={() => onChangeScheme('dark')}
 				/>

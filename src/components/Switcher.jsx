@@ -20,7 +20,7 @@ function Switcher(props) {
 		activeRightColor,
 		tooltipRight,
 		checkedRight,
-		onChangeRight
+		onChangeRight,
 	} = props;
 
 	// сhange active icon color based on the checked state
@@ -41,6 +41,7 @@ function Switcher(props) {
 				id={name + 'InputLeft'}
 				checked={checkedLeft}
 				onChange={onChangeLeft}
+				aria-label={tooltipLeft}
 			/>
 			<Tooltip text={tooltipLeft}>
 				<label
@@ -59,6 +60,7 @@ function Switcher(props) {
 				id={name + 'inputRigth'}
 				checked={checkedRight}
 				onChange={onChangeRight}
+				aria-label={tooltipRight}
 			/>
 			<Tooltip text={tooltipRight}>
 				<label
