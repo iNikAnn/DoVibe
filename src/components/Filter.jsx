@@ -6,15 +6,16 @@ import Tooltip from '../components/Tooltip';
 function Filter({ name, icon, text, tooltip, onChange }) {
 	return (
 		<div className={styles.filter}>
-			<Tooltip text={tooltip}>
-				<input
-					className={styles.input}
-					name={name}
-					type="checkbox"
-					id={name}
-					onChange={(e) => onChange(e.target.checked)}
-				/>
+			<input
+				className={styles.input}
+				name={name}
+				type="checkbox"
+				id={name}
+				onChange={(e) => onChange(e.target.checked)}
+				aria-label={tooltip}
+			/>
 
+			<Tooltip text={tooltip}>
 				<label
 					className={styles.label}
 					htmlFor={name}
@@ -25,6 +26,8 @@ function Filter({ name, icon, text, tooltip, onChange }) {
 					)}
 				</label>
 			</Tooltip>
+
+			<div className={styles.highlight} />
 		</div>
 	);
 }

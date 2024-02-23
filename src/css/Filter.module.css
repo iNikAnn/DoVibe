@@ -41,16 +41,25 @@
 	cursor: pointer;
 }
 
-.input:checked + .label {
-	background-color: var(--bg-color-tertiary);
-}
-
 /* icon */
 .label svg {
 	transition: color 0.3s ease;
 }
 
 .label:hover,
-.input:checked + .label svg {
+.input:checked + div .label svg {
 	color: var(--text-color-primary);
+}
+
+/* highlight */
+.highlight {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	border-radius: var(--border-radius-secondary);
+	pointer-events: none;
+}
+
+.input:focus-visible ~ .highlight {
+	outline: var(--focus-primary);
 }
