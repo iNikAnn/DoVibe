@@ -23,6 +23,7 @@ function Switcher(props) {
 		onChangeRight
 	} = props;
 
+	// сhange active icon color based on the checked state
 	const [leftColor, setLeftColor] = useState('');
 	const [rightColor, setRightColor] = useState('');
 

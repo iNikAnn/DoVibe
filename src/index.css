@@ -14,6 +14,7 @@
 
 	--border-radius-primary: 0.6rem;
 	--border-radius-secondary: 0.4rem;
+	--focus-primary: 2px solid var(--accent-color);
 }
 
 html[data-scheme='dark'] {
@@ -95,5 +96,5 @@ input {
 }
 
 .focus {
-	outline: 2px solid var(--accent-color);
+	outline: var(--focus-primary);
 }
