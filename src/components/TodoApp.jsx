@@ -17,6 +17,7 @@ import Notification from './Hotification';
 import getFormattedDate from '../utils/getFormattedDate';
 import modifyDateByOneDay from '../utils/modifyDateByOneDay';
 import isTodoDuplicate from '../utils/isTodoDuplicate';
+import isIdDuplicate from '../utils/isIdDuplicate';
 import sortTodosByCompletion from '../utils/sortTodosByCompletion';
 
 // icons
@@ -24,10 +25,6 @@ import { FaUndoAlt } from "react-icons/fa";
 
 function TodoApp() {
 	const inputBarRef = useRef(null);
-
-	const today = getFormattedDate(new Date());
-	const [date, setDate] = useState(today);
-	const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || {});
 
 	// color scheme
 	const [colorScheme, setColorScheme] = useState(() => {
@@ -37,6 +34,14 @@ function TodoApp() {
 			return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 		};
 	});
+
+	// date
+	const today = getFormattedDate(new Date());
+	const [date, setDate] = useState(today);
+
+	// todos
+	const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || {});
+	const allTodos = Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse();
 
 	// filters
 	const [isOnlyUncompleted, setOnlyUncompleted] = useState(false);
@@ -49,8 +54,6 @@ function TodoApp() {
 	// modal
 	const [modalIsVisible, setModalIsVisible] = useState(false);
 	const [modalContent, setModalContent] = useState(null);
-
-	const allTodos = Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse();
 
 	// save todos to local storage
 	useEffect(() => {
@@ -223,7 +226,7 @@ function TodoApp() {
 		const updatedTodos = { ...todos };
 		updatedTodos[bin] = updatedTodos[bin].map((todo) => {
 			return (todo.id === id)
-				? { ...todo, isCompleted: !todo.isCompleted, date: Date.now() }
+				? { ...todo, isCompleted: !todo.isCompleted, date: Date.now(), id: uuidv4() }
 				: { ...todo };
 		});
 
@@ -234,6 +237,73 @@ function TodoApp() {
 		setTimeout(() => {
 			setTodos(updatedTodos);
 		}, 600);
+	};
+
+	// reorder todo
+	const handleReorderTodo = (reorderedList, movedTodo) => {
+		if (!movedTodo || movedTodo.type === 'dateSeparator' || isIdDuplicate(reorderedList)) return;
+
+		const updatedIndex = reorderedList.indexOf(reorderedList.find((item) => item.id === movedTodo.id));
+		const prev = reorderedList[updatedIndex - 1];
+		const next = reorderedList[updatedIndex + 1];
+
+		const hasDateSeparatorBelow = !!reorderedList
+			.slice(updatedIndex)
+			.find((el) => el.type === 'dateSeparator');
+
+		if ((!prev && next.type === 'dateSeparator') || (prev && (prev.isCompleted && (!next || !hasDateSeparatorBelow)))) return;
+
+		let updatedDate = (prev && next && prev.date !== undefined && next.date !== undefined && !next.isCompleted && !prev.isCompleted)
+			? (Math.floor((prev.date + next.date) / 2))
+			: !prev || prev.date === undefined
+				? Date.now() // set the current timestamp if there are no other todos above
+				: Math.floor(prev.date / 2); // halfway based on the timestamp of the previous todo if no todos below
+
+		const updatedTodos = { ...todos };
+		const isMovedToAnotherDay = prev && (prev.bin !== movedTodo.bin || (prev.isCompleted && next));
+		let targetBin = movedTodo.bin;
+
+		if (isMovedToAnotherDay) {
+			// remove the todo from its original bin
+			updatedTodos[movedTodo.bin] = updatedTodos[movedTodo.bin].filter((todo) => todo.id !== movedTodo.id);
+
+			// if move down
+			if (prev.isCompleted && prev.bin === movedTodo.bin) {
+				updatedDate = Date.now();
+
+				// find the first date separator bin after the updatedIndex
+				targetBin = reorderedList.slice(updatedIndex).find((el) => el.type === 'dateSeparator').bin;
+			}
+			// if move up
+			else if (prev.isCompleted && prev.bin !== movedTodo.bin) {
+				const lastUncompletedTodo = reorderedList.find((todo, index, arr) => {
+					return todo.bin === prev.bin && todo.type !== 'dateSeparator' && arr[index + 1].isCompleted;
+				});
+
+				updatedDate = lastUncompletedTodo ? Math.floor(lastUncompletedTodo.date / 2) : Date.now();
+
+				targetBin = prev.bin;
+			}
+			else {
+				targetBin = prev.bin;
+			};
+
+			if (isTodoDuplicate(todos[targetBin], movedTodo.title)) return;
+
+			// add the todo to the target bin
+			updatedTodos[targetBin] = [{ ...movedTodo, bin: targetBin, date: updatedDate }, ...updatedTodos[targetBin]];
+		} else {
+			// update the date of the todo in its original bin
+			updatedTodos[movedTodo.bin] = updatedTodos[movedTodo.bin].map((todo) => {
+				return todo.id === movedTodo.id ? { ...todo, date: updatedDate } : { ...todo };
+			});
+		};
+
+		if (isNaN(updatedDate)) return;
+
+		updatedTodos[targetBin] = sortTodosByCompletion(updatedTodos[targetBin]);
+
+		setTodos(updatedTodos);
 	};
 
 	// toggle modal
@@ -275,6 +345,7 @@ function TodoApp() {
 				}
 				date={date}
 				showCustomModal={handleToggleModal}
+				onReorderTodo={handleReorderTodo}
 				onRenameTodo={handleRenameTodo}
 				onRemoveTodo={handleRemoveTodo}
 				onMarkTodo={handleMarkTodo}

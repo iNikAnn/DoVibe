@@ -1,5 +1,8 @@
 import styles from '../css/Switcher.module.css';
 
+// react
+import { useEffect, useState } from 'react';
+
 // components
 import Tooltip from '../components/Tooltip';
 
@@ -8,15 +11,25 @@ function Switcher(props) {
 		name,
 
 		iconLeft,
+		activeLeftColor,
 		tooltipLeft,
 		checkedLeft,
 		onChangeLeft,
 
 		iconRight,
+		activeRightColor,
 		tooltipRight,
 		checkedRight,
 		onChangeRight
 	} = props;
+
+	const [leftColor, setLeftColor] = useState('');
+	const [rightColor, setRightColor] = useState('');
+
+	useEffect(() => {
+		setLeftColor(checkedLeft ? activeLeftColor : '');
+		setRightColor(checkedRight ? activeRightColor : '');
+	}, [checkedLeft, checkedRight]);
 
 	return (
 		<div className={styles.switcher}>
@@ -30,6 +43,7 @@ function Switcher(props) {
 			/>
 			<Tooltip text={tooltipLeft}>
 				<label
+					style={{ color: leftColor }}
 					className={styles.label}
 					htmlFor={name + 'InputLeft'}
 				>
@@ -47,6 +61,7 @@ function Switcher(props) {
 			/>
 			<Tooltip text={tooltipRight}>
 				<label
+					style={{ color: rightColor }}
 					className={styles.label}
 					htmlFor={name + 'inputRigth'}
 				>

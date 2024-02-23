@@ -47,7 +47,7 @@
 }
 
 .label:hover svg,
-.input:checked + div .label svg {
+.input:checked + div .label {
 	color: var(--text-color-primary);
 }
 

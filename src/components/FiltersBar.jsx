@@ -62,11 +62,13 @@ function FiltersBar({ todos, initialDate, colorScheme, onChangeScheme, onChangeV
 					name="colorScheme"
 
 					iconLeft={<FaSun />}
+					activeLeftColor='#ffcc66'
 					tooltipLeft="Light"
 					checkedLeft={colorScheme === 'light'}
 					onChangeLeft={() => onChangeScheme('light')}
 
 					iconRight={<FaMoon />}
+					activeRightColor='#bb88ff'
 					tooltipRight="Dark"
 					checkedRight={colorScheme === 'dark'}
 					onChangeRight={() => onChangeScheme('dark')}
@@ -78,11 +80,13 @@ function FiltersBar({ todos, initialDate, colorScheme, onChangeScheme, onChangeV
 					name="viewMode"
 
 					iconLeft={<FaCalendarAlt />}
+					activeLeftColor='#ff9977'
 					tooltipLeft="Show all todos"
 					checkedLeft={initialDate ? false : true}
 					onChangeLeft={() => onChangeViewMode('')}
 
 					iconRight={<FaCalendarDay />}
+					activeRightColor='#ff9977'
 					tooltipRight="Show todos for the day"
 					checkedRight={initialDate ? true : false}
 					onChangeRight={() => onChangeViewMode(new Date())}
