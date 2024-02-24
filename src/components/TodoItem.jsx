@@ -1,7 +1,7 @@
 import styles from '../css/TodoItem.module.css';
 
 // react, framer
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 // components
 import TodoActionBtn from './TodoActionBtn';
@@ -13,6 +13,31 @@ import { FaCheck } from "react-icons/fa";
 
 function TodoItem({ title, id, bin, isCompleted, onRename, onRemove, onMark }) {
 	const todoRef = useRef(null);
+
+	// enables keyboard focus styling for the todo item using :focus-visible pseudoclass
+	useEffect(() => {
+		const item = todoRef.current;
+
+		const handleFocus = () => {
+			if (item.querySelector(':focus-visible')) {
+				item.classList.add(styles.focus);
+			};
+		};
+
+		const handleBlur = () => {
+			if (!item.querySelector(':focus-visible')) {
+				item.classList.remove(styles.focus);
+			};
+		};
+
+		item.addEventListener('focusin', handleFocus);
+		item.addEventListener('focusout', handleBlur);
+
+		return () => {
+			item.removeEventListener('focusin', handleFocus);
+			item.removeEventListener('focusout', handleBlur);
+		};
+	}, []);
 
 	return (
 		<div
