@@ -22,6 +22,7 @@ import sortTodosByCompletion from '../utils/sortTodosByCompletion';
 
 // icons
 import { FaUndoAlt } from "react-icons/fa";
+import LeftSideBar from './LeftSideBar';
 
 function TodoApp() {
 	const inputBarRef = useRef(null);
@@ -45,6 +46,9 @@ function TodoApp() {
 
 	// filters
 	const [isOnlyUncompleted, setOnlyUncompleted] = useState(false);
+
+	// left sidebar
+	const [leftSideBarIsVisible, setLeftSideBarIsVisible] = useState(false);
 
 	// notification
 	const [notifIsVisible, setNotifIsVisible] = useState(false);
@@ -301,6 +305,10 @@ function TodoApp() {
 		setTodos(updatedTodos);
 	};
 
+	const handleToggleLeftSideBar = () => {
+		setLeftSideBarIsVisible((state) => !state);
+	};
+
 	// toggle modal
 	const handleToggleModal = (content) => {
 		if (content === null) {
@@ -315,41 +323,51 @@ function TodoApp() {
 
 	return (
 		<div className={styles.todoApp}>
-			<h1>DoVibe</h1>
+			<div className={styles.content}>
+				<h1>DoVibe</h1>
 
-			<InputBar
-				inputBarRef={inputBarRef}
-				onSubmit={handleAddTodo}
-			/>
+				<InputBar
+					inputBarRef={inputBarRef}
+					onSubmit={handleAddTodo}
+				/>
 
-			<FiltersBar
-				todos={todos}
-				initialDate={date}
-				setDate={setDate}
-				colorScheme={colorScheme}
-				onChangeScheme={handleChangeScheme}
-				onChangeViewMode={handleChangeViewMode}
-				setOnlyUncompleted={setOnlyUncompleted}
-				checkForUnfinishedTodosInDay={checkForUnfinishedTodosInDay}
-			/>
+				<FiltersBar
+					initialDate={date}
+					colorScheme={colorScheme}
+					onChangeScheme={handleChangeScheme}
+					onChangeViewMode={handleChangeViewMode}
+					onToggleLeftSideBar={handleToggleLeftSideBar}
+					setOnlyUncompleted={setOnlyUncompleted}
+				/>
 
-			<TodoList
-				list={
-					// displaying daily todos; if no date is selected, show all todos
-					date ? todos[date] : allTodos
-				}
-				date={date}
-				showCustomModal={handleToggleModal}
-				onReorderTodo={handleReorderTodo}
-				onRenameTodo={handleRenameTodo}
-				onRemoveTodo={handleRemoveTodo}
-				onMarkTodo={handleMarkTodo}
-				isOnlyUncompleted={isOnlyUncompleted}
-			/>
+				<TodoList
+					list={
+						// displaying daily todos; if no date is selected, show all todos
+						date ? todos[date] : allTodos
+					}
+					date={date}
+					showCustomModal={handleToggleModal}
+					onReorderTodo={handleReorderTodo}
+					onRenameTodo={handleRenameTodo}
+					onRemoveTodo={handleRemoveTodo}
+					onMarkTodo={handleMarkTodo}
+					isOnlyUncompleted={isOnlyUncompleted}
+				/>
+			</div>
 
 			<Footer />
 
 			<AnimatePresence>
+				{leftSideBarIsVisible && (
+					<LeftSideBar
+						key={'LeftSideBar'}
+						todos={todos}
+						initialDate={date}
+						onPickDate={handleChangeViewMode}
+						checkForUnfinishedTodosInDay={checkForUnfinishedTodosInDay}
+					/>
+				)}
+
 				{modalIsVisible && (
 					<Modal
 						key={'modal'}

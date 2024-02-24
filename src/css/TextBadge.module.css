@@ -1,0 +1,14 @@
+.textBadge {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	height: 2rem;
+
+	background-color: var(--bg-color-secondary);
+	border-radius: var(--border-radius-secondary);
+	color: var(--text-color-primary);
+	box-shadow: var(--box-shadow-primary);
+
+	padding: 0.6rem;
+}

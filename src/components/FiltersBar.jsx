@@ -1,60 +1,33 @@
 import styles from '../css/FiltersBar.module.css';
 
-// react, framer
-import { useState } from 'react';
-import { AnimatePresence } from 'framer-motion';
-
 // icons
-import { FaCalendar } from "react-icons/fa";
-import { FaSun } from "react-icons/fa";
-import { FaMoon } from "react-icons/fa";
-import { FaCalendarAlt } from "react-icons/fa";
-import { FaCalendarDay } from "react-icons/fa";
-import { FaListAlt } from "react-icons/fa";
+import { BsLayoutSidebarInset } from "react-icons/bs"; // left side bar
+import { FaSun } from "react-icons/fa"; // light mode
+import { FaMoon } from "react-icons/fa"; // dark mode
+import { FaCalendarAlt } from "react-icons/fa"; // all todos
+import { FaCalendarDay } from "react-icons/fa"; // todos for the day
+import { FaListAlt } from "react-icons/fa"; // only uncompleted todos
 
 // components
-import DatePicker from '../components/datepicker/DatePicker';
 import Switcher from '../components/Switcher';
 import Filter from './Filter';
-import Tooltip from '../components/Tooltip';
+import TextBadge from './TextBadge';
 
-function FiltersBar({ todos, initialDate, colorScheme, onChangeScheme, onChangeViewMode, setOnlyUncompleted, checkForUnfinishedTodosInDay }) {
-	const [datePickerIsHidden, setDatePickerIsHidden] = useState(false);
-
+function FiltersBar({ initialDate, colorScheme, onChangeScheme, onChangeViewMode, onToggleLeftSideBar, setOnlyUncompleted }) {
 	return (
 		<div className={styles.filtersWrapper}>
-			{/* <div className={`${styles.datePickerWrapper}`}>
-				<input
-					className={styles.datePicker}
-					type="date"
-					value={initialDate}
-					onChange={(e) => onChangeViewMode(e.target.value)}
-					name="date"
-					id="date"
-				/>
-			</div> */}
-			{/*
-			<Tooltip text="Show date picker">
-				<button
-					className={styles.datePickerBtn}
-					onClick={() => setDatePickerIsHidden(!datePickerIsHidden)}
-				>
-					<FaCalendar />
-					{initialDate ? new Date(initialDate).toLocaleDateString() : 'All todos'}
-				</button>
-			</Tooltip> */}
+			<div className={styles.filtersLeft}>
+				<Filter
+					name="leftSideBar"
 
-			<div className={styles.datePickerSwitcher}>
-				<Tooltip text="Show date picker">
-					<input type="checkbox" name="datePicker" id="datePicker" />
-					<label
-						htmlFor="datePicker"
-						onClick={() => setDatePickerIsHidden(!datePickerIsHidden)}
-					>
-						<FaCalendar />
-						{initialDate ? new Date(initialDate).toLocaleDateString() : 'All todos'}
-					</label>
-				</Tooltip>
+					icon={<BsLayoutSidebarInset />}
+					tooltip="Toggle left side bar"
+					onChange={onToggleLeftSideBar}
+				/>
+
+				<span className={styles.separator}>|</span>
+
+				<TextBadge text={initialDate ? new Date(initialDate).toLocaleDateString() : 'All todos'} />
 			</div>
 
 			<div className={styles.filtersRight}>
@@ -102,17 +75,6 @@ function FiltersBar({ todos, initialDate, colorScheme, onChangeScheme, onChangeV
 					onChange={setOnlyUncompleted}
 				/>
 			</div>
-
-			<AnimatePresence>
-				{datePickerIsHidden && (
-					<DatePicker
-						todos={todos}
-						initialDate={initialDate}
-						onPickDate={onChangeViewMode}
-						checkForUnfinishedTodosInDay={checkForUnfinishedTodosInDay}
-					/>
-				)}
-			</AnimatePresence>
 		</div >
 	);
 }
