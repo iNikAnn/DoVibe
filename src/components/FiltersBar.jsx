@@ -2,7 +2,6 @@ import styles from '../css/FiltersBar.module.css';
 
 // icons
 import { BsLayoutSidebarInset } from "react-icons/bs"; // left side bar
-import { FaCalendar } from "react-icons/fa";
 import { FaSun } from "react-icons/fa"; // light mode
 import { FaMoon } from "react-icons/fa"; // dark mode
 import { FaCalendarAlt } from "react-icons/fa"; // all todos
@@ -12,7 +11,7 @@ import { FaListAlt } from "react-icons/fa"; // only uncompleted todos
 // components
 import Switcher from '../components/Switcher';
 import Filter from './Filter';
-import Tooltip from '../components/Tooltip';
+import TextBadge from './TextBadge';
 
 function FiltersBar({ initialDate, colorScheme, onChangeScheme, onChangeViewMode, onToggleLeftSideBar, setOnlyUncompleted }) {
 	return (
@@ -28,15 +27,7 @@ function FiltersBar({ initialDate, colorScheme, onChangeScheme, onChangeViewMode
 
 				<span className={styles.separator}>|</span>
 
-				<Tooltip text="Show date picker">
-					<input type="checkbox" name="datePicker" id="datePicker" />
-					<label
-						htmlFor="datePicker"
-					>
-						<FaCalendar />
-						{initialDate ? new Date(initialDate).toLocaleDateString() : 'All todos'}
-					</label>
-				</Tooltip>
+				<TextBadge text={initialDate ? new Date(initialDate).toLocaleDateString() : 'All todos'} />
 			</div>
 
 			<div className={styles.filtersRight}>
