@@ -1,15 +1,13 @@
 import styles from '../css/FiltersBar.module.css';
 
-// react, framer
-import { useState } from 'react';
-
 // icons
+import { BsLayoutSidebarInset } from "react-icons/bs"; // left side bar
 import { FaCalendar } from "react-icons/fa";
-import { FaSun } from "react-icons/fa";
-import { FaMoon } from "react-icons/fa";
-import { FaCalendarAlt } from "react-icons/fa";
-import { FaCalendarDay } from "react-icons/fa";
-import { FaListAlt } from "react-icons/fa";
+import { FaSun } from "react-icons/fa"; // light mode
+import { FaMoon } from "react-icons/fa"; // dark mode
+import { FaCalendarAlt } from "react-icons/fa"; // all todos
+import { FaCalendarDay } from "react-icons/fa"; // todos for the day
+import { FaListAlt } from "react-icons/fa"; // only uncompleted todos
 
 // components
 import Switcher from '../components/Switcher';
@@ -19,30 +17,17 @@ import Tooltip from '../components/Tooltip';
 function FiltersBar({ initialDate, colorScheme, onChangeScheme, onChangeViewMode, onToggleLeftSideBar, setOnlyUncompleted }) {
 	return (
 		<div className={styles.filtersWrapper}>
-			{/* <div className={`${styles.datePickerWrapper}`}>
-				<input
-					className={styles.datePicker}
-					type="date"
-					value={initialDate}
-					onChange={(e) => onChangeViewMode(e.target.value)}
-					name="date"
-					id="date"
+			<div className={styles.filtersLeft}>
+				<Filter
+					name="leftSideBar"
+
+					icon={<BsLayoutSidebarInset />}
+					tooltip="Toggle left side bar"
+					onChange={onToggleLeftSideBar}
 				/>
-			</div> */}
-			{/*
-			<Tooltip text="Show date picker">
-				<button
-					className={styles.datePickerBtn}
-					onClick={() => setDatePickerIsHidden(!datePickerIsHidden)}
-				>
-					<FaCalendar />
-					{initialDate ? new Date(initialDate).toLocaleDateString() : 'All todos'}
-				</button>
-			</Tooltip> */}
 
-			<button onClick={onToggleLeftSideBar}>Menu</button>
+				<span className={styles.separator}>|</span>
 
-			<div className={styles.datePickerSwitcher}>
 				<Tooltip text="Show date picker">
 					<input type="checkbox" name="datePicker" id="datePicker" />
 					<label

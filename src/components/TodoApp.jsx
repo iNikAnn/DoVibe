@@ -325,10 +325,12 @@ function TodoApp() {
 		<div className={styles.todoApp}>
 			<div className={styles.content}>
 				<h1>DoVibe</h1>
+
 				<InputBar
 					inputBarRef={inputBarRef}
 					onSubmit={handleAddTodo}
 				/>
+
 				<FiltersBar
 					initialDate={date}
 					colorScheme={colorScheme}
@@ -337,6 +339,7 @@ function TodoApp() {
 					onToggleLeftSideBar={handleToggleLeftSideBar}
 					setOnlyUncompleted={setOnlyUncompleted}
 				/>
+
 				<TodoList
 					list={
 						// displaying daily todos; if no date is selected, show all todos
