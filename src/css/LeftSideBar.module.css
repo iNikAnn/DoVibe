@@ -1,8 +1,9 @@
 .leftSideBar {
+	outline: 1px solid tomato;
 	position: fixed;
 	left: 0;
 	top: 0;
 
-	/* width: 200px; */
 	height: 100vh;
+	padding: 1rem;
 }

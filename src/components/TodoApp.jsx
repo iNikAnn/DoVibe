@@ -48,7 +48,7 @@ function TodoApp() {
 	const [isOnlyUncompleted, setOnlyUncompleted] = useState(false);
 
 	// left sidebar
-	const [leftSideBarIsVisible, setLeftSideBarIsVisible] = useState(true);
+	const [leftSideBarIsVisible, setLeftSideBarIsVisible] = useState(false);
 
 	// notification
 	const [notifIsVisible, setNotifIsVisible] = useState(false);
@@ -305,6 +305,10 @@ function TodoApp() {
 		setTodos(updatedTodos);
 	};
 
+	const handleToggleLeftSideBar = () => {
+		setLeftSideBarIsVisible((state) => !state);
+	};
+
 	// toggle modal
 	const handleToggleModal = (content) => {
 		if (content === null) {
@@ -326,14 +330,12 @@ function TodoApp() {
 					onSubmit={handleAddTodo}
 				/>
 				<FiltersBar
-					todos={todos}
 					initialDate={date}
-					setDate={setDate}
 					colorScheme={colorScheme}
 					onChangeScheme={handleChangeScheme}
 					onChangeViewMode={handleChangeViewMode}
+					onToggleLeftSideBar={handleToggleLeftSideBar}
 					setOnlyUncompleted={setOnlyUncompleted}
-					checkForUnfinishedTodosInDay={checkForUnfinishedTodosInDay}
 				/>
 				<TodoList
 					list={
@@ -354,7 +356,13 @@ function TodoApp() {
 
 			<AnimatePresence>
 				{leftSideBarIsVisible && (
-					<LeftSideBar />
+					<LeftSideBar
+						key={'LeftSideBar'}
+						todos={todos}
+						initialDate={date}
+						onPickDate={handleChangeViewMode}
+						checkForUnfinishedTodosInDay={checkForUnfinishedTodosInDay}
+					/>
 				)}
 
 				{modalIsVisible && (

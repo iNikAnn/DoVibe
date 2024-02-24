@@ -76,7 +76,8 @@ function DatePicker({ todos, initialDate, onPickDate, checkForUnfinishedTodosInD
 	};
 
 	return (
-		<motion.div className={styles.datePicker} {...datePickerVariants}>
+		// <motion.div className={styles.datePicker} {...datePickerVariants}>
+		<motion.div className={styles.datePicker}>
 			<div className={styles.controlsWrapper}>
 				<div className={styles.controls}>
 					<button onClick={() => handleChangeYear('back')}><IoIosArrowForward /></button>

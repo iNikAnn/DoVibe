@@ -2,7 +2,6 @@ import styles from '../css/FiltersBar.module.css';
 
 // react, framer
 import { useState } from 'react';
-import { AnimatePresence } from 'framer-motion';
 
 // icons
 import { FaCalendar } from "react-icons/fa";
@@ -13,14 +12,11 @@ import { FaCalendarDay } from "react-icons/fa";
 import { FaListAlt } from "react-icons/fa";
 
 // components
-import DatePicker from '../components/datepicker/DatePicker';
 import Switcher from '../components/Switcher';
 import Filter from './Filter';
 import Tooltip from '../components/Tooltip';
 
-function FiltersBar({ todos, initialDate, colorScheme, onChangeScheme, onChangeViewMode, setOnlyUncompleted, checkForUnfinishedTodosInDay }) {
-	const [datePickerIsHidden, setDatePickerIsHidden] = useState(false);
-
+function FiltersBar({ initialDate, colorScheme, onChangeScheme, onChangeViewMode, onToggleLeftSideBar, setOnlyUncompleted }) {
 	return (
 		<div className={styles.filtersWrapper}>
 			{/* <div className={`${styles.datePickerWrapper}`}>
@@ -44,12 +40,13 @@ function FiltersBar({ todos, initialDate, colorScheme, onChangeScheme, onChangeV
 				</button>
 			</Tooltip> */}
 
+			<button onClick={onToggleLeftSideBar}>Menu</button>
+
 			<div className={styles.datePickerSwitcher}>
 				<Tooltip text="Show date picker">
 					<input type="checkbox" name="datePicker" id="datePicker" />
 					<label
 						htmlFor="datePicker"
-						onClick={() => setDatePickerIsHidden(!datePickerIsHidden)}
 					>
 						<FaCalendar />
 						{initialDate ? new Date(initialDate).toLocaleDateString() : 'All todos'}
@@ -102,17 +99,6 @@ function FiltersBar({ todos, initialDate, colorScheme, onChangeScheme, onChangeV
 					onChange={setOnlyUncompleted}
 				/>
 			</div>
-
-			<AnimatePresence>
-				{datePickerIsHidden && (
-					<DatePicker
-						todos={todos}
-						initialDate={initialDate}
-						onPickDate={onChangeViewMode}
-						checkForUnfinishedTodosInDay={checkForUnfinishedTodosInDay}
-					/>
-				)}
-			</AnimatePresence>
 		</div >
 	);
 }
