@@ -1,9 +1,17 @@
 .todoApp {
-	width: 500px;
-	margin: 2rem 0;
+	/* outline: 1px solid tomato; */
+	/* width: 500px; */
+	/* margin: 2rem 0; */
 }
 
-.todoApp h1 {
+/* content */
+.content {
+	margin: 0 auto;
+	width: 500px;
+}
+
+.content h1 {
+	text-align: center;
 	font-size: 4rem;
 	font-weight: 900;
 	color: var(--text-color-primary);
