@@ -338,6 +338,7 @@ function TodoApp() {
 					onChangeViewMode={handleChangeViewMode}
 					onToggleLeftSideBar={handleToggleLeftSideBar}
 					setOnlyUncompleted={setOnlyUncompleted}
+					leftSideBarIsVisible={leftSideBarIsVisible}
 				/>
 
 				<TodoList
@@ -354,8 +355,6 @@ function TodoApp() {
 					isOnlyUncompleted={isOnlyUncompleted}
 				/>
 			</div>
-
-			<Footer />
 
 			<AnimatePresence>
 				{leftSideBarIsVisible && (
@@ -386,6 +385,8 @@ function TodoApp() {
 					</Notification>
 				)}
 			</AnimatePresence>
+
+			<Footer />
 		</div>
 	);
 }

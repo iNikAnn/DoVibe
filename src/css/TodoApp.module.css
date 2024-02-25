@@ -1,13 +1,15 @@
 .todoApp {
 	/* outline: 1px solid tomato; */
-	/* width: 500px; */
-	/* margin: 2rem 0; */
+	display: flex;
+	justify-content: center;
 }
 
 /* content */
 .content {
-	margin: 0 auto;
-	width: 500px;
+	flex: 1;
+	max-width: 555px;
+	padding: 1rem;
+	order: 1;
 }
 
 .content h1 {
