@@ -338,6 +338,7 @@ function TodoApp() {
 					onChangeViewMode={handleChangeViewMode}
 					onToggleLeftSideBar={handleToggleLeftSideBar}
 					setOnlyUncompleted={setOnlyUncompleted}
+					leftSideBarIsVisible={leftSideBarIsVisible}
 				/>
 
 				<TodoList

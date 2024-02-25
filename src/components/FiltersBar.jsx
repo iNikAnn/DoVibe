@@ -13,7 +13,7 @@ import Switcher from '../components/Switcher';
 import Filter from './Filter';
 import TextBadge from './TextBadge';
 
-function FiltersBar({ initialDate, colorScheme, onChangeScheme, onChangeViewMode, onToggleLeftSideBar, setOnlyUncompleted }) {
+function FiltersBar({ initialDate, colorScheme, onChangeScheme, onChangeViewMode, onToggleLeftSideBar, setOnlyUncompleted, leftSideBarIsVisible }) {
 	return (
 		<div className={styles.filtersWrapper}>
 			<div className={styles.filtersLeft}>
@@ -21,7 +21,7 @@ function FiltersBar({ initialDate, colorScheme, onChangeScheme, onChangeViewMode
 					name="leftSideBar"
 
 					icon={<BsLayoutSidebarInset />}
-					tooltip="Toggle left side bar"
+					tooltip={leftSideBarIsVisible ? 'Hide sidebar' : 'Show sidebar'}
 					onChange={onToggleLeftSideBar}
 				/>
 

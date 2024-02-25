@@ -33,7 +33,7 @@ function Tooltip({ text, children }) {
 				transform: 'translateX(-50%)'
 			});
 		};
-	}, []);
+	}, [isVisible]);
 
 	return (
 		<div
@@ -41,6 +41,7 @@ function Tooltip({ text, children }) {
 			style={{ position: 'relative' }}
 			onMouseEnter={() => setIsVisible(true)}
 			onMouseLeave={() => setIsVisible(false)}
+			onClick={() => setIsVisible(false)}
 		>
 			{children}
 
