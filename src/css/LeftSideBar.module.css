@@ -1,14 +1,14 @@
 .leftSideBar {
 	/* outline: 1px solid tomato; */
-	position: fixed;
-	left: 0;
+	position: sticky;
 	top: 0;
-
 	height: 100vh;
 
 	background-color: var(--bg);
-	box-shadow: var(--box-shadow-primary);
-
-	padding: 1rem;
 	z-index: 149;
+}
+
+.content {
+	padding: 1rem;
+	padding-right: 0;
 }

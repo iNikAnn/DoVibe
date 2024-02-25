@@ -355,8 +355,6 @@ function TodoApp() {
 				/>
 			</div>
 
-			<Footer />
-
 			<AnimatePresence>
 				{leftSideBarIsVisible && (
 					<LeftSideBar
@@ -386,6 +384,8 @@ function TodoApp() {
 					</Notification>
 				)}
 			</AnimatePresence>
+
+			<Footer />
 		</div>
 	);
 }

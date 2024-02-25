@@ -10,17 +10,34 @@ function LeftSideBar({ todos, initialDate, onPickDate, checkForUnfinishedTodosIn
 	const barVariants = {
 		initial: {
 			opacity: 0,
-			x: '-25%'
+			width: 0,
+			transform: 'translateX(-25%)'
 		},
 
 		animate: {
 			opacity: 1,
-			x: 0
+			width: 'auto',
+			transform: 'translateX(0)',
+
+			transition: {
+				ease: 'easeInOut',
+				duration: .3,
+				opacity: { delay: .3 },
+				transform: { delay: .3 }
+			}
 		},
 
 		exit: {
 			opacity: 0,
-			x: '-25%'
+			width: 0,
+			transform: 'translateX(-25%)',
+
+			transition: {
+				ease: 'easeInOut',
+				duration: .3,
+
+				width: { delay: .3 }
+			}
 		},
 	};
 
@@ -29,12 +46,14 @@ function LeftSideBar({ todos, initialDate, onPickDate, checkForUnfinishedTodosIn
 			{...barVariants}
 			className={styles.leftSideBar}
 		>
-			<DatePicker
-				todos={todos}
-				initialDate={initialDate}
-				onPickDate={onPickDate}
-				checkForUnfinishedTodosInDay={checkForUnfinishedTodosInDay}
-			/>
+			<div className={styles.content}>
+				<DatePicker
+					todos={todos}
+					initialDate={initialDate}
+					onPickDate={onPickDate}
+					checkForUnfinishedTodosInDay={checkForUnfinishedTodosInDay}
+				/>
+			</div>
 		</motion.section>
 	);
 }
