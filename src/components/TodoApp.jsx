@@ -26,11 +26,12 @@ import LeftSideBar from './LeftSideBar';
 
 function TodoApp() {
 	const inputBarRef = useRef(null);
+	const storredSettings = JSON.parse(localStorage.getItem('settings'));
 
 	// color scheme
 	const [colorScheme, setColorScheme] = useState(() => {
-		if (localStorage.getItem('scheme')) {
-			return localStorage.getItem('scheme');
+		if (storredSettings && storredSettings.colorScheme) {
+			return storredSettings.colorScheme;
 		} else {
 			return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 		};
@@ -38,17 +39,23 @@ function TodoApp() {
 
 	// date
 	const today = getFormattedDate(new Date());
-	const [date, setDate] = useState(today);
+	const [date, setDate] = useState(() => {
+		return storredSettings ? storredSettings.date : '';
+	});
 
 	// todos
 	const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || {});
 	const allTodos = Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse();
 
 	// filters
-	const [isOnlyUncompleted, setOnlyUncompleted] = useState(false);
+	const [isOnlyUncompleted, setOnlyUncompleted] = useState(() => {
+		return storredSettings ? storredSettings.filters.isOnlyUncompleted : false;
+	});
 
 	// left sidebar
-	const [leftSideBarIsVisible, setLeftSideBarIsVisible] = useState(false);
+	const [leftSideBarIsVisible, setLeftSideBarIsVisible] = useState(() => {
+		return storredSettings ? storredSettings.leftSideBar : false;
+	});
 	const [currentTodo, setCurrentTodo] = useState(JSON.parse(localStorage.getItem('currentTodo')) || null);
 
 	// notification
@@ -65,6 +72,20 @@ function TodoApp() {
 		localStorage.setItem('todos', JSON.stringify(todos));
 		localStorage.setItem('currentTodo', JSON.stringify(currentTodo));
 	}, [todos, currentTodo]);
+
+	// save settings to local storage
+	useEffect(() => {
+		const settings = {
+			leftSideBar: leftSideBarIsVisible,
+			colorScheme,
+			date,
+			filters: {
+				isOnlyUncompleted
+			},
+		};
+
+		localStorage.setItem('settings', JSON.stringify(settings));
+	}, [leftSideBarIsVisible, colorScheme, date, isOnlyUncompleted]);
 
 	// initialize scheme on first load
 	useEffect(() => {
@@ -120,7 +141,7 @@ function TodoApp() {
 	const handleChangeScheme = (newScheme) => {
 		document.documentElement.setAttribute('data-scheme', newScheme);
 
-		localStorage.setItem('scheme', newScheme);
+		// localStorage.setItem('scheme', newScheme);
 
 		setColorScheme(newScheme);
 	};
@@ -376,7 +397,9 @@ function TodoApp() {
 					onChangeViewMode={handleChangeViewMode}
 					onToggleLeftSideBar={handleToggleLeftSideBar}
 					setOnlyUncompleted={setOnlyUncompleted}
+
 					leftSideBarIsVisible={leftSideBarIsVisible}
+					isOnlyUncompleted={isOnlyUncompleted}
 				/>
 
 				<TodoList
@@ -395,7 +418,7 @@ function TodoApp() {
 				/>
 			</div>
 
-			<AnimatePresence>
+			<AnimatePresence initial={false}>
 				{leftSideBarIsVisible && (
 					<LeftSideBar
 						key={'LeftSideBar'}
