@@ -202,6 +202,10 @@ function TodoApp() {
 
 		setTodos(updatedTodos);
 
+		if (currentTodo && currentTodo.id === id) {
+			setCurrentTodo(null);
+		};
+
 		// display notification about todo deletion
 		if (showNotif) {
 			setTimeout(() => {
