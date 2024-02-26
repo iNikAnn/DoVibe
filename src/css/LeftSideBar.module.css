@@ -2,6 +2,7 @@
 	/* outline: 1px solid tomato; */
 	position: sticky;
 	top: 0;
+
 	height: 100vh;
 
 	background-color: var(--bg);
@@ -9,6 +10,10 @@
 }
 
 .content {
+	display: flex;
+	flex-direction: column;
+	/* gap: 1rem; */
+
 	padding: 1rem;
 	padding-right: 0;
 }

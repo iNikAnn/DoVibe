@@ -358,7 +358,7 @@ function TodoApp() {
 	return (
 		<div className={styles.todoApp}>
 			<div className={styles.content}>
-				<h1>DoVibe</h1>
+				{/* <h1>DoVibe</h1> */}
 
 				<InputBar
 					inputBarRef={inputBarRef}

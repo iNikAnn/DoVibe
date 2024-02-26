@@ -1,0 +1,76 @@
+.currentTodo {
+	/* outline: 1px solid tomato; */
+	position: relative;
+
+	background-color: var(--bg-color-primary);
+	border: 2px solid #3eb489;
+	border-radius: var(--border-radius-primary);
+	box-shadow: var(--box-shadow-primary);
+
+	padding: 1rem;
+	/* margin-top: 0.5rem; */
+	margin-bottom: 1rem;
+
+	transition: height 0.3s ease;
+}
+
+.badge {
+	/* outline: 1px solid tomato; */
+	position: absolute;
+	top: 0;
+	left: 1rem;
+	transform: translateY(-50%);
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	height: 1rem;
+
+	background-color: #3eb489;
+	border-radius: 0.2rem;
+	padding: 0 0.2rem;
+}
+
+.borderAnimation {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.borderAnimation::before {
+	content: '';
+	position: absolute;
+
+	width: 100%;
+	height: 100%;
+
+	background-image: linear-gradient(to right, red, blue);
+
+	/* animation: rotate 3s linear infinite; */
+}
+
+.borderAnimation::after {
+	/* content: ''; */
+	/* position: absolute; */
+
+	/* width: calc(100% - 10px);
+	height: calc(100% - 10px);
+
+	background-color: var(--bg-color-primary);
+	border-radius: var(--border-radius-secondary); */
+}
+
+@keyframes rotate {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	50% {
+		transform: rotate(180deg);
+	}
+
+	100% {
+		transform: rotate(0deg);
+	}
+}

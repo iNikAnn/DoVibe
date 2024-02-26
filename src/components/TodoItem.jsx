@@ -56,7 +56,7 @@ function TodoItem({ title, id, bin, isCompleted, isCurrent, onRename, onRemove, 
 				<TodoActionBtn
 					title="Mark as current"
 					icon={isCurrent ? <BsBookmarkFill /> : <BsBookmark />}
-					iconColor="#7fc7ff"
+					iconColor="#3eb489"
 					onClick={() => onMarkAsCurrent(bin, id)}
 				/>
 
