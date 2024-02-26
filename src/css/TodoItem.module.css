@@ -68,7 +68,10 @@
 
 /* state */
 .isCompleted {
-	/* opacity: 0.25; */
 	color: var(--text-color-dimmed);
 	text-decoration: line-through;
+}
+
+.isCurrent {
+	color: #3eb489;
 }

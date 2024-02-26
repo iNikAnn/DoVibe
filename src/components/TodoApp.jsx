@@ -49,6 +49,7 @@ function TodoApp() {
 
 	// left sidebar
 	const [leftSideBarIsVisible, setLeftSideBarIsVisible] = useState(false);
+	const [currentTodo, setCurrentTodo] = useState(JSON.parse(localStorage.getItem('currentTodo')) || null);
 
 	// notification
 	const [notifIsVisible, setNotifIsVisible] = useState(false);
@@ -62,7 +63,8 @@ function TodoApp() {
 	// save todos to local storage
 	useEffect(() => {
 		localStorage.setItem('todos', JSON.stringify(todos));
-	}, [todos]);
+		localStorage.setItem('currentTodo', JSON.stringify(currentTodo));
+	}, [todos, currentTodo]);
 
 	// initialize scheme on first load
 	useEffect(() => {
@@ -139,6 +141,7 @@ function TodoApp() {
 			title: input,
 			id: uuidv4(),
 			isCompleted: false,
+			isCurrent: false,
 			date: Date.now(),
 			bin: day
 		};
@@ -169,6 +172,7 @@ function TodoApp() {
 	// remove todo
 	const handleRemoveTodo = (bin, id, showNotif = true) => {
 		const updatedTodos = { ...todos };
+
 		updatedTodos[bin] = updatedTodos[bin].filter((todo) => todo.id !== id);
 
 		if (updatedTodos[bin].length === 0) {
@@ -220,9 +224,10 @@ function TodoApp() {
 		}, 2000);
 	};
 
-	// mars todo as completed/uncompleted
+	// mark todo as completed/uncompleted
 	const handleMarkTodo = (bin, id) => {
 		const updatedTodos = { ...todos };
+
 		updatedTodos[bin] = updatedTodos[bin].map((todo) => {
 			return (todo.id === id)
 				? { ...todo, isCompleted: !todo.isCompleted, date: Date.now(), id: uuidv4() }
@@ -236,6 +241,35 @@ function TodoApp() {
 		setTimeout(() => {
 			setTodos(updatedTodos);
 		}, 600);
+	};
+
+	// mark todo as current
+	const handleMarkTodoAsCurrent = (bin, id) => {
+		setTodos((prevTodos) => {
+			const updatedTodos = { ...prevTodos };
+
+			if (currentTodo && currentTodo.bin !== bin) {
+				updatedTodos[currentTodo.bin] = updatedTodos[currentTodo.bin].map((todo) => {
+					return (todo.id === currentTodo.id)
+						? { ...todo, isCurrent: false }
+						: { ...todo };
+				});
+			};
+
+			updatedTodos[bin] = updatedTodos[bin].map((todo) => {
+				return (todo.id === id)
+					? { ...todo, isCurrent: !todo.isCurrent }
+					: { ...todo, isCurrent: false };
+			});
+
+			return updatedTodos;
+		})
+
+		setCurrentTodo((prevCurrent) => {
+			return (prevCurrent && prevCurrent.id === id)
+				? null
+				: { ...todos[bin].find((todo) => todo.id === id) };
+		});
 	};
 
 	// reorder todo
@@ -352,6 +386,7 @@ function TodoApp() {
 					onRenameTodo={handleRenameTodo}
 					onRemoveTodo={handleRemoveTodo}
 					onMarkTodo={handleMarkTodo}
+					onMarkTodoAsCurrent={handleMarkTodoAsCurrent}
 					isOnlyUncompleted={isOnlyUncompleted}
 				/>
 			</div>
@@ -360,8 +395,9 @@ function TodoApp() {
 				{leftSideBarIsVisible && (
 					<LeftSideBar
 						key={'LeftSideBar'}
-						todos={todos}
 						initialDate={date}
+						todos={todos}
+						currentTodo={currentTodo}
 						onPickDate={handleChangeViewMode}
 						checkForUnfinishedTodosInDay={checkForUnfinishedTodosInDay}
 					/>

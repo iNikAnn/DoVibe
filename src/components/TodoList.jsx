@@ -12,7 +12,7 @@ import insertDateSeparator from '../utils/insertDateSeparator';
 import filterTodoList from '../utils/filterTodoList';
 import isTodoDraggable from '../utils/isTodoDraggable';
 
-function TodoList({ list, date, showCustomModal, onReorderTodo, onRenameTodo, onRemoveTodo, onMarkTodo, isOnlyUncompleted }) {
+function TodoList({ list, date, showCustomModal, onReorderTodo, onRenameTodo, onRemoveTodo, onMarkTodo, onMarkTodoAsCurrent, isOnlyUncompleted }) {
 	const [delay, setDelay] = useState(false);
 	const [isDragging, setIsDragging] = useState(false);
 	const [movedItemIndex, setMovedItemIndex] = useState();
@@ -160,6 +160,7 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onRenameTodo, on
 											onRename={handleRenameTodo}
 											onRemove={handleRemoveTodo}
 											onMark={handleMarkTodo}
+											onMarkAsCurrent={onMarkTodoAsCurrent}
 										/>
 									}
 								</Reorder.Item>

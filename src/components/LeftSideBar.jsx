@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 // components
 import DatePicker from './datepicker/DatePicker';
 
-function LeftSideBar({ todos, initialDate, onPickDate, checkForUnfinishedTodosInDay }) {
+function LeftSideBar({ initialDate, todos, currentTodo, onPickDate, checkForUnfinishedTodosInDay }) {
 	const barVariants = {
 		initial: {
 			opacity: 0,
@@ -47,6 +47,10 @@ function LeftSideBar({ todos, initialDate, onPickDate, checkForUnfinishedTodosIn
 			className={styles.leftSideBar}
 		>
 			<div className={styles.content}>
+				{currentTodo && (
+					<div>{currentTodo.title}</div>
+				)}
+
 				<DatePicker
 					todos={todos}
 					initialDate={initialDate}
