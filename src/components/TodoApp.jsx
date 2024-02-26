@@ -229,8 +229,12 @@ function TodoApp() {
 		const updatedTodos = { ...todos };
 
 		updatedTodos[bin] = updatedTodos[bin].map((todo) => {
+			if (todo.isCurrent) {
+				setCurrentTodo(null);
+			};
+
 			return (todo.id === id)
-				? { ...todo, isCompleted: !todo.isCompleted, date: Date.now(), id: uuidv4() }
+				? { ...todo, isCompleted: !todo.isCompleted, isCurrent: todo.isCurrent && false, date: Date.now(), id: uuidv4() }
 				: { ...todo };
 		});
 

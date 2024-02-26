@@ -53,19 +53,23 @@ function TodoItem({ title, id, bin, isCompleted, isCurrent, onRename, onRemove, 
 			</div>
 
 			<div className={styles.btnWrapper}>
-				<TodoActionBtn
-					title="Mark as current"
-					icon={isCurrent ? <BsBookmarkFill /> : <BsBookmark />}
-					iconColor="#3eb489"
-					onClick={() => onMarkAsCurrent(bin, id)}
-				/>
+				{!isCompleted && (
+					<TodoActionBtn
+						title="Mark as current"
+						icon={isCurrent ? <BsBookmarkFill /> : <BsBookmark />}
+						iconColor="#3eb489"
+						onClick={() => onMarkAsCurrent(bin, id)}
+					/>
+				)}
 
-				<TodoActionBtn
-					title="Rename todo"
-					icon={<HiMiniPencilSquare />}
-					iconColor="#7fc7ff"
-					onClick={() => onRename(bin, id, title)}
-				/>
+				{!isCompleted && (
+					<TodoActionBtn
+						title="Rename todo"
+						icon={<HiMiniPencilSquare />}
+						iconColor="#7fc7ff"
+						onClick={() => onRename(bin, id, title)}
+					/>
+				)}
 
 				<TodoActionBtn
 					title='Remove todo'
@@ -75,7 +79,7 @@ function TodoItem({ title, id, bin, isCompleted, isCurrent, onRename, onRemove, 
 				/>
 
 				<TodoActionBtn
-					title='Toggle Todo Status'
+					title={`Mark as ${isCompleted ? 'incomplete' : 'complete'}`}
 					icon={<FaCheck />}
 					iconColor="#3eb489"
 					onClick={() => onMark(bin, id)}
