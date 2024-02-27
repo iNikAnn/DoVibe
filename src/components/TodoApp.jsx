@@ -188,6 +188,10 @@ function TodoApp() {
 		updatedTodos[bin] = updatedDailyTodos;
 
 		setTodos(updatedTodos);
+
+		if (currentTodo && currentTodo.id === id) {
+			setCurrentTodo({ ...currentTodo, title: newTitle });
+		};
 	};
 
 	// remove todo
