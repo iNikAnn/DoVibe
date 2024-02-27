@@ -2,9 +2,11 @@ import styles from '../css/Footer.module.css';
 
 function Footer() {
 	return (
-		<div className={styles.footer}>
-			<small>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellendus</small>
-		</div>
+		<footer className={styles.footer}>
+			<small>
+				DoVibe on <a className={styles.link} href="https://github.com/iNikAnn/DoVibe" target="_blank">GitHub</a>
+			</small>
+		</footer>
 	);
 }
 

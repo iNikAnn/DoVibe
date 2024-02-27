@@ -13,3 +13,7 @@
 	padding: 0.2rem;
 	z-index: 199;
 }
+
+.link {
+	color: inherit;
+}
