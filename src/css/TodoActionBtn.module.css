@@ -9,7 +9,7 @@
 }
 
 .btn:hover {
-	background-color: var(--bg-color-secondary);
+	background-color: var(--bg-color-tertiary);
 	box-shadow: var(--box-shadow-primary);
 }
 

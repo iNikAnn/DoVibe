@@ -26,11 +26,12 @@ import LeftSideBar from './LeftSideBar';
 
 function TodoApp() {
 	const inputBarRef = useRef(null);
+	const storredSettings = JSON.parse(localStorage.getItem('settings'));
 
 	// color scheme
 	const [colorScheme, setColorScheme] = useState(() => {
-		if (localStorage.getItem('scheme')) {
-			return localStorage.getItem('scheme');
+		if (storredSettings && storredSettings.colorScheme) {
+			return storredSettings.colorScheme;
 		} else {
 			return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 		};
@@ -38,17 +39,24 @@ function TodoApp() {
 
 	// date
 	const today = getFormattedDate(new Date());
-	const [date, setDate] = useState(today);
+	const [date, setDate] = useState(() => {
+		return storredSettings ? storredSettings.date : '';
+	});
 
 	// todos
 	const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || {});
 	const allTodos = Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse();
 
 	// filters
-	const [isOnlyUncompleted, setOnlyUncompleted] = useState(false);
+	const [isOnlyUncompleted, setOnlyUncompleted] = useState(() => {
+		return storredSettings ? storredSettings.filters.isOnlyUncompleted : false;
+	});
 
 	// left sidebar
-	const [leftSideBarIsVisible, setLeftSideBarIsVisible] = useState(false);
+	const [leftSideBarIsVisible, setLeftSideBarIsVisible] = useState(() => {
+		return storredSettings ? storredSettings.leftSideBar : false;
+	});
+	const [currentTodo, setCurrentTodo] = useState(JSON.parse(localStorage.getItem('currentTodo')) || null);
 
 	// notification
 	const [notifIsVisible, setNotifIsVisible] = useState(false);
@@ -62,7 +70,22 @@ function TodoApp() {
 	// save todos to local storage
 	useEffect(() => {
 		localStorage.setItem('todos', JSON.stringify(todos));
-	}, [todos]);
+		localStorage.setItem('currentTodo', JSON.stringify(currentTodo));
+	}, [todos, currentTodo]);
+
+	// save settings to local storage
+	useEffect(() => {
+		const settings = {
+			leftSideBar: leftSideBarIsVisible,
+			colorScheme,
+			date,
+			filters: {
+				isOnlyUncompleted
+			},
+		};
+
+		localStorage.setItem('settings', JSON.stringify(settings));
+	}, [leftSideBarIsVisible, colorScheme, date, isOnlyUncompleted]);
 
 	// initialize scheme on first load
 	useEffect(() => {
@@ -118,7 +141,7 @@ function TodoApp() {
 	const handleChangeScheme = (newScheme) => {
 		document.documentElement.setAttribute('data-scheme', newScheme);
 
-		localStorage.setItem('scheme', newScheme);
+		// localStorage.setItem('scheme', newScheme);
 
 		setColorScheme(newScheme);
 	};
@@ -139,6 +162,7 @@ function TodoApp() {
 			title: input,
 			id: uuidv4(),
 			isCompleted: false,
+			isCurrent: false,
 			date: Date.now(),
 			bin: day
 		};
@@ -164,11 +188,16 @@ function TodoApp() {
 		updatedTodos[bin] = updatedDailyTodos;
 
 		setTodos(updatedTodos);
+
+		if (currentTodo && currentTodo.id === id) {
+			setCurrentTodo({ ...currentTodo, title: newTitle });
+		};
 	};
 
 	// remove todo
 	const handleRemoveTodo = (bin, id, showNotif = true) => {
 		const updatedTodos = { ...todos };
+
 		updatedTodos[bin] = updatedTodos[bin].filter((todo) => todo.id !== id);
 
 		if (updatedTodos[bin].length === 0) {
@@ -176,6 +205,10 @@ function TodoApp() {
 		};
 
 		setTodos(updatedTodos);
+
+		if (currentTodo && currentTodo.id === id) {
+			setCurrentTodo(null);
+		};
 
 		// display notification about todo deletion
 		if (showNotif) {
@@ -220,12 +253,17 @@ function TodoApp() {
 		}, 2000);
 	};
 
-	// mars todo as completed/uncompleted
+	// mark todo as completed/uncompleted
 	const handleMarkTodo = (bin, id) => {
 		const updatedTodos = { ...todos };
+
 		updatedTodos[bin] = updatedTodos[bin].map((todo) => {
+			if (todo.isCurrent) {
+				setCurrentTodo(null);
+			};
+
 			return (todo.id === id)
-				? { ...todo, isCompleted: !todo.isCompleted, date: Date.now(), id: uuidv4() }
+				? { ...todo, isCompleted: !todo.isCompleted, isCurrent: todo.isCurrent && false, date: Date.now(), id: uuidv4() }
 				: { ...todo };
 		});
 
@@ -236,6 +274,35 @@ function TodoApp() {
 		setTimeout(() => {
 			setTodos(updatedTodos);
 		}, 600);
+	};
+
+	// mark todo as current
+	const handleMarkTodoAsCurrent = (bin, id) => {
+		setTodos((prevTodos) => {
+			const updatedTodos = { ...prevTodos };
+
+			if (currentTodo && currentTodo.bin !== bin) {
+				updatedTodos[currentTodo.bin] = updatedTodos[currentTodo.bin].map((todo) => {
+					return (todo.id === currentTodo.id)
+						? { ...todo, isCurrent: false }
+						: { ...todo };
+				});
+			};
+
+			updatedTodos[bin] = updatedTodos[bin].map((todo) => {
+				return (todo.id === id)
+					? { ...todo, isCurrent: !todo.isCurrent }
+					: { ...todo, isCurrent: false };
+			});
+
+			return updatedTodos;
+		})
+
+		setCurrentTodo((prevCurrent) => {
+			return (prevCurrent && prevCurrent.id === id)
+				? null
+				: { ...todos[bin].find((todo) => todo.id === id) };
+		});
 	};
 
 	// reorder todo
@@ -324,7 +391,7 @@ function TodoApp() {
 	return (
 		<div className={styles.todoApp}>
 			<div className={styles.content}>
-				<h1>DoVibe</h1>
+				{/* <h1>DoVibe</h1> */}
 
 				<InputBar
 					inputBarRef={inputBarRef}
@@ -338,7 +405,9 @@ function TodoApp() {
 					onChangeViewMode={handleChangeViewMode}
 					onToggleLeftSideBar={handleToggleLeftSideBar}
 					setOnlyUncompleted={setOnlyUncompleted}
+
 					leftSideBarIsVisible={leftSideBarIsVisible}
+					isOnlyUncompleted={isOnlyUncompleted}
 				/>
 
 				<TodoList
@@ -352,16 +421,18 @@ function TodoApp() {
 					onRenameTodo={handleRenameTodo}
 					onRemoveTodo={handleRemoveTodo}
 					onMarkTodo={handleMarkTodo}
+					onMarkTodoAsCurrent={handleMarkTodoAsCurrent}
 					isOnlyUncompleted={isOnlyUncompleted}
 				/>
 			</div>
 
-			<AnimatePresence>
+			<AnimatePresence initial={false}>
 				{leftSideBarIsVisible && (
 					<LeftSideBar
 						key={'LeftSideBar'}
-						todos={todos}
 						initialDate={date}
+						todos={todos}
+						currentTodo={currentTodo}
 						onPickDate={handleChangeViewMode}
 						checkForUnfinishedTodosInDay={checkForUnfinishedTodosInDay}
 					/>

@@ -13,7 +13,7 @@ import Switcher from '../components/Switcher';
 import Filter from './Filter';
 import TextBadge from './TextBadge';
 
-function FiltersBar({ initialDate, colorScheme, onChangeScheme, onChangeViewMode, onToggleLeftSideBar, setOnlyUncompleted, leftSideBarIsVisible }) {
+function FiltersBar({ initialDate, colorScheme, onChangeScheme, onChangeViewMode, onToggleLeftSideBar, setOnlyUncompleted, leftSideBarIsVisible, isOnlyUncompleted }) {
 	return (
 		<div className={styles.filtersWrapper}>
 			<div className={styles.filtersLeft}>
@@ -22,6 +22,7 @@ function FiltersBar({ initialDate, colorScheme, onChangeScheme, onChangeViewMode
 
 					icon={<BsLayoutSidebarInset />}
 					tooltip={leftSideBarIsVisible ? 'Hide sidebar' : 'Show sidebar'}
+					checked={leftSideBarIsVisible}
 					onChange={onToggleLeftSideBar}
 				/>
 
@@ -69,9 +70,9 @@ function FiltersBar({ initialDate, colorScheme, onChangeScheme, onChangeViewMode
 
 				<Filter
 					name="onlyUncompleted"
-
 					icon={<FaListAlt />}
 					tooltip="Show only uncompleted todos"
+					checked={isOnlyUncompleted}
 					onChange={setOnlyUncompleted}
 				/>
 			</div>

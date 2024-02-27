@@ -1,9 +1,5 @@
 .datePicker {
 	/* outline: 1px solid tomato; */
-	/* position: absolute; */
-	/* top: 0; */
-	/* left: 0; */
-	/* display: inline-block; */
 	background-color: var(--bg-color-primary);
 	color: var(--text-color-primary);
 	box-shadow: var(--box-shadow-primary);

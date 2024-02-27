@@ -3,7 +3,7 @@ import styles from '../css/Filter.module.css';
 // components
 import Tooltip from '../components/Tooltip';
 
-function Filter({ name, icon, text, tooltip, onChange }) {
+function Filter({ name, icon, text, tooltip, onChange, checked }) {
 	return (
 		<div className={styles.filter}>
 			<input
@@ -11,6 +11,7 @@ function Filter({ name, icon, text, tooltip, onChange }) {
 				name={name}
 				type="checkbox"
 				id={name}
+				checked={checked}
 				onChange={(e) => onChange(e.target.checked)}
 				aria-label={tooltip}
 			/>

@@ -32,9 +32,9 @@ html[data-scheme='dark'] {
 	--text-color-dimmed: #4d4d4d;
 
 	--bg: #121212;
-	--bg-color-primary: #1e1e1e;
-	--bg-color-secondary: #2d2d2d;
-	--bg-color-tertiary: #363636;
+	--bg-color-primary: hsl(0, 0%, 12%);
+	--bg-color-secondary: hsl(0, 0%, 16%);
+	--bg-color-tertiary: hsl(0, 0%, 21%);
 }
 
 html[data-scheme='light'] {

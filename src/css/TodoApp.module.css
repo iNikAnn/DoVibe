@@ -9,6 +9,7 @@
 	flex: 1;
 	max-width: 555px;
 	padding: 1rem;
+	padding-top: 0;
 	order: 1;
 }
 
