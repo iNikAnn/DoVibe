@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/inikann.github.io/DoVibe/static/css/main.a19f19b5.css",
-    "main.js": "/inikann.github.io/DoVibe/static/js/main.6513b828.js",
+    "main.css": "/inikann.github.io/DoVibe/static/css/main.2964a1bb.css",
+    "main.js": "/inikann.github.io/DoVibe/static/js/main.dbc01f06.js",
     "index.html": "/inikann.github.io/DoVibe/index.html",
-    "main.a19f19b5.css.map": "/inikann.github.io/DoVibe/static/css/main.a19f19b5.css.map",
-    "main.6513b828.js.map": "/inikann.github.io/DoVibe/static/js/main.6513b828.js.map"
+    "main.2964a1bb.css.map": "/inikann.github.io/DoVibe/static/css/main.2964a1bb.css.map",
+    "main.dbc01f06.js.map": "/inikann.github.io/DoVibe/static/js/main.dbc01f06.js.map"
   },
   "entrypoints": [
-    "static/css/main.a19f19b5.css",
-    "static/js/main.6513b828.js"
+    "static/css/main.2964a1bb.css",
+    "static/js/main.dbc01f06.js"
   ]
 }
