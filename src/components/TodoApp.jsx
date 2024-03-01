@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { AnimatePresence } from 'framer-motion';
 
 // components
+import LeftSideBar from './LeftSideBar';
 import InputBar from './InputBar';
 import FiltersBar from './FiltersBar';
 import TodoList from './TodoList';
@@ -22,7 +23,6 @@ import sortTodosByCompletion from '../utils/sortTodosByCompletion';
 
 // icons
 import { FaUndoAlt } from "react-icons/fa";
-import LeftSideBar from './LeftSideBar';
 
 function TodoApp() {
 	const inputBarRef = useRef(null);
@@ -160,6 +160,7 @@ function TodoApp() {
 		const updatedTodos = { ...todos };
 		const newTodo = {
 			title: input,
+			description: '',
 			id: uuidv4(),
 			isCompleted: false,
 			isCurrent: false,
@@ -176,18 +177,20 @@ function TodoApp() {
 		setTodos(updatedTodos);
 	};
 
-	// rename todo
-	const handleRenameTodo = (bin, id, newTitle) => {
-		if (!newTitle || isTodoDuplicate(todos[bin], newTitle)) return;
+	// edit todo
+	const handleEditTodo = (bin, id, newTitle, newDesc) => {
+		if (!newTitle || isTodoDuplicate(todos[bin], newTitle, id)) return;
 
 		const updatedTodos = { ...todos };
 		const updatedDailyTodos = updatedTodos[bin].map((todo) => {
-			return (todo.id === id) ? { ...todo, title: newTitle } : { ...todo };
+			return (todo.id === id) ? { ...todo, title: newTitle, description: newDesc } : { ...todo };
 		});
 
 		updatedTodos[bin] = updatedDailyTodos;
 
 		setTodos(updatedTodos);
+
+		console.log(updatedTodos[bin]);
 
 		if (currentTodo && currentTodo.id === id) {
 			setCurrentTodo({ ...currentTodo, title: newTitle });
@@ -418,7 +421,7 @@ function TodoApp() {
 					date={date}
 					showCustomModal={handleToggleModal}
 					onReorderTodo={handleReorderTodo}
-					onRenameTodo={handleRenameTodo}
+					onEditTodo={handleEditTodo}
 					onRemoveTodo={handleRemoveTodo}
 					onMarkTodo={handleMarkTodo}
 					onMarkTodoAsCurrent={handleMarkTodoAsCurrent}

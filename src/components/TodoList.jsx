@@ -6,13 +6,14 @@ import { AnimatePresence, Reorder, motion } from 'framer-motion';
 
 // components
 import TodoItem from './TodoItem';
+import TodoDetails from '../components/modals/TodoDetails';
 
 // utils
 import insertDateSeparator from '../utils/insertDateSeparator';
 import filterTodoList from '../utils/filterTodoList';
 import isTodoDraggable from '../utils/isTodoDraggable';
 
-function TodoList({ list, date, showCustomModal, onReorderTodo, onRenameTodo, onRemoveTodo, onMarkTodo, onMarkTodoAsCurrent, isOnlyUncompleted }) {
+function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRemoveTodo, onMarkTodo, onMarkTodoAsCurrent, isOnlyUncompleted }) {
 	const [delay, setDelay] = useState(false);
 	const [isDragging, setIsDragging] = useState(false);
 	const [movedItemIndex, setMovedItemIndex] = useState();
@@ -28,21 +29,40 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onRenameTodo, on
 		list = filterTodoList(list, filters);
 	};
 
-	const handleRenameTodo = (bin, id, title) => {
+	const handleOpenTodo = (title, desc) => {
+		showCustomModal(
+			<TodoDetails
+				title={title}
+				desc={desc}
+			/>
+		);
+	};
+
+	const handleEditTodo = (bin, id, title, desc) => {
 		showCustomModal(
 			<form
 				action="submit"
 				onSubmit={(e) => {
 					e.preventDefault();
-					onRenameTodo(bin, id, e.target.newTitle.value);
+					onEditTodo(bin, id, e.target.newTitle.value, e.target.newDesc.value);
 					showCustomModal(null);
 				}}
 			>
-				<h3>Enter new title</h3>
-				<input type="text" name="newTitle" id="newTitle" defaultValue={title} autoFocus />
+				<h3>Edit todo</h3>
+
+				<label htmlFor="newTitle">
+					New title:
+					<input type="text" name="newTitle" id="newTitle" defaultValue={title} autoFocus />
+				</label>
+
+				<label htmlFor="newDesc">
+					New description:
+					<textarea name="newDesc" id="newDesc" cols="1" rows="3" defaultValue={desc}></textarea>
+				</label>
+
 				<div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem' }}>
-					<button style={{ flex: 1 }} data-type="cancel">Cancel</button>
-					<button style={{ flex: 1 }} type="submit">Rename</button>
+					<button style={{ flex: 1 }} type="button" data-type="cancel" onClick={() => showCustomModal(null)}>Cancel</button>
+					<button style={{ flex: 1 }} type="submit">Save</button>
 				</div>
 			</form>
 		)
@@ -157,7 +177,8 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onRenameTodo, on
 										? <div>{item.bin}</div>
 										: <TodoItem
 											{...item}
-											onRename={handleRenameTodo}
+											onOpen={handleOpenTodo}
+											onEdit={handleEditTodo}
 											onRemove={handleRemoveTodo}
 											onMark={handleMarkTodo}
 											onMarkAsCurrent={onMarkTodoAsCurrent}
