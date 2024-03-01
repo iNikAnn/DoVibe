@@ -64,7 +64,7 @@ function TodoItem(props) {
 			data-id={id}
 			className={`${styles.todoItemWrapper}`}
 		>
-			<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.6rem' }}>
+			<div className={styles.left}>
 				{description && (
 					<MdDescription title="Todo has a description" />
 				)}
