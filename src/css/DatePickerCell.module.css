@@ -8,7 +8,7 @@
 	height: 100%;
 
 	/* border-radius: 50%; */
-	border-radius: var(--border-radius-primary);
+	border-radius: var(--border-radius-secondary);
 }
 
 .cell:hover {

@@ -6,7 +6,8 @@ import { AnimatePresence, Reorder, motion } from 'framer-motion';
 
 // components
 import TodoItem from './TodoItem';
-import TodoDetails from '../components/modals/TodoDetails';
+import TodoDetails from './TodoDetails';
+import DetailCard from './DetailCard';
 
 // utils
 import insertDateSeparator from '../utils/insertDateSeparator';
@@ -21,6 +22,9 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRe
 	const needFiltering = isOnlyUncompleted;
 	const filters = [[isOnlyUncompleted, 'isCompleted']];
 
+	const [todoIsOpened, setTodoIsOpened] = useState(false);
+	const [detailCardContent, setDetailCardContent] = useState(null)
+
 	if (!date) {
 		list = insertDateSeparator(list);
 	};
@@ -30,12 +34,14 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRe
 	};
 
 	const handleOpenTodo = (title, desc) => {
-		showCustomModal(
+		setDetailCardContent(
 			<TodoDetails
 				title={title}
 				desc={desc}
 			/>
 		);
+
+		setTodoIsOpened(true);
 	};
 
 	const handleEditTodo = (bin, id, title, desc) => {
@@ -139,7 +145,15 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRe
 
 	return (
 		<div className={styles.todoList}>
+			{todoIsOpened && (
+				<DetailCard
+					childrens={detailCardContent}
+					onClose={() => setTodoIsOpened(false)}
+				/>
+			)}
+
 			<Reorder.Group
+				className={todoIsOpened ? styles.hidden : ''}
 				axis="y"
 				values={list ? list : []}
 				onReorder={(reorderedList) => onReorderTodo(reorderedList, list[movedItemIndex])}

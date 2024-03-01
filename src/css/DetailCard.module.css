@@ -1,0 +1,13 @@
+.detailCard {
+	/* outline: 1px solid tomato; */
+	position: absolute;
+
+	width: 100%;
+
+	background-color: var(--bg-color-primary);
+	border-radius: var(--border-radius-primary);
+	box-shadow: var(--box-shadow-primary);
+
+	padding: 0.6rem;
+	z-index: 99;
+}

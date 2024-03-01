@@ -4,7 +4,7 @@ import styles from '../css/TodoItem.module.css';
 import { useEffect, useRef } from 'react';
 
 // components
-import TodoActionBtn from './TodoActionBtn';
+import TodoActionBtn from './buttons/TodoActionBtn';
 
 // icons
 import { MdDescription } from "react-icons/md";

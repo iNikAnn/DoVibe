@@ -1,4 +1,4 @@
-import styles from '../css/TodoActionBtn.module.css';
+import styles from '../../css/TodoActionBtn.module.css';
 
 function TodoActionBtn({ title, icon, iconColor, onClick }) {
 	return (
