@@ -179,7 +179,7 @@ function TodoApp() {
 
 	// edit todo
 	const handleEditTodo = (bin, id, newTitle, newDesc) => {
-		if (!newTitle || isTodoDuplicate(todos[bin], newTitle)) return;
+		if (!newTitle || isTodoDuplicate(todos[bin], newTitle, id)) return;
 
 		const updatedTodos = { ...todos };
 		const updatedDailyTodos = updatedTodos[bin].map((todo) => {
