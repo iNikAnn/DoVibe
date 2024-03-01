@@ -6,6 +6,7 @@ import { AnimatePresence, Reorder, motion } from 'framer-motion';
 
 // components
 import TodoItem from './TodoItem';
+import TodoDetails from '../components/modals/TodoDetails';
 
 // utils
 import insertDateSeparator from '../utils/insertDateSeparator';
@@ -30,15 +31,10 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRe
 
 	const handleOpenTodo = (title, desc) => {
 		showCustomModal(
-			<div>
-				<h3>{title}</h3>
-
-				<p
-					style={{ whiteSpace: 'pre-line', marginTop: '1rem' }}
-				>
-					{desc}
-				</p>
-			</div>
+			<TodoDetails
+				title={title}
+				desc={desc}
+			/>
 		);
 	};
 
