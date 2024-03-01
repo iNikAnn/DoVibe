@@ -177,18 +177,20 @@ function TodoApp() {
 		setTodos(updatedTodos);
 	};
 
-	// rename todo
-	const handleRenameTodo = (bin, id, newTitle) => {
+	// edit todo
+	const handleEditTodo = (bin, id, newTitle, newDesc) => {
 		if (!newTitle || isTodoDuplicate(todos[bin], newTitle)) return;
 
 		const updatedTodos = { ...todos };
 		const updatedDailyTodos = updatedTodos[bin].map((todo) => {
-			return (todo.id === id) ? { ...todo, title: newTitle } : { ...todo };
+			return (todo.id === id) ? { ...todo, title: newTitle, description: newDesc } : { ...todo };
 		});
 
 		updatedTodos[bin] = updatedDailyTodos;
 
 		setTodos(updatedTodos);
+
+		console.log(updatedTodos[bin]);
 
 		if (currentTodo && currentTodo.id === id) {
 			setCurrentTodo({ ...currentTodo, title: newTitle });
@@ -419,7 +421,7 @@ function TodoApp() {
 					date={date}
 					showCustomModal={handleToggleModal}
 					onReorderTodo={handleReorderTodo}
-					onRenameTodo={handleRenameTodo}
+					onEditTodo={handleEditTodo}
 					onRemoveTodo={handleRemoveTodo}
 					onMarkTodo={handleMarkTodo}
 					onMarkTodoAsCurrent={handleMarkTodoAsCurrent}

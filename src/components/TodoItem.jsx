@@ -1,7 +1,7 @@
 import styles from '../css/TodoItem.module.css';
 
 // react, framer
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 // components
 import TodoActionBtn from './TodoActionBtn';
@@ -14,7 +14,23 @@ import { HiMiniPencilSquare } from "react-icons/hi2"; // edit todo
 import { FaTrash } from "react-icons/fa"; // remove todo
 import { FaCheck } from "react-icons/fa";	// mark todo as complete
 
-function TodoItem({ title, description, id, bin, isCompleted, isCurrent, onRename, onRemove, onMark, onMarkAsCurrent }) {
+function TodoItem(props) {
+	const {
+		title,
+		description,
+		id,
+		bin,
+		isCompleted,
+		isCurrent,
+
+		// actions
+		onOpen,
+		onEdit,
+		onRemove,
+		onMark,
+		onMarkAsCurrent
+	} = props;
+
 	const todoRef = useRef(null);
 
 	// enables keyboard focus styling for the todo item using :focus-visible pseudoclass
@@ -50,12 +66,12 @@ function TodoItem({ title, description, id, bin, isCompleted, isCurrent, onRenam
 		>
 			<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.6rem' }}>
 				{description && (
-					<MdDescription />
+					<MdDescription title="Todo has a description" />
 				)}
 
 				<div
 					className={`${styles.titleWrapper} ${description ? styles.hasDescription : ''} ${isCompleted ? styles.isCompleted : ''} ${isCurrent ? styles.isCurrent : ''}`}
-					onClick={description ? () => { console.log('hi') } : null}
+					onClick={description ? () => onOpen(title, description) : null}
 				>
 					<span className={styles.title}>{title}</span>
 				</div>
@@ -73,10 +89,10 @@ function TodoItem({ title, description, id, bin, isCompleted, isCurrent, onRenam
 
 				{!isCompleted && (
 					<TodoActionBtn
-						title="Rename todo"
+						title="Edit todo"
 						icon={<HiMiniPencilSquare />}
 						iconColor="#7fc7ff"
-						onClick={() => onRename(bin, id, title)}
+						onClick={() => onEdit(bin, id, title, description)}
 					/>
 				)}
 
