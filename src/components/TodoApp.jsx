@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { AnimatePresence } from 'framer-motion';
 
 // components
+import LeftSideBar from './LeftSideBar';
 import InputBar from './InputBar';
 import FiltersBar from './FiltersBar';
 import TodoList from './TodoList';
@@ -22,7 +23,6 @@ import sortTodosByCompletion from '../utils/sortTodosByCompletion';
 
 // icons
 import { FaUndoAlt } from "react-icons/fa";
-import LeftSideBar from './LeftSideBar';
 
 function TodoApp() {
 	const inputBarRef = useRef(null);
@@ -160,6 +160,7 @@ function TodoApp() {
 		const updatedTodos = { ...todos };
 		const newTodo = {
 			title: input,
+			description: '',
 			id: uuidv4(),
 			isCompleted: false,
 			isCurrent: false,
