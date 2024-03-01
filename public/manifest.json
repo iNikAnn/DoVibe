@@ -4,6 +4,13 @@
 	"description": "A straightforward and user-friendly task management web application that allows you to efficiently organize your tasks directly in the browser, hassle-free and without the need for registration.",
 	"categories": ["education", "lifestyle", "productivity"],
 
+	"related_applications": [
+		{
+			"platform": "webapp",
+			"url": "https://inikann.github.io/DoVibe/manifest.json"
+		}
+	],
+
 	"icons": [
 		{
 			"src": "favicon.ico",

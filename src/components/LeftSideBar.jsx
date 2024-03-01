@@ -1,18 +1,57 @@
 import styles from '../css/LeftSideBar.module.css';
 
-// framer
+// react, framer
+import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 // components
 import DatePicker from './datepicker/DatePicker';
 import CurrentTodo from './CurrentTodo';
+import BtnPrimary from './buttons/BtnPrimary';
+
+// icons
+import { MdGetApp } from "react-icons/md";
 
 function LeftSideBar({ initialDate, todos, currentTodo, onPickDate, checkForUnfinishedTodosInDay }) {
+	const [installPwaBtnIsVisible, setInstallPwaBtnIsVisible] = useState(false);
+
+	// show or hide install PWA button
+	useEffect(() => {
+		const checkIsInstalledPwa = () => {
+			if (window.matchMedia('(display-mode: standalone)').matches) {
+				setInstallPwaBtnIsVisible(false);
+			} else {
+				setInstallPwaBtnIsVisible(true);
+			};
+		};
+
+		checkIsInstalledPwa();
+	}, []);
+
+	// handle install app as PWA
+	const [installPrompt, setInstallPrompt] = useState(null);
+
+	useEffect(() => {
+		const beforeInstall = (event) => {
+			setInstallPrompt(event);
+		};
+
+		window.addEventListener('beforeinstallprompt', beforeInstall);
+
+		return () => window.removeEventListener('beforeinstallprompt', beforeInstall);
+	}, []);
+
+	const handleInstallPwa = async () => {
+		if (installPrompt) {
+			const result = await installPrompt.prompt();
+		};
+	};
+
 	const barVariants = {
 		initial: {
 			opacity: 0,
 			width: 0,
-			transform: 'translateX(-2rem)'
+			transform: 'translateX(-2rem)',
 		},
 
 		animate: {
@@ -64,6 +103,17 @@ function LeftSideBar({ initialDate, todos, currentTodo, onPickDate, checkForUnfi
 					onPickDate={onPickDate}
 					checkForUnfinishedTodosInDay={checkForUnfinishedTodosInDay}
 				/>
+
+
+				{installPwaBtnIsVisible && (
+					<div style={{ display: 'grid', marginTop: '1rem' }}>
+						<BtnPrimary
+							text="Install DoVibe as App"
+							icon={<MdGetApp />}
+							onClick={handleInstallPwa}
+						/>
+					</div>
+				)}
 			</div>
 		</motion.section>
 	);
