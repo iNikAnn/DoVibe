@@ -1,8 +1,9 @@
 .detailCard {
 	/* outline: 1px solid tomato; */
-	position: absolute;
+	position: fixed;
+	top: 1rem;
 
-	width: 100%;
+	width: calc(var(--app-content-width) - 2rem);
 
 	background-color: var(--bg-color-primary);
 	border-radius: var(--border-radius-primary);

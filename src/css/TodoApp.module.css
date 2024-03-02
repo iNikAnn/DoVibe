@@ -7,7 +7,7 @@
 /* content */
 .content {
 	flex: 1;
-	max-width: 555px;
+	max-width: var(--app-content-width);
 	padding: 1rem;
 	padding-top: 0;
 	order: 1;

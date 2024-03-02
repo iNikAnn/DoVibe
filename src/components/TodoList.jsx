@@ -1,7 +1,7 @@
 import styles from '../css/TodoList.module.css';
 
 // react, framer
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AnimatePresence, Reorder, motion } from 'framer-motion';
 
 // components
@@ -22,7 +22,7 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRe
 	const needFiltering = isOnlyUncompleted;
 	const filters = [[isOnlyUncompleted, 'isCompleted']];
 
-	const [todoIsOpened, setTodoIsOpened] = useState(false);
+	const [isTodoOpen, setIsTodoOpened] = useState(false);
 	const [detailCardContent, setDetailCardContent] = useState(null)
 
 	if (!date) {
@@ -33,6 +33,14 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRe
 		list = filterTodoList(list, filters);
 	};
 
+	useEffect(() => {
+		if (isTodoOpen) {
+			document.body.style.setProperty('overflow-y', 'hidden');
+		} else {
+			document.body.style.setProperty('overflow', 'scroll');
+		};
+	}, [isTodoOpen]);
+
 	const handleOpenTodo = (title, desc) => {
 		setDetailCardContent(
 			<TodoDetails
@@ -41,7 +49,7 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRe
 			/>
 		);
 
-		setTodoIsOpened(true);
+		setIsTodoOpened(true);
 	};
 
 	const handleEditTodo = (bin, id, title, desc) => {
@@ -145,15 +153,18 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRe
 
 	return (
 		<div className={styles.todoList}>
-			{todoIsOpened && (
-				<DetailCard
-					childrens={detailCardContent}
-					onClose={() => setTodoIsOpened(false)}
-				/>
-			)}
+			<AnimatePresence>
+				{isTodoOpen && (
+					<DetailCard
+						key="detailCard"
+						childrens={detailCardContent}
+						onClose={() => setIsTodoOpened(false)}
+					/>
+				)}
+			</AnimatePresence>
 
 			<Reorder.Group
-				className={todoIsOpened ? styles.hidden : ''}
+				className={isTodoOpen ? styles.hidden : ''}
 				axis="y"
 				values={list ? list : []}
 				onReorder={(reorderedList) => onReorderTodo(reorderedList, list[movedItemIndex])}
