@@ -4,7 +4,7 @@ import styles from '../css/TodoItem.module.css';
 import { useEffect, useRef } from 'react';
 
 // components
-import TodoActionBtn from './TodoActionBtn';
+import TodoActionBtn from './buttons/TodoActionBtn';
 
 // icons
 import { MdDescription } from "react-icons/md";
@@ -64,14 +64,14 @@ function TodoItem(props) {
 			data-id={id}
 			className={`${styles.todoItemWrapper}`}
 		>
-			<div className={styles.left}>
+			<div className={`${styles.left} ${isCompleted ? styles.isCompleted : ''}`}>
 				{description && (
 					<MdDescription title="Todo has a description" />
 				)}
 
 				<div
-					className={`${styles.titleWrapper} ${description ? styles.hasDescription : ''} ${isCompleted ? styles.isCompleted : ''} ${isCurrent ? styles.isCurrent : ''}`}
-					onClick={description ? () => onOpen(title, description) : null}
+					className={`${styles.titleWrapper} ${description ? styles.hasDescription : ''} ${isCurrent ? styles.isCurrent : ''}`}
+					onClick={description ? () => onOpen(title, description, bin, isCompleted) : null}
 				>
 					<span className={styles.title}>{title}</span>
 				</div>

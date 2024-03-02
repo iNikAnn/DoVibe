@@ -1,12 +1,13 @@
 import styles from '../css/TodoList.module.css';
 
 // react, framer
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AnimatePresence, Reorder, motion } from 'framer-motion';
 
 // components
 import TodoItem from './TodoItem';
-import TodoDetails from '../components/modals/TodoDetails';
+import TodoDetails from './TodoDetails';
+import DetailCard from './DetailCard';
 
 // utils
 import insertDateSeparator from '../utils/insertDateSeparator';
@@ -21,6 +22,9 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRe
 	const needFiltering = isOnlyUncompleted;
 	const filters = [[isOnlyUncompleted, 'isCompleted']];
 
+	const [isTodoOpen, setIsTodoOpened] = useState(false);
+	const [detailCardContent, setDetailCardContent] = useState(null)
+
 	if (!date) {
 		list = insertDateSeparator(list);
 	};
@@ -29,13 +33,31 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRe
 		list = filterTodoList(list, filters);
 	};
 
-	const handleOpenTodo = (title, desc) => {
-		showCustomModal(
+	// disable scrolling when a todo is open
+	useEffect(() => {
+		if (isTodoOpen) {
+			document.body.style.setProperty('overflow-y', 'hidden');
+		} else {
+			document.body.style.setProperty('overflow', 'scroll');
+		};
+	}, [isTodoOpen]);
+
+	// close the todo when the date is changed
+	useEffect(() => {
+		setIsTodoOpened(false);
+	}, [date]);
+
+	const handleOpenTodo = (title, desc, bin, isCompleted) => {
+		setDetailCardContent(
 			<TodoDetails
 				title={title}
 				desc={desc}
+				bin={bin}
+				isCompleted={isCompleted}
 			/>
 		);
+
+		setIsTodoOpened(true);
 	};
 
 	const handleEditTodo = (bin, id, title, desc) => {
@@ -139,7 +161,18 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRe
 
 	return (
 		<div className={styles.todoList}>
+			<AnimatePresence>
+				{isTodoOpen && (
+					<DetailCard
+						key="detailCard"
+						childrens={detailCardContent}
+						onClose={() => setIsTodoOpened(false)}
+					/>
+				)}
+			</AnimatePresence>
+
 			<Reorder.Group
+				className={isTodoOpen ? styles.hidden : ''}
 				axis="y"
 				values={list ? list : []}
 				onReorder={(reorderedList) => onReorderTodo(reorderedList, list[movedItemIndex])}

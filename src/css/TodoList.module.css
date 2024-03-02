@@ -1,7 +1,13 @@
 .todoList {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	margin: 1rem 0;
+}
+
+/* ul */
+.todoList ul {
+	transition: opacity 0.3s ease;
 }
 
 .noTaskMsg {
@@ -26,4 +32,10 @@
 
 .grabbing {
 	cursor: grabbing;
+}
+
+/* state */
+.hidden {
+	opacity: 0.1;
+	pointer-events: none;
 }

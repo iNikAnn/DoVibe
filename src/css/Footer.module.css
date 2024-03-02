@@ -1,17 +1,10 @@
 .footer {
-	/* outline: 1px solid tomato; */
-	position: fixed;
-	left: 0;
-	bottom: 0;
-	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 
 	background-color: var(--bg);
 	color: var(--text-color-dimmed);
-	text-align: center;
-	border-top: 1px solid var(--bg-color-primary);
-
-	padding: 0.2rem;
-	z-index: 199;
 }
 
 .link {

@@ -1,5 +1,7 @@
 ::-webkit-scrollbar {
-	width: 15px;
+	display: none;
+	/* width: 0; */
+	/* height: 0; */
 }
 ::-webkit-scrollbar-track {
 	background-color: transparent;
@@ -10,6 +12,7 @@
 }
 
 :root {
+	--app-content-width: 555px;
 	--box-shadow-primary: 0px 0px 10px rgba(0, 0, 0, 0.05);
 
 	--border-radius-primary: 0.6rem;

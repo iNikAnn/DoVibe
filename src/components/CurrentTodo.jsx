@@ -41,7 +41,7 @@ function CurrentTodo({ title }) {
 		<motion.div {...currentTodoVariants}>
 			<div className={`${styles.currentTodo}`}>
 				<small className={styles.badge}>Current todo</small>
-				<span>{title}</span>
+				<div className={styles.titleWrapper}>{title}</div>
 			</div>
 		</motion.div>
 	);

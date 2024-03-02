@@ -1,3 +1,28 @@
+.todoDetails {
+	/* outline: 1px solid tomato; */
+	display: flex;
+	flex-direction: column;
+
+	margin-top: 1rem;
+}
+
 .todoDetails a {
 	color: var(--accent-color);
+}
+
+.info {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+
+	height: 2rem;
+}
+
+.details {
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+
+	margin-top: 0.4rem;
+	padding: 0.6rem;
 }
