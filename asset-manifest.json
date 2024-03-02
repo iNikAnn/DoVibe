@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/DoVibe/static/css/main.ca46ead7.css",
-    "main.js": "/DoVibe/static/js/main.70465563.js",
+    "main.css": "/DoVibe/static/css/main.301adaf7.css",
+    "main.js": "/DoVibe/static/js/main.63ab306c.js",
     "service-worker.js": "/DoVibe/service-worker.js",
     "index.html": "/DoVibe/index.html",
-    "main.ca46ead7.css.map": "/DoVibe/static/css/main.ca46ead7.css.map",
-    "main.70465563.js.map": "/DoVibe/static/js/main.70465563.js.map"
+    "main.301adaf7.css.map": "/DoVibe/static/css/main.301adaf7.css.map",
+    "main.63ab306c.js.map": "/DoVibe/static/js/main.63ab306c.js.map"
   },
   "entrypoints": [
-    "static/css/main.ca46ead7.css",
-    "static/js/main.70465563.js"
+    "static/css/main.301adaf7.css",
+    "static/js/main.63ab306c.js"
   ]
 }
