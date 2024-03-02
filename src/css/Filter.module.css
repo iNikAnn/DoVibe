@@ -1,8 +1,3 @@
-:root {
-	--height: 2rem;
-	--width: 2.6rem;
-}
-
 /* filter */
 .filter {
 	position: relative;
@@ -10,8 +5,8 @@
 	align-items: center;
 	justify-content: center;
 
-	height: var(--height);
-	width: var(--width);
+	height: var(--small-btn-height);
+	width: var(--small-btn-width);
 
 	border-radius: var(--border-radius-secondary);
 	box-shadow: var(--box-shadow-primary);
@@ -30,8 +25,8 @@
 	align-items: center;
 	justify-content: center;
 
-	width: var(--width);
-	height: var(--height);
+	width: var(--small-btn-width);
+	height: var(--small-btn-height);
 
 	background-color: var(--bg-color-secondary);
 	border-radius: var(--border-radius-secondary);
@@ -44,6 +39,8 @@
 /* icon */
 .label svg {
 	transition: color 0.3s ease;
+	width: var(--small-icon-width);
+	height: var(--small-icon-height);
 }
 
 .label:hover,

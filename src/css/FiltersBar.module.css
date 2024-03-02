@@ -35,3 +35,14 @@
 	opacity: 0.5;
 	margin: 0 0.4rem;
 }
+
+@media screen and (max-width: 576px) {
+	.filtersLeft {
+		display: none;
+	}
+
+	.filtersRight {
+		justify-content: space-between;
+		width: 100%;
+	}
+}

@@ -17,3 +17,16 @@
 	padding: 1rem;
 	padding-right: 0;
 }
+
+@media screen and (max-width: 576px) {
+	.leftSideBar {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100% !important;
+	}
+
+	.content {
+		padding: 1rem;
+	}
+}

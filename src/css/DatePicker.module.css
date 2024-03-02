@@ -32,8 +32,8 @@
 	align-items: center;
 	justify-content: center;
 
-	width: 2.5rem;
-	height: 2rem;
+	width: var(--small-btn-width);
+	height: var(--small-btn-height);
 
 	background-color: var(--bg-color-secondary);
 	color: inherit;
@@ -53,8 +53,8 @@
 
 .days {
 	display: grid;
-	grid-template-columns: repeat(7, 2rem);
-	grid-auto-rows: minmax(2rem, auto);
+	grid-template-columns: repeat(7, var(--small-btn-height));
+	grid-auto-rows: minmax(var(--small-btn-height), auto);
 }
 
 .weekDay {
@@ -66,7 +66,7 @@
 }
 
 .todayBtn {
-	height: 2rem;
+	height: var(--small-btn-height);
 	width: 100%;
 
 	background-color: var(--bg-color-tertiary);
@@ -75,4 +75,11 @@
 	box-shadow: var(--box-shadow-primary);
 
 	margin-top: 0.6rem;
+}
+
+@media screen and (max-width: 567px) {
+	.days {
+		grid-template-columns: repeat(7, 1fr);
+		grid-auto-rows: minmax(1fr, auto);
+	}
 }

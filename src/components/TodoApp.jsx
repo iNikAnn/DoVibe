@@ -12,6 +12,7 @@ import FiltersBar from './FiltersBar';
 import TodoList from './TodoList';
 import Modal from '../components/Modal';
 import Notification from './Hotification';
+import SmallBtn from './buttons/SmallBtn';
 
 // utils
 import getFormattedDate from '../utils/getFormattedDate';
@@ -22,6 +23,7 @@ import sortTodosByCompletion from '../utils/sortTodosByCompletion';
 
 // icons
 import { FaUndoAlt } from "react-icons/fa";
+import { BsLayoutSidebarInset } from "react-icons/bs";
 
 function TodoApp() {
 	const inputBarRef = useRef(null);
@@ -456,6 +458,14 @@ function TodoApp() {
 					</Notification>
 				)}
 			</AnimatePresence>
+
+			<div className={styles.bottomBtnWrapper}>
+				<SmallBtn
+					title="Toggle sidebar"
+					icon={<BsLayoutSidebarInset />}
+					onClick={() => setLeftSideBarIsVisible((prevState) => !prevState)}
+				/>
+			</div>
 		</div>
 	);
 }

@@ -18,6 +18,12 @@
 	--border-radius-primary: 0.6rem;
 	--border-radius-secondary: 0.4rem;
 	--focus-primary: 2px solid var(--accent-color);
+
+	--small-btn-width: 2.6rem;
+	--small-btn-height: 2rem;
+
+	--small-icon-width: 1rem;
+	--small-icon-height: 1rem;
 }
 
 html[data-scheme='dark'] {
@@ -100,4 +106,14 @@ input {
 
 .focus {
 	outline: var(--focus-primary);
+}
+
+@media screen and (max-width: 576px) {
+	:root {
+		--small-btn-width: 3.9rem;
+		--small-btn-height: 3rem;
+
+		--small-icon-width: 1.5rem;
+		--small-icon-height: 1.5rem;
+	}
 }

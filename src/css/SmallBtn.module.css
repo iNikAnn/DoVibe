@@ -1,6 +1,6 @@
 .smallBtn {
-	width: 2.5rem;
-	height: 2rem;
+	width: var(--small-btn-width);
+	height: var(--small-btn-height);
 
 	background-color: var(--bg-color-secondary);
 	border-radius: var(--border-radius-secondary);
@@ -15,8 +15,8 @@
 }
 
 .smallBtn svg {
-	width: 1rem;
-	height: 1rem;
+	width: var(--small-icon-width);
+	height: var(--small-icon-height);
 
 	color: var(--text-color-primary);
 }

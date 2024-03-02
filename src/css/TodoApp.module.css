@@ -39,9 +39,23 @@
 	padding: 0 0.8rem;
 }
 
+.bottomBtnWrapper {
+	display: none;
+}
+
 @media screen and (max-width: 576px) {
-	.todoApp {
-		width: 100%;
-		padding: 0 1rem;
+	.bottomBtnWrapper {
+		/* outline: 1px solid tomato; */
+		position: fixed;
+		left: 0;
+		bottom: 0;
+
+		width: 100vw;
+
+		display: flex;
+		justify-content: space-between;
+
+		padding: 1rem;
+		z-index: 149;
 	}
 }
