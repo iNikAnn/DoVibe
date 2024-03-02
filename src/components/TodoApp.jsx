@@ -24,6 +24,7 @@ import sortTodosByCompletion from '../utils/sortTodosByCompletion';
 // icons
 import { FaUndoAlt } from "react-icons/fa";
 import { BsLayoutSidebarInset } from "react-icons/bs";
+import { MdLibraryAdd } from "react-icons/md";
 
 function TodoApp() {
 	const inputBarRef = useRef(null);
@@ -464,6 +465,13 @@ function TodoApp() {
 					title="Toggle sidebar"
 					icon={<BsLayoutSidebarInset />}
 					onClick={() => setLeftSideBarIsVisible((prevState) => !prevState)}
+				/>
+
+				<SmallBtn
+					title="Create new todo"
+					icon={<MdLibraryAdd />}
+					bgColor="#1970c2"
+					onClick={() => inputBarRef.current.focus()}
 				/>
 			</div>
 		</div>
