@@ -33,6 +33,7 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRe
 		list = filterTodoList(list, filters);
 	};
 
+	// disable scrolling when a todo is open
 	useEffect(() => {
 		if (isTodoOpen) {
 			document.body.style.setProperty('overflow-y', 'hidden');
@@ -40,6 +41,11 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRe
 			document.body.style.setProperty('overflow', 'scroll');
 		};
 	}, [isTodoOpen]);
+
+	// close the todo when the date is changed
+	useEffect(() => {
+		setIsTodoOpened(false);
+	}, [date]);
 
 	const handleOpenTodo = (title, desc, bin, isCompleted) => {
 		setDetailCardContent(
