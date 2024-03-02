@@ -123,7 +123,11 @@ function TodoApp() {
 		};
 
 		window.addEventListener('keydown', handleChangeDate);
-		inputBarRef.current.focus();  // highlight the input after loading or changing the date
+
+		// highlight the input after loading or changing the date
+		if (window.matchMedia('(min-width: 576px)').matches) {
+			inputBarRef.current.focus();
+		};
 
 		return () => window.removeEventListener('keydown', handleChangeDate);
 	}, [date]);
