@@ -8,6 +8,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import DatePicker from './datepicker/DatePicker';
 import CurrentTodo from './CurrentTodo';
 import BtnPrimary from './buttons/BtnPrimary';
+import Footer from './Footer';
 
 // icons
 import { MdGetApp } from "react-icons/md";
@@ -114,6 +115,10 @@ function LeftSideBar({ initialDate, todos, currentTodo, onPickDate, checkForUnfi
 						/>
 					</div>
 				)}
+
+				<div style={{ display: 'grid', marginTop: '1rem' }}>
+					<Footer />
+				</div>
 			</div>
 		</motion.section>
 	);

@@ -10,7 +10,6 @@ import LeftSideBar from './LeftSideBar';
 import InputBar from './InputBar';
 import FiltersBar from './FiltersBar';
 import TodoList from './TodoList';
-import Footer from './Footer';
 import Modal from '../components/Modal';
 import Notification from './Hotification';
 
@@ -457,8 +456,6 @@ function TodoApp() {
 					</Notification>
 				)}
 			</AnimatePresence>
-
-			<Footer />
 		</div>
 	);
 }
