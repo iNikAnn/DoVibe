@@ -110,6 +110,8 @@ input {
 
 @media screen and (max-width: 576px) {
 	:root {
+		--app-content-width: 99%;
+
 		--small-btn-width: 3.9rem;
 		--small-btn-height: 3rem;
 
