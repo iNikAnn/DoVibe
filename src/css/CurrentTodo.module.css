@@ -3,13 +3,11 @@
 	position: relative;
 
 	background-color: var(--bg-color-primary);
-	border: inset 3px solid #3eb489;
 	border-radius: var(--border-radius-primary);
 	box-shadow: var(--box-shadow-primary), inset 0px -2px 0px #3eb489;
 
 	min-height: 3rem;
 	padding: 1rem;
-	/* margin-top: 0.5rem; */
 	margin-bottom: 1rem;
 
 	transition: height 0.3s ease;
