@@ -4,10 +4,11 @@ import styles from '../css/DetailCard.module.css';
 import { motion } from 'framer-motion';
 
 // components
-import TodoActionBtn from './buttons/TodoActionBtn';
+import SmallBtn from './buttons/SmallBtn';
 
 // icon
-import { IoArrowUndo } from "react-icons/io5";
+import { FaWindowClose } from "react-icons/fa";
+
 
 const cardVariants = {
 	initial: {
@@ -33,13 +34,16 @@ function DetailCard({ childrens, onClose }) {
 			{...cardVariants}
 			transition={{ ease: 'easeInOut', duration: .3 }}
 		>
-			<div className={styles.topBtnWrapper}>
-				<TodoActionBtn
-					title="..."
-					icon={<IoArrowUndo />}
-					iconColor="#3eb489"
-					onClick={onClose}
-				/>
+			<div className={styles.titleBar}>
+				<span>Todo details</span>
+				<div className={styles.btnWrapper}>
+					<SmallBtn
+						title="Close"
+						icon={<FaWindowClose />}
+						// iconColor="#3eb489"
+						onClick={onClose}
+					/>
+				</div>
 			</div>
 
 			{childrens}

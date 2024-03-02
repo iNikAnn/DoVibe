@@ -13,7 +13,11 @@
 	align-items: center;
 	justify-content: space-between;
 
+	border-radius: var(--border-radius-secondary);
+	box-shadow: var(--box-shadow-primary);
+
 	margin-bottom: 0.4rem;
+	overflow: hidden;
 }
 
 /* controls */
@@ -23,19 +27,12 @@
 	gap: 0.6rem;
 }
 
-.controls {
-	border-radius: var(--border-radius-secondary);
-	box-shadow: var(--box-shadow-primary);
-
-	overflow: hidden;
-}
-
 .controls button {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 
-	width: 2rem;
+	width: 2.5rem;
 	height: 2rem;
 
 	background-color: var(--bg-color-secondary);

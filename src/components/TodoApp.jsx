@@ -190,8 +190,6 @@ function TodoApp() {
 
 		setTodos(updatedTodos);
 
-		console.log(updatedTodos[bin]);
-
 		if (currentTodo && currentTodo.id === id) {
 			setCurrentTodo({ ...currentTodo, title: newTitle });
 		};

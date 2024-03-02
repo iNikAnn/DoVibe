@@ -1,0 +1,22 @@
+.smallBtn {
+	width: 2.5rem;
+	height: 2rem;
+
+	background-color: var(--bg-color-secondary);
+	border-radius: var(--border-radius-secondary);
+	box-shadow: var(--box-shadow-primary);
+}
+
+/* svg */
+.iconWrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.smallBtn svg {
+	width: 1rem;
+	height: 1rem;
+
+	color: var(--text-color-primary);
+}

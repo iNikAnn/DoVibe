@@ -12,3 +12,19 @@
 	padding: 0.6rem;
 	z-index: 99;
 }
+
+.titleBar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	padding-left: 0.6rem;
+}
+
+.btnWrapper {
+	/* outline: 1px solid tomato; */
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 0.6rem;
+}

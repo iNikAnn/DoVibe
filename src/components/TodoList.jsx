@@ -41,11 +41,13 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRe
 		};
 	}, [isTodoOpen]);
 
-	const handleOpenTodo = (title, desc) => {
+	const handleOpenTodo = (title, desc, bin, isCompleted) => {
 		setDetailCardContent(
 			<TodoDetails
 				title={title}
 				desc={desc}
+				bin={bin}
+				isCompleted={isCompleted}
 			/>
 		);
 
