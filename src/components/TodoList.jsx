@@ -13,17 +13,17 @@ import DetailCard from './DetailCard';
 import insertDateSeparator from '../utils/insertDateSeparator';
 import filterTodoList from '../utils/filterTodoList';
 import isTodoDraggable from '../utils/isTodoDraggable';
+import ReorderItem from './ReorderItem';
 
 function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRemoveTodo, onMarkTodo, onMarkTodoAsCurrent, isOnlyUncompleted }) {
 	const [delay, setDelay] = useState(false);
-	const [isDragging, setIsDragging] = useState(false);
 	const [movedItemIndex, setMovedItemIndex] = useState();
 
 	const needFiltering = isOnlyUncompleted;
 	const filters = [[isOnlyUncompleted, 'isCompleted']];
 
 	const [isTodoOpen, setIsTodoOpened] = useState(false);
-	const [detailCardContent, setDetailCardContent] = useState(null)
+	const [detailCardContent, setDetailCardContent] = useState(null);
 
 	if (!date) {
 		list = insertDateSeparator(list);
@@ -181,43 +181,44 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRe
 					{list
 						? list.map((item, index) => {
 							const isDraggable = isTodoDraggable(list, index);
+							const isDateSeparator = item.type === 'dateSeparator';
+
+							let element = null;
+
+							if (isDateSeparator) {
+								element = <div>{item.bin}</div>;
+							} else {
+								element = (
+									<TodoItem
+										{...item}
+										onOpen={handleOpenTodo}
+										onEdit={handleEditTodo}
+										onRemove={handleRemoveTodo}
+										onMark={handleMarkTodo}
+										onMarkAsCurrent={onMarkTodoAsCurrent}
+									/>
+								);
+							};
 
 							return (
-								<Reorder.Item
+								<ReorderItem
 									key={item.id}
 									value={item}
-									{...itemVariants}
-									animate={item.type === 'dateSeparator' ? dateSeparatorVariants.animate : itemVariants.animate}
+
+									itemVariants={itemVariants}
+									animate={isDateSeparator ? dateSeparatorVariants.animate : itemVariants.animate}
 									custom={index}
 
-									style={{
-										position: 'relative',
-										cursor: item.type === 'dateSeparator' || item.isCompleted || !isDraggable ? 'auto' : isDragging ? 'grabbing' : 'grab',
-									}}
+									isDraggable={isDraggable}
 
-									className={item.type === 'dateSeparator' ? styles.binTitle : ''}
-
-									dragListener={isDraggable}
+									className={isDateSeparator ? styles.binTitle : ''}
 
 									onDrag={() => {
-										setIsDragging(true);
 										setMovedItemIndex(index);
 									}}
-
-									onDragEnd={() => setIsDragging(false)}
 								>
-									{item.type === 'dateSeparator'
-										? <div>{item.bin}</div>
-										: <TodoItem
-											{...item}
-											onOpen={handleOpenTodo}
-											onEdit={handleEditTodo}
-											onRemove={handleRemoveTodo}
-											onMark={handleMarkTodo}
-											onMarkAsCurrent={onMarkTodoAsCurrent}
-										/>
-									}
-								</Reorder.Item>
+									{element}
+								</ReorderItem>
 							)
 						}
 						) : (

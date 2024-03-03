@@ -1,6 +1,6 @@
 import styles from '../css/TodoItem.module.css';
 
-// react, framer
+// react
 import { useEffect, useRef } from 'react';
 
 // components
