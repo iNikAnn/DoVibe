@@ -94,24 +94,36 @@ function TodoApp() {
 		document.documentElement.setAttribute('data-scheme', colorScheme);
 	}, []);
 
+	const [isInputBarVisible, setIsInputBarVisible] = useState(!window.matchMedia('(max-width: 576px)').matches);
+
 	// highlights the inputbar parent form based on input focus
 	useEffect(() => {
 		const handleHighlightInputBar = () => {
 			inputBarRef.current.closest('form').classList.add('focus');
+
+			if (window.matchMedia('(max-width: 576px)').matches) {
+				setIsInputBarVisible(true);
+			};
 		};
 
 		const handleBlurInputBar = () => {
 			inputBarRef.current.closest('form').classList.remove('focus');
+
+			if (window.matchMedia('(max-width: 576px)').matches) {
+				setIsInputBarVisible(false);
+			};
 		};
 
-		inputBarRef.current.addEventListener('focus', handleHighlightInputBar);
-		inputBarRef.current.addEventListener('blur', handleBlurInputBar);
+		if (inputBarRef.current) {
+			inputBarRef.current.addEventListener('focus', handleHighlightInputBar);
+			inputBarRef.current.addEventListener('blur', handleBlurInputBar);
+		};
 
 		return () => {
 			inputBarRef.current.removeEventListener('focus', handleHighlightInputBar);
 			inputBarRef.current.removeEventListener('blur', handleBlurInputBar);
-		}
-	}, []);
+		};
+	}, [isInputBarVisible]);
 
 	// change the date by pressing comma / period
 	useEffect(() => {
@@ -395,15 +407,22 @@ function TodoApp() {
 		setModalIsVisible(true);
 	};
 
+
+
 	return (
 		<div className={styles.todoApp}>
 			<div className={styles.content}>
 				{/* <h1>DoVibe</h1> */}
 
-				<InputBar
-					inputBarRef={inputBarRef}
-					onSubmit={handleAddTodo}
-				/>
+				<AnimatePresence initial={false}>
+					{isInputBarVisible && (
+						<InputBar
+							key="inputBar"
+							inputBarRef={inputBarRef}
+							onSubmit={handleAddTodo}
+						/>
+					)}
+				</AnimatePresence>
 
 				<FiltersBar
 					initialDate={date}
@@ -471,12 +490,21 @@ function TodoApp() {
 					onClick={() => setLeftSideBarIsVisible((prevState) => !prevState)}
 				/>
 
-				<SmallBtn
-					title="Create new todo"
-					icon={<MdLibraryAdd />}
-					bgColor="#1970c2"
-					onClick={() => inputBarRef.current.focus()}
-				/>
+				<AnimatePresence>
+					{!isInputBarVisible && (
+						<SmallBtn
+							title="Create new todo"
+							icon={<MdLibraryAdd />}
+							bgColor="#1970c2"
+							onClick={() => {
+								setIsInputBarVisible(true);
+								setTimeout(() => {
+									inputBarRef.current.focus();
+								}, 0);
+							}}
+						/>
+					)}
+				</AnimatePresence>
 			</div>
 		</div>
 	);
