@@ -12,24 +12,25 @@ function ReorderItem(props) {
 
 		itemVariants,
 		animate,
-		custom
+		custom,
 	} = props;
 
 	const [isItemCurrentlyDragging, setIsItemCurrentlyDragging] = useState(false);
 	const controls = useDragControls();
 	let pressTimer = null;
 
-	const startPress = (e) => {
+	const startPress = (event) => {
 		if (!isDraggable) return;
 
 		if (window.matchMedia('(min-width: 576px)').matches) {
-			e.preventDefault();
-		};
+			event.preventDefault();
 
-		pressTimer = setTimeout(() => {
-			setIsItemCurrentlyDragging(true);
-			controls.start(e);
-		}, 750);
+			pressTimer = setTimeout(() => {
+				setIsItemCurrentlyDragging(true);
+
+				controls.start(event);
+			}, 750);
+		};
 	};
 
 	const endPress = () => {
@@ -49,7 +50,7 @@ function ReorderItem(props) {
 			value={value}
 
 			style={{
-				touchAction: "none",
+				touchAction: 'pan-y',
 				position: 'relative',
 				outline: isItemCurrentlyDragging ? '2px solid #1970c2' : 'unset',
 				borderRadius: '0.6rem',
