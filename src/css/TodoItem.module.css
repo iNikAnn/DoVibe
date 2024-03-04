@@ -95,3 +95,9 @@
 .isCurrent {
 	color: #3eb489;
 }
+
+@media screen and (max-width: 576px) {
+	.todoItemWrapper {
+		min-height: calc(var(--small-btn-height) + (0.6rem * 2));
+	}
+}

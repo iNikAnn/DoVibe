@@ -1,0 +1,14 @@
+.mobileItemMenu {
+	/* outline: 1px solid tomato; */
+	position: fixed;
+	bottom: 0;
+	left: 0;
+
+	width: 100%;
+
+	background-color: var(--bg-color-primary);
+	text-align: center;
+
+	padding: 1rem;
+	z-index: 999;
+}

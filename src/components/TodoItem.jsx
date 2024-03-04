@@ -28,7 +28,8 @@ function TodoItem(props) {
 		onEdit,
 		onRemove,
 		onMark,
-		onMarkAsCurrent
+		onMarkAsCurrent,
+		onLongPress
 	} = props;
 
 	const todoRef = useRef(null);
@@ -58,11 +59,29 @@ function TodoItem(props) {
 		};
 	}, []);
 
+	let pressTimer = null;
+
+	const startPress = (e) => {
+
+		pressTimer = setTimeout(() => {
+			onLongPress();
+		}, 500);
+	};
+
+	const endPress = () => {
+		if (pressTimer) {
+			clearTimeout(pressTimer);
+		};
+	};
 	return (
 		<div
 			ref={todoRef}
 			data-id={id}
 			className={`${styles.todoItemWrapper}`}
+
+			onPointerDown={startPress}
+			onPointerUp={endPress}
+			onPointerLeave={endPress}
 		>
 			<div className={`${styles.left} ${isCompleted ? styles.isCompleted : ''}`}>
 				{description && (

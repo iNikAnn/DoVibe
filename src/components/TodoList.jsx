@@ -15,7 +15,7 @@ import filterTodoList from '../utils/filterTodoList';
 import isTodoDraggable from '../utils/isTodoDraggable';
 import ReorderItem from './ReorderItem';
 
-function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRemoveTodo, onMarkTodo, onMarkTodoAsCurrent, isOnlyUncompleted }) {
+function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRemoveTodo, onMarkTodo, onMarkTodoAsCurrent, onLongPress, isOnlyUncompleted }) {
 	const [delay, setDelay] = useState(false);
 	const [movedItemIndex, setMovedItemIndex] = useState();
 
@@ -114,6 +114,11 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRe
 		}, 1200);
 	};
 
+	const handleLongPress = () => {
+		console.log('hi');
+		onLongPress();
+	}
+
 	const itemVariants = {
 		initial: {
 			opacity: 0,
@@ -196,6 +201,7 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRe
 										onRemove={handleRemoveTodo}
 										onMark={handleMarkTodo}
 										onMarkAsCurrent={onMarkTodoAsCurrent}
+										onLongPress={handleLongPress}
 									/>
 								);
 							};
