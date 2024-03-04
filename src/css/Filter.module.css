@@ -41,9 +41,12 @@
 	transition: color 0.3s ease;
 	width: var(--small-icon-width);
 	height: var(--small-icon-height);
+
+	transition-property: color, transform;
+	transition-duration: 0.3s;
+	transition-timing-function: ease;
 }
 
-.label:hover,
 .input:checked + div .label svg {
 	color: var(--text-color-primary);
 }
@@ -59,4 +62,10 @@
 
 .input:focus-visible ~ .highlight {
 	outline: var(--focus-primary);
+}
+
+@media screen and (min-width: 576px) {
+	.label:hover svg {
+		transform: scale(1.1);
+	}
 }

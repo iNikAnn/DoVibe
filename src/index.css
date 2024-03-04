@@ -109,6 +109,11 @@ input {
 }
 
 @media screen and (max-width: 576px) {
+	* {
+		cursor: auto !important;
+		touch-action: pan-y;
+	}
+
 	:root {
 		--app-content-width: 99%;
 

@@ -35,12 +35,14 @@
 
 /* icon */
 .label svg {
-	transition: color 0.3s ease;
 	width: var(--small-icon-width);
 	height: var(--small-icon-height);
+
+	transition-property: color, transform;
+	transition-duration: 0.3s;
+	transition-timing-function: ease;
 }
 
-.label:hover svg,
 .input:checked + div .label {
 	color: var(--text-color-primary);
 }
@@ -88,4 +90,10 @@
 .inputRigth:checked ~ .highlightWrapper .highlight {
 	left: 100%;
 	transform: translateX(-100%);
+}
+
+@media screen and (min-width: 576px) {
+	.label:hover svg {
+		transform: scale(1.1);
+	}
 }
