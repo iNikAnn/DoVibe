@@ -14,7 +14,7 @@
 	color: var(--text-color-dimmed);
 	font-size: 1rem;
 	font-weight: 500;
-	margin-top: 1rem;
+	/* margin-top: 1rem; */
 
 	background-color: var(--bg-color-primary);
 	box-shadow: var(--box-shadow-primary);
