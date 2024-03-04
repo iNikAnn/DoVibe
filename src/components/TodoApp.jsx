@@ -3,7 +3,7 @@ import styles from '../css/TodoApp.module.css';
 // react, uuid, framer
 import { useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 // components
 import LeftSideBar from './LeftSideBar';
@@ -27,6 +27,7 @@ import { BsLayoutSidebarInset } from "react-icons/bs";
 import { MdLibraryAdd } from "react-icons/md";
 
 function TodoApp() {
+	const isMobileVersion = window.matchMedia('(max-width: 576px)').matches;
 	const inputBarRef = useRef(null);
 	const storredSettings = JSON.parse(localStorage.getItem('settings'));
 
@@ -94,14 +95,14 @@ function TodoApp() {
 		document.documentElement.setAttribute('data-scheme', colorScheme);
 	}, []);
 
-	const [isInputBarVisible, setIsInputBarVisible] = useState(!window.matchMedia('(max-width: 576px)').matches);
+	const [isInputBarVisible, setIsInputBarVisible] = useState(!isMobileVersion);
 
 	// highlights the inputbar parent form based on input focus
 	useEffect(() => {
 		const handleHighlightInputBar = () => {
 			inputBarRef.current.closest('form').classList.add('focus');
 
-			if (window.matchMedia('(max-width: 576px)').matches) {
+			if (isMobileVersion) {
 				setIsInputBarVisible(true);
 			};
 		};
@@ -109,7 +110,7 @@ function TodoApp() {
 		const handleBlurInputBar = () => {
 			inputBarRef.current.closest('form').classList.remove('focus');
 
-			if (window.matchMedia('(max-width: 576px)').matches) {
+			if (isMobileVersion) {
 				setIsInputBarVisible(false);
 			};
 		};
@@ -407,8 +408,6 @@ function TodoApp() {
 		setModalIsVisible(true);
 	};
 
-
-
 	return (
 		<div className={styles.todoApp}>
 			<div className={styles.content}>
@@ -453,6 +452,15 @@ function TodoApp() {
 			</div>
 
 			<AnimatePresence initial={false}>
+				{(isInputBarVisible && isMobileVersion) && (
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 0.75 }}
+						exit={{ opacity: 0 }}
+						className={styles.overlay}
+					/>
+				)}
+
 				{leftSideBarIsVisible && (
 					<LeftSideBar
 						key={'LeftSideBar'}
