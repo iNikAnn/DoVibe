@@ -23,8 +23,7 @@ import sortTodosByCompletion from '../utils/sortTodosByCompletion';
 
 // icons
 import { FaUndoAlt } from "react-icons/fa";
-import { BsLayoutSidebarInset } from "react-icons/bs";
-import { MdLibraryAdd } from "react-icons/md";
+import MobileBottomMenu from './mobile/MobileBottomMenu';
 
 function TodoApp() {
 	const isMobileVersion = window.matchMedia('(max-width: 576px)').matches;
@@ -463,7 +462,7 @@ function TodoApp() {
 
 				{leftSideBarIsVisible && (
 					<LeftSideBar
-						key={'LeftSideBar'}
+						key={'leftSideBar'}
 						initialDate={date}
 						todos={todos}
 						currentTodo={currentTodo}
@@ -489,31 +488,21 @@ function TodoApp() {
 						{notifContent}
 					</Notification>
 				)}
+
+				{(!isInputBarVisible && isMobileVersion) && (
+					<MobileBottomMenu
+						key="mobileBottomMenu"
+						onLeftSidebarOpen={() => setLeftSideBarIsVisible((prevState) => !prevState)}
+						onCreatetodo={() => {
+							setIsInputBarVisible(true);
+							setTimeout(() => {
+								inputBarRef.current.focus();
+							}, 0)
+						}}
+					/>
+				)}
 			</AnimatePresence>
 
-			<div className={styles.bottomBtnWrapper}>
-				<SmallBtn
-					title="Toggle sidebar"
-					icon={<BsLayoutSidebarInset />}
-					onClick={() => setLeftSideBarIsVisible((prevState) => !prevState)}
-				/>
-
-				<AnimatePresence>
-					{!isInputBarVisible && (
-						<SmallBtn
-							title="Create new todo"
-							icon={<MdLibraryAdd />}
-							bgColor="#1970c2"
-							onClick={() => {
-								setIsInputBarVisible(true);
-								setTimeout(() => {
-									inputBarRef.current.focus();
-								}, 0);
-							}}
-						/>
-					)}
-				</AnimatePresence>
-			</div>
 		</div>
 	);
 }

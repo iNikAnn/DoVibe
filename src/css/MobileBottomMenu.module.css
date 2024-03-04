@@ -1,0 +1,15 @@
+.mobileBottomMenu {
+	/* outline: 1px solid tomato; */
+	position: fixed;
+	left: 0;
+	bottom: 0;
+
+	width: 100%;
+
+	display: flex;
+	justify-content: space-between;
+
+	background: linear-gradient(to top, var(--bg) 10%, transparent);
+	padding: 1rem;
+	z-index: 149;
+}

@@ -39,10 +39,6 @@
 	padding: 0 0.8rem;
 }
 
-.bottomBtnWrapper {
-	display: none;
-}
-
 .overlay {
 	position: fixed;
 	left: 0;
@@ -66,20 +62,5 @@
 		padding: 0.6rem;
 		padding-top: 0;
 		margin: 0 auto;
-	}
-	.bottomBtnWrapper {
-		/* outline: 1px solid tomato; */
-		position: fixed;
-		left: 0;
-		bottom: 0;
-
-		width: 100%;
-
-		display: flex;
-		justify-content: space-between;
-
-		background: linear-gradient(to top, var(--bg) 10%, transparent);
-		padding: 1rem;
-		z-index: 79;
 	}
 }
