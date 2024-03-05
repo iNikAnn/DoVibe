@@ -62,9 +62,9 @@ function TodoItem(props) {
 	let pressTimer = null;
 
 	const startPress = (e) => {
-
 		pressTimer = setTimeout(() => {
-			onLongPress(bin, id, title, description);
+			onLongPress(bin, id, title, description, isCompleted, isCurrent);
+			navigator.vibrate?.([10]);
 		}, 300);
 	};
 
@@ -82,6 +82,7 @@ function TodoItem(props) {
 			onPointerDown={startPress}
 			onPointerUp={endPress}
 			onPointerLeave={endPress}
+
 		>
 			<div className={`${styles.left} ${isCompleted ? styles.isCompleted : ''}`}>
 				{description && (

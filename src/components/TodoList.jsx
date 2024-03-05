@@ -115,10 +115,13 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRe
 		}, 1200);
 	};
 
-	const handleLongPress = (bin, id, title, desc) => {
+	const handleLongPress = (bin, id, title, desc, isCompleted, isCurrent) => {
 		onShowItemMenu(
 			<TodoActionsHub
 				title={title}
+
+				isCompleted={isCompleted}
+				isCurrent={isCurrent}
 
 				onActionFinished={() => onShowItemMenu(null)}
 				onMarkAsCurrent={() => onMarkTodoAsCurrent(bin, id)}
