@@ -1,0 +1,29 @@
+.todoActionsHub {
+	/* outline: 1px solid tomato; */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+/* title */
+.title {
+	margin: 1rem 0;
+}
+
+/* actions list */
+.actionsList {
+	/* outline: 1px solid green; */
+}
+
+/* action */
+.actionsList button {
+	/* outline: 1px solid red; */
+	min-height: var(--small-btn-height);
+	width: 100%;
+
+	color: inherit;
+	font-weight: 700;
+
+	background-color: unset;
+	padding: 1rem;
+}

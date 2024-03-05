@@ -120,8 +120,10 @@ function TodoApp() {
 		};
 
 		return () => {
-			inputBarRef.current.removeEventListener('focus', handleHighlightInputBar);
-			inputBarRef.current.removeEventListener('blur', handleBlurInputBar);
+			if (inputBarRef.current) {
+				inputBarRef.current.removeEventListener('focus', handleHighlightInputBar);
+				inputBarRef.current.removeEventListener('blur', handleBlurInputBar);
+			};
 		};
 	}, [isInputBarVisible]);
 
@@ -407,10 +409,15 @@ function TodoApp() {
 		setModalIsVisible(true);
 	};
 
+	// mobail todo item menu
 	const [isMobailTodoItemMenuVisible, setIsMobailTodoItemMenuVisible] = useState(false);
+	const [mobailTodoItemMenuContent, setMobailTodoItemMenuContent] = useState(null)
 
-	const handleShowMobailTodoItemMenu = () => {
-		setIsMobailTodoItemMenuVisible(true);
+	const handleShowMobailTodoItemMenu = (content) => {
+		if (!isMobileVersion) return;
+
+		setMobailTodoItemMenuContent(content || null);
+		setIsMobailTodoItemMenuVisible(content ? true : false);
 	};
 
 	return (
@@ -452,7 +459,7 @@ function TodoApp() {
 					onRemoveTodo={handleRemoveTodo}
 					onMarkTodo={handleMarkTodo}
 					onMarkTodoAsCurrent={handleMarkTodoAsCurrent}
-					onLongPress={handleShowMobailTodoItemMenu}
+					onShowItemMenu={handleShowMobailTodoItemMenu}
 					isOnlyUncompleted={isOnlyUncompleted}
 				/>
 			</div>
@@ -517,6 +524,7 @@ function TodoApp() {
 				{isMobailTodoItemMenuVisible && (
 					<MobileTodoItemMenu
 						key="mobailTodoItemMenu"
+						children={mobailTodoItemMenuContent}
 					/>
 				)}
 			</AnimatePresence>

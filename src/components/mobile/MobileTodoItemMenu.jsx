@@ -3,7 +3,7 @@ import styles from '../../css/MobileTodoItemMenu.module.css';
 // framer
 import { motion } from 'framer-motion';
 
-function MobileTodoItemMenu() {
+function MobileTodoItemMenu({ children }) {
 	const menuVariants = {
 		initial: {
 			opacity: 0,
@@ -25,7 +25,7 @@ function MobileTodoItemMenu() {
 			{...menuVariants}
 			className={styles.mobileItemMenu}
 		>
-			123
+			<div className={styles.contentWrapper}>{children}</div>
 		</motion.div>
 	);
 }

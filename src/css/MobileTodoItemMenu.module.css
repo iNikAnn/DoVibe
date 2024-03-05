@@ -1,14 +1,20 @@
 .mobileItemMenu {
-	/* outline: 1px solid tomato; */
+	/* outline: 4px solid tomato; */
 	position: fixed;
 	bottom: 0;
 	left: 0;
 
 	width: 100%;
 
-	background-color: var(--bg-color-primary);
+	/* background-color: var(--bg-color-primary); */
 	text-align: center;
 
-	padding: 1rem;
+	padding: 0.6rem;
 	z-index: 999;
+}
+
+.contentWrapper {
+	background-color: var(--bg-color-primary);
+	border-radius: var(--border-radius-primary);
+	padding: 1rem;
 }

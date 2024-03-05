@@ -64,8 +64,8 @@ function TodoItem(props) {
 	const startPress = (e) => {
 
 		pressTimer = setTimeout(() => {
-			onLongPress();
-		}, 500);
+			onLongPress(bin, id, title, description);
+		}, 300);
 	};
 
 	const endPress = () => {
