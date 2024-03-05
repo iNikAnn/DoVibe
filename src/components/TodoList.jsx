@@ -8,14 +8,15 @@ import { AnimatePresence, Reorder, motion } from 'framer-motion';
 import TodoItem from './TodoItem';
 import TodoDetails from './TodoDetails';
 import DetailCard from './DetailCard';
+import ReorderItem from './ReorderItem';
+import TodoActionsHub from './mobile/TodoActionsHub';
 
 // utils
 import insertDateSeparator from '../utils/insertDateSeparator';
 import filterTodoList from '../utils/filterTodoList';
 import isTodoDraggable from '../utils/isTodoDraggable';
-import ReorderItem from './ReorderItem';
 
-function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRemoveTodo, onMarkTodo, onMarkTodoAsCurrent, isOnlyUncompleted }) {
+function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRemoveTodo, onMarkTodo, onMarkTodoAsCurrent, onShowItemMenu, isOnlyUncompleted }) {
 	const [delay, setDelay] = useState(false);
 	const [movedItemIndex, setMovedItemIndex] = useState();
 
@@ -114,6 +115,23 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRe
 		}, 1200);
 	};
 
+	const handleLongPress = (bin, id, title, desc, isCompleted, isCurrent) => {
+		onShowItemMenu(
+			<TodoActionsHub
+				title={title}
+
+				isCompleted={isCompleted}
+				isCurrent={isCurrent}
+
+				onActionFinished={() => onShowItemMenu(null)}
+				onMarkAsCurrent={() => onMarkTodoAsCurrent(bin, id)}
+				onMark={() => onMarkTodo(bin, id)}
+				onEdit={() => handleEditTodo(bin, id, title, desc)}
+				onRemove={() => onRemoveTodo(bin, id)}
+			/>
+		);
+	}
+
 	const itemVariants = {
 		initial: {
 			opacity: 0,
@@ -196,6 +214,7 @@ function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRe
 										onRemove={handleRemoveTodo}
 										onMark={handleMarkTodo}
 										onMarkAsCurrent={onMarkTodoAsCurrent}
+										onLongPress={handleLongPress}
 									/>
 								);
 							};

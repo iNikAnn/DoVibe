@@ -1,0 +1,21 @@
+.mobileItemMenu {
+	/* outline: 4px solid tomato; */
+	position: fixed;
+	bottom: 0;
+	left: 0;
+
+	width: 100%;
+
+	text-align: center;
+
+	padding: 0.6rem;
+	z-index: 999;
+	touch-action: none;
+}
+
+.contentWrapper {
+	background-color: var(--bg-color-primary);
+	border-radius: var(--border-radius-primary);
+	box-shadow: var(--box-shadow-primary);
+	padding: 1rem;
+}

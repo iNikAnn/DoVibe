@@ -13,7 +13,7 @@ import { MdLibraryAdd } from "react-icons/md";
 function MobileBottomMenu(props) {
 	const {
 		onLeftSidebarOpen,
-		onCreatetodo
+		onCreateTodo
 	} = props;
 
 	const menuVariants = {
@@ -48,7 +48,7 @@ function MobileBottomMenu(props) {
 				title="Create new todo"
 				icon={<MdLibraryAdd />}
 				bgColor="#1970c2"
-				onClick={onCreatetodo}
+				onClick={onCreateTodo}
 			/>
 		</motion.div>
 	);

@@ -12,7 +12,8 @@ import FiltersBar from './FiltersBar';
 import TodoList from './TodoList';
 import Modal from '../components/Modal';
 import Notification from './Hotification';
-import SmallBtn from './buttons/SmallBtn';
+import MobileBottomMenu from './mobile/MobileBottomMenu';
+import MobileTodoItemMenu from './mobile/MobileTodoItemMenu';
 
 // utils
 import getFormattedDate from '../utils/getFormattedDate';
@@ -23,7 +24,6 @@ import sortTodosByCompletion from '../utils/sortTodosByCompletion';
 
 // icons
 import { FaUndoAlt } from "react-icons/fa";
-import MobileBottomMenu from './mobile/MobileBottomMenu';
 
 function TodoApp() {
 	const isMobileVersion = window.matchMedia('(max-width: 576px)').matches;
@@ -120,8 +120,10 @@ function TodoApp() {
 		};
 
 		return () => {
-			inputBarRef.current.removeEventListener('focus', handleHighlightInputBar);
-			inputBarRef.current.removeEventListener('blur', handleBlurInputBar);
+			if (inputBarRef.current) {
+				inputBarRef.current.removeEventListener('focus', handleHighlightInputBar);
+				inputBarRef.current.removeEventListener('blur', handleBlurInputBar);
+			};
 		};
 	}, [isInputBarVisible]);
 
@@ -407,6 +409,17 @@ function TodoApp() {
 		setModalIsVisible(true);
 	};
 
+	// mobail todo item menu
+	const [isMobailTodoItemMenuVisible, setIsMobailTodoItemMenuVisible] = useState(false);
+	const [mobailTodoItemMenuContent, setMobailTodoItemMenuContent] = useState(null)
+
+	const handleShowMobailTodoItemMenu = (content) => {
+		if (!isMobileVersion) return;
+
+		setMobailTodoItemMenuContent(content || null);
+		setIsMobailTodoItemMenuVisible(content ? true : false);
+	};
+
 	return (
 		<div className={styles.todoApp}>
 			<div className={styles.content}>
@@ -446,17 +459,23 @@ function TodoApp() {
 					onRemoveTodo={handleRemoveTodo}
 					onMarkTodo={handleMarkTodo}
 					onMarkTodoAsCurrent={handleMarkTodoAsCurrent}
+					onShowItemMenu={handleShowMobailTodoItemMenu}
 					isOnlyUncompleted={isOnlyUncompleted}
 				/>
 			</div>
 
 			<AnimatePresence initial={false}>
-				{(isInputBarVisible && isMobileVersion) && (
+				{((isInputBarVisible || isMobailTodoItemMenuVisible) && isMobileVersion) && (
 					<motion.div
+						key="overlay"
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 0.75 }}
 						exit={{ opacity: 0 }}
 						className={styles.overlay}
+
+						onPointerDown={() => {
+							setIsMobailTodoItemMenuVisible(false);
+						}}
 					/>
 				)}
 
@@ -493,12 +512,19 @@ function TodoApp() {
 					<MobileBottomMenu
 						key="mobileBottomMenu"
 						onLeftSidebarOpen={() => setLeftSideBarIsVisible((prevState) => !prevState)}
-						onCreatetodo={() => {
+						onCreateTodo={() => {
 							setIsInputBarVisible(true);
 							setTimeout(() => {
 								inputBarRef.current.focus();
 							}, 0)
 						}}
+					/>
+				)}
+
+				{isMobailTodoItemMenuVisible && (
+					<MobileTodoItemMenu
+						key="mobailTodoItemMenu"
+						children={mobailTodoItemMenuContent}
 					/>
 				)}
 			</AnimatePresence>
