@@ -2,9 +2,13 @@
 	/* outline: 1px solid tomato; */
 	position: relative;
 
+	display: flex;
+	align-items: center;
+
 	background-color: var(--bg-color-primary);
 	border-radius: var(--border-radius-primary);
-	box-shadow: var(--box-shadow-primary), inset 0px -2px 0px #3eb489;
+	outline: 2px solid #3eb489;
+	outline-offset: -2px;
 
 	min-height: 3rem;
 	padding: 1rem;
@@ -32,12 +36,10 @@
 }
 
 .titleWrapper {
-	display: flex;
-	align-items: center;
 }
 
 @media screen and (max-width: 576px) {
 	.currentTodo {
-		min-height: 3.6rem;
+		min-height: calc(var(--small-btn-height) + 1.2rem);
 	}
 }
