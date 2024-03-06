@@ -464,7 +464,7 @@ function TodoApp() {
 					isOnlyUncompleted={isOnlyUncompleted}
 
 					isTodoOpen={isTodoOpen}
-					setIsTodoOpened={setIsTodoOpened}
+					onToggleTodo={() => setIsTodoOpened((prev) => !prev)}
 				/>
 			</div>
 

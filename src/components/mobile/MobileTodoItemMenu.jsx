@@ -21,8 +21,8 @@ function MobileTodoItemMenu({ children, onClose }) {
 		},
 	};
 
-	const handleDragEnd = (_, i) => {
-		if (i.offset.y >= 100) {
+	const handleDragEnd = (_, info) => {
+		if (info.offset.y >= 100) {
 			onClose();
 			navigator.vibrate?.(10);
 		};
@@ -30,14 +30,14 @@ function MobileTodoItemMenu({ children, onClose }) {
 
 	return (
 		<motion.div
+			className={styles.mobileItemMenu}
+
 			{...menuVariants}
 
 			drag="y"
 			dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
 			dragElastic={{ top: 0.1, bottom: 1 }}
 			onDragEnd={handleDragEnd}
-
-			className={styles.mobileItemMenu}
 		>
 			<div className={styles.contentWrapper}>
 				<div className={styles.dragHandle} />

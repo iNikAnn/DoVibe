@@ -32,7 +32,7 @@ function TodoList(props) {
 		isOnlyUncompleted,
 
 		isTodoOpen,
-		setIsTodoOpened
+		onToggleTodo
 	} = props;
 
 	const [delay, setDelay] = useState(false);
@@ -62,7 +62,9 @@ function TodoList(props) {
 
 	// close the todo when the date is changed
 	useEffect(() => {
-		setIsTodoOpened(false);
+		if (isTodoOpen) {
+			onToggleTodo();
+		};
 	}, [date]);
 
 	const handleOpenTodo = (title, desc, bin, isCompleted) => {
@@ -75,7 +77,7 @@ function TodoList(props) {
 			/>
 		);
 
-		setIsTodoOpened(true);
+		onToggleTodo();
 	};
 
 	const handleEditTodo = (bin, id, title, desc) => {
@@ -201,7 +203,7 @@ function TodoList(props) {
 					<DetailCard
 						key="detailCard"
 						childrens={detailCardContent}
-						onClose={() => setIsTodoOpened(false)}
+						onClose={onToggleTodo}
 					/>
 				)}
 			</AnimatePresence>
