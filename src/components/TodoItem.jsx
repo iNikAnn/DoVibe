@@ -1,7 +1,8 @@
 import styles from '../css/TodoItem.module.css';
 
-// react
+// react, framer
 import { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 
 // components
 import TodoActionBtn from './buttons/TodoActionBtn';
@@ -73,8 +74,12 @@ function TodoItem(props) {
 			clearTimeout(pressTimer);
 		};
 	};
+
+	const isMobileVersion = window.matchMedia('(max-width: 576px)').matches;
+	const tap = isMobileVersion ? { backgroundColor: 'hsl(0, 0%, 16%)' } : {};
+
 	return (
-		<div
+		<motion.div
 			ref={todoRef}
 			data-id={id}
 			className={`${styles.todoItemWrapper}`}
@@ -83,6 +88,7 @@ function TodoItem(props) {
 			onPointerUp={endPress}
 			onPointerLeave={endPress}
 
+			whileTap={tap}
 		>
 			<div className={`${styles.left} ${isCompleted ? styles.isCompleted : ''}`}>
 				{description && (
@@ -130,7 +136,7 @@ function TodoItem(props) {
 					onClick={() => onMark(bin, id)}
 				/>
 			</div>
-		</div>
+		</motion.div>
 	);
 }
 

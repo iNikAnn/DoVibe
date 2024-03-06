@@ -214,7 +214,7 @@ function TodoList(props) {
 				values={list ? list : []}
 				onReorder={(reorderedList) => onReorderTodo(reorderedList, list[movedItemIndex])}
 			>
-				<AnimatePresence mode="popLayout">
+				<AnimatePresence initial={false} mode="popLayout">
 					{list
 						? list.map((item, index) => {
 							const isDraggable = isTodoDraggable(list, index);

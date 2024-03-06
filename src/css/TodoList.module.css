@@ -2,7 +2,6 @@
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	/* margin: 1rem 0; */
 	margin-top: 1rem;
 	margin-bottom: 5rem;
 }
@@ -16,20 +15,21 @@
 	padding: 1rem;
 }
 
+/* bin title */
 .binTitle {
 	/* outline: 1px solid tomato; */
 	text-align: left;
-	/* color: var(--text-color-dimmed); */
 	font-weight: 600;
 	color: #ffcc66;
 	opacity: 1;
 
-	/* padding-left: 1rem; */
+	padding: 0 1rem;
 	margin: 2rem 0 0.6rem 0;
 }
 
-.binTitle:first-child {
-	margin: 0.6rem 0 0.6rem 0;
+.binTitle div {
+	border-bottom: 2px solid var(--bg-color-primary);
+	padding-bottom: 0.4rem;
 }
 
 .grabbing {
