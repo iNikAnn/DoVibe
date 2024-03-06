@@ -529,10 +529,11 @@ function TodoApp() {
 					<MobileTodoItemMenu
 						key="mobailTodoItemMenu"
 						children={mobailTodoItemMenuContent}
+
+						onClose={() => setIsMobailTodoItemMenuVisible(false)}
 					/>
 				)}
 			</AnimatePresence>
-
 		</div>
 	);
 }

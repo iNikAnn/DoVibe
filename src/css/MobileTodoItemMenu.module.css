@@ -14,8 +14,20 @@
 }
 
 .contentWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
 	background-color: var(--bg-color-primary);
 	border-radius: var(--border-radius-primary);
 	box-shadow: var(--box-shadow-primary);
 	padding: 1rem;
+}
+
+.dragHandle {
+	width: 3rem;
+	height: 0.5rem;
+
+	background-color: var(--bg-color-tertiary);
+	border-radius: var(--border-radius-primary);
 }

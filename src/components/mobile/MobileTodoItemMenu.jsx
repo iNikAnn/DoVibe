@@ -3,31 +3,46 @@ import styles from '../../css/MobileTodoItemMenu.module.css';
 // framer
 import { motion } from 'framer-motion';
 
-function MobileTodoItemMenu({ children }) {
+function MobileTodoItemMenu({ children, onClose }) {
 	const menuVariants = {
 		initial: {
 			opacity: 0,
-			transform: 'translateY(100%)'
+			y: '100%'
 		},
 
 		animate: {
 			opacity: 1,
-			transform: 'translateY(0)'
+			y: 0
 		},
 
 		exit: {
 			opacity: 0,
-			transform: 'translateY(100%)'
+			y: '100%'
 		},
+	};
+
+	const handleDragEnd = (_, i) => {
+		if (i.offset.y >= 100) {
+			onClose();
+			navigator.vibrate?.(10);
+		};
 	};
 
 	return (
 		<motion.div
 			{...menuVariants}
-			transition={{ ease: 'easeInOut', duration: .3 }}
+
+			drag="y"
+			dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+			dragElastic={{ top: 0.1, bottom: 1 }}
+			onDragEnd={handleDragEnd}
+
 			className={styles.mobileItemMenu}
 		>
-			<div className={styles.contentWrapper}>{children}</div>
+			<div className={styles.contentWrapper}>
+				<div className={styles.dragHandle} />
+				{children}
+			</div>
 		</motion.div>
 	);
 }
