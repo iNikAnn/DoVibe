@@ -30,4 +30,6 @@
 
 	background-color: var(--bg-color-tertiary);
 	border-radius: var(--border-radius-primary);
+
+	margin-bottom: 1rem;
 }

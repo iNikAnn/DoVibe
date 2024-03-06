@@ -26,8 +26,10 @@ function FiltersBar({ initialDate, colorScheme, onChangeScheme, onChangeViewMode
 						onChange={onToggleLeftSideBar}
 					/>
 					<span className={styles.separator}>|</span>
+
 					<TextBadge text={initialDate ? new Date(initialDate).toLocaleDateString() : 'All todos'} />
 				</div>
+
 				<div className={styles.filtersRight}>
 					<Switcher
 						name="colorScheme"
@@ -42,7 +44,9 @@ function FiltersBar({ initialDate, colorScheme, onChangeScheme, onChangeViewMode
 						checkedRight={colorScheme === 'dark'}
 						onChangeRight={() => onChangeScheme('dark')}
 					/>
+
 					<span className={styles.separator}>|</span>
+
 					<Switcher
 						name="viewMode"
 						iconLeft={<FaCalendarAlt />}
@@ -56,7 +60,9 @@ function FiltersBar({ initialDate, colorScheme, onChangeScheme, onChangeViewMode
 						checkedRight={initialDate ? true : false}
 						onChangeRight={() => onChangeViewMode(new Date())}
 					/>
+
 					<span className={styles.separator}>|</span>
+
 					<Filter
 						name="onlyUncompleted"
 						icon={<FaListAlt />}

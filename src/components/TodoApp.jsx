@@ -14,6 +14,7 @@ import Modal from '../components/Modal';
 import Notification from './Hotification';
 import MobileBottomMenu from './mobile/MobileBottomMenu';
 import MobileBottomPopup from '../components/mobile/MobileBottomPopup';
+import MobileSettings from '../components/mobile/MobileSettings';
 
 // utils
 import getFormattedDate from '../utils/getFormattedDate';
@@ -436,17 +437,19 @@ function TodoApp() {
 					)}
 				</AnimatePresence>
 
-				<FiltersBar
-					initialDate={date}
-					colorScheme={colorScheme}
-					onChangeScheme={handleChangeScheme}
-					onChangeViewMode={handleChangeViewMode}
-					onToggleLeftSideBar={handleToggleLeftSideBar}
-					setOnlyUncompleted={setOnlyUncompleted}
+				{!isMobileVersion && (
+					<FiltersBar
+						initialDate={date}
+						colorScheme={colorScheme}
+						onChangeScheme={handleChangeScheme}
+						onChangeViewMode={handleChangeViewMode}
+						onToggleLeftSideBar={handleToggleLeftSideBar}
+						setOnlyUncompleted={setOnlyUncompleted}
 
-					leftSideBarIsVisible={leftSideBarIsVisible}
-					isOnlyUncompleted={isOnlyUncompleted}
-				/>
+						leftSideBarIsVisible={leftSideBarIsVisible}
+						isOnlyUncompleted={isOnlyUncompleted}
+					/>
+				)}
 
 				<TodoList
 					list={
@@ -522,7 +525,23 @@ function TodoApp() {
 								inputBarRef.current.focus();
 							}, 0)
 						}}
-						onOpenSettings={handleShowMobailBottomPopup}
+						onOpenSettings={() => {
+							handleShowMobailBottomPopup(
+								<MobileSettings
+									// color scheme switcher
+									colorScheme={colorScheme}
+									onChangeScheme={handleChangeScheme}
+
+									// view mode
+									initialDate={date}
+									onChangeViewMode={handleChangeViewMode}
+
+									// filter (is only uncompleted)
+									isOnlyUncompleted={isOnlyUncompleted}
+									setOnlyUncompleted={setOnlyUncompleted}
+								/>
+							)
+						}}
 					/>
 				)}
 

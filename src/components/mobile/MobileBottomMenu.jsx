@@ -56,7 +56,7 @@ function MobileBottomMenu(props) {
 				<SmallBtn
 					title="Settings"
 					icon={<MdSettings />}
-					onClick=""
+					onClick={onOpenSettings}
 				/>
 			</div>
 		</motion.div>
