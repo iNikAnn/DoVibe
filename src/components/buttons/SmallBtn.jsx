@@ -3,7 +3,7 @@ import styles from '../../css/SmallBtn.module.css';
 // components
 import Tooltip from '../Tooltip';
 
-function SmallBtn({ title, icon, iconColor, bgColor, onClick }) {
+function SmallBtn({ text, title, icon, iconColor, bgColor, onClick }) {
 	return (
 		<Tooltip text={title}>
 			<button
@@ -11,10 +11,18 @@ function SmallBtn({ title, icon, iconColor, bgColor, onClick }) {
 				className={styles.smallBtn}
 				onClick={onClick}
 			>
+				{text && (
+					<span>
+						{text}
+					</span>
+				)}
+
 				<span
 					style={{ color: iconColor }}
 					className={styles.iconWrapper}
-				>{icon}</span>
+				>
+					{icon}
+				</span>
 			</button>
 		</Tooltip>
 	);

@@ -9,6 +9,7 @@ import SmallBtn from '../buttons/SmallBtn';
 // icons
 import { BsLayoutSidebarInset } from "react-icons/bs";
 import { MdLibraryAdd } from "react-icons/md";
+import { MdSettings } from "react-icons/md";
 
 function MobileBottomMenu(props) {
 	const {
@@ -38,18 +39,25 @@ function MobileBottomMenu(props) {
 			{...menuVariants}
 			className={styles.mobileBottomMenu}
 		>
-			<SmallBtn
-				title="Toggle sidebar"
-				icon={<BsLayoutSidebarInset />}
-				onClick={onLeftSidebarOpen}
-			/>
-
-			<SmallBtn
-				title="Create new todo"
-				icon={<MdLibraryAdd />}
-				bgColor="#1970c2"
-				onClick={onCreateTodo}
-			/>
+			<div className={styles.content}>
+				<SmallBtn
+					title="Toggle sidebar"
+					icon={<BsLayoutSidebarInset />}
+					onClick={onLeftSidebarOpen}
+				/>
+				<SmallBtn
+					text="Create todo"
+					title="Create new todo"
+					icon={<MdLibraryAdd />}
+					bgColor="#1970c2"
+					onClick={onCreateTodo}
+				/>
+				<SmallBtn
+					title="Settings"
+					icon={<MdSettings />}
+					onClick=""
+				/>
+			</div>
 		</motion.div>
 	);
 }

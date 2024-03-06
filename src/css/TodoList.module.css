@@ -28,7 +28,7 @@
 }
 
 .binTitle div {
-	border-bottom: 2px solid var(--bg-color-primary);
+	border-bottom: 1px solid var(--bg-color-primary);
 	padding-bottom: 0.4rem;
 }
 
