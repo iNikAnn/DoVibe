@@ -48,6 +48,7 @@ function TodoApp() {
 	// todos
 	const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || {});
 	const allTodos = Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse();
+	const [isTodoOpen, setIsTodoOpened] = useState(false);
 
 	// filters
 	const [isOnlyUncompleted, setOnlyUncompleted] = useState(() => {
@@ -461,6 +462,9 @@ function TodoApp() {
 					onMarkTodoAsCurrent={handleMarkTodoAsCurrent}
 					onShowItemMenu={handleShowMobailTodoItemMenu}
 					isOnlyUncompleted={isOnlyUncompleted}
+
+					isTodoOpen={isTodoOpen}
+					setIsTodoOpened={setIsTodoOpened}
 				/>
 			</div>
 
@@ -508,7 +512,7 @@ function TodoApp() {
 					</Notification>
 				)}
 
-				{(!isInputBarVisible && isMobileVersion) && (
+				{((!isInputBarVisible && !isTodoOpen) && isMobileVersion) && (
 					<MobileBottomMenu
 						key="mobileBottomMenu"
 						onLeftSidebarOpen={() => setLeftSideBarIsVisible((prevState) => !prevState)}

@@ -5,10 +5,10 @@ import { motion } from 'framer-motion';
 
 // components
 import SmallBtn from './buttons/SmallBtn';
+import BtnPrimary from './buttons/BtnPrimary';
 
 // icon
 import { FaWindowClose } from "react-icons/fa";
-
 
 const cardVariants = {
 	initial: {
@@ -25,7 +25,7 @@ const cardVariants = {
 		opacity: 0,
 		transform: 'translateX(25%)'
 	}
-}
+};
 
 function DetailCard({ childrens, onClose }) {
 	return (
@@ -34,19 +34,29 @@ function DetailCard({ childrens, onClose }) {
 			{...cardVariants}
 			transition={{ ease: 'easeInOut', duration: .3 }}
 		>
-			<div className={styles.titleBar}>
-				<span>Todo details</span>
-				<div className={styles.btnWrapper}>
-					<SmallBtn
-						title="Close"
-						icon={<FaWindowClose />}
-						// iconColor="#3eb489"
-						onClick={onClose}
-					/>
+			{!window.matchMedia('(max-width: 576px)').matches && (
+				<div className={styles.titleBar}>
+					<span>Todo details</span>
+					<div className={styles.btnWrapper}>
+						<SmallBtn
+							title="Close"
+							icon={<FaWindowClose />}
+							// iconColor="#3eb489"
+							onClick={onClose}
+						/>
+					</div>
 				</div>
-			</div>
+			)}
 
 			{childrens}
+
+			{window.matchMedia('(max-width: 576px)').matches && (
+				<div className={styles.bottomBtnWrapper}>
+					<BtnPrimary
+						text="Close"
+						onClick={onClose}
+					/>
+				</div>)}
 		</motion.div>
 	);
 }

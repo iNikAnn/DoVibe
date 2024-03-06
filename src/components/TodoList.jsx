@@ -16,14 +16,31 @@ import insertDateSeparator from '../utils/insertDateSeparator';
 import filterTodoList from '../utils/filterTodoList';
 import isTodoDraggable from '../utils/isTodoDraggable';
 
-function TodoList({ list, date, showCustomModal, onReorderTodo, onEditTodo, onRemoveTodo, onMarkTodo, onMarkTodoAsCurrent, onShowItemMenu, isOnlyUncompleted }) {
+function TodoList(props) {
+	let {
+		list,
+		date,
+		showCustomModal,
+
+		onReorderTodo,
+		onEditTodo,
+		onRemoveTodo,
+		onMarkTodo,
+		onMarkTodoAsCurrent,
+		onShowItemMenu,
+
+		isOnlyUncompleted,
+
+		isTodoOpen,
+		setIsTodoOpened
+	} = props;
+
 	const [delay, setDelay] = useState(false);
 	const [movedItemIndex, setMovedItemIndex] = useState();
 
 	const needFiltering = isOnlyUncompleted;
 	const filters = [[isOnlyUncompleted, 'isCompleted']];
 
-	const [isTodoOpen, setIsTodoOpened] = useState(false);
 	const [detailCardContent, setDetailCardContent] = useState(null);
 
 	if (!date) {

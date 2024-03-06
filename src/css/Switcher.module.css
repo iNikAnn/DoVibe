@@ -14,7 +14,9 @@
 
 /* input */
 .input {
+	position: absolute;
 	appearance: none;
+	visibility: hidden;
 }
 
 /* label */
