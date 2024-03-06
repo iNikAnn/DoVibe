@@ -13,8 +13,9 @@ import { MdSettings } from "react-icons/md";
 
 function MobileBottomMenu(props) {
 	const {
-		onLeftSidebarOpen,
-		onCreateTodo
+		onOpenLeftSidebar,
+		onCreateTodo,
+		onOpenSettings
 	} = props;
 
 	const menuVariants = {
@@ -43,7 +44,7 @@ function MobileBottomMenu(props) {
 				<SmallBtn
 					title="Toggle sidebar"
 					icon={<BsLayoutSidebarInset />}
-					onClick={onLeftSidebarOpen}
+					onClick={onOpenLeftSidebar}
 				/>
 				<SmallBtn
 					text="Create todo"
