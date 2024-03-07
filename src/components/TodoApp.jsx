@@ -27,6 +27,7 @@ import sortTodosByCompletion from '../utils/sortTodosByCompletion';
 
 // icons
 import { FaUndoAlt } from "react-icons/fa";
+import MobileEditTodoForm from './mobile/MobileEditTodoForm';
 
 function TodoApp() {
 	const isMobileVersion = window.matchMedia('(max-width: 576px)').matches;
@@ -445,18 +446,31 @@ function TodoApp() {
 	// mobile bottom menu
 	const [isMobileBottomMenuVisible, setMobileBottomMenuVisible] = useState(true);
 
+	// mobile settings
+	const [isMobileSettingsVisible, setMobileSettingsVisible] = useState(false);
+
+	// mobile edit todo form
+	const [isMobileEditTodoFormVisible, setMobileEditTodoFormVisible] = useState(false);
+	const [mobileEditTodoFormProps, setMobileEditTodoFormProps] = useState(null);
+
+	const handleShowMobileEditTodoForm = (props) => {
+		setMobileEditTodoFormProps(props);
+		setMobileEditTodoFormVisible(true);
+	};
+
 	// Toggle mobile bottom menu visibility based on...
 	useEffect(() => {
 		if (!isMobileVersion) return;
 
-		const shouldHideMenu = isInputBarVisible || isMobileBottomPopupVisible || isTodoOpen
+		const shouldHideMenu =
+			isInputBarVisible ||
+			isMobileBottomPopupVisible ||
+			isTodoOpen ||
+			isMobileEditTodoFormVisible;
 
 		setMobileBottomMenuVisible(!shouldHideMenu);
 		setOverlayVisible(shouldHideMenu);
-	}, [isMobileVersion, isInputBarVisible, isMobileBottomPopupVisible, isTodoOpen]);
-
-	// mobile settings
-	const [isMobileSettingsVisible, setMobileSettingsVisible] = useState(false);
+	}, [isMobileVersion, isInputBarVisible, isMobileBottomPopupVisible, isTodoOpen, isMobileEditTodoFormVisible]);
 
 	return (
 		<div className={styles.todoApp}>
@@ -469,6 +483,14 @@ function TodoApp() {
 							key="inputBar"
 							inputBarRef={inputBarRef}
 							onSubmit={handleAddTodo}
+						/>
+					)}
+
+					{isMobileEditTodoFormVisible && (
+						<MobileEditTodoForm
+							{...mobileEditTodoFormProps}
+							onClose={() => setMobileEditTodoFormVisible(false)}
+							onSubmit={handleEditTodo}
 						/>
 					)}
 				</AnimatePresence>
@@ -509,6 +531,8 @@ function TodoApp() {
 
 					isTodoOpen={isTodoOpen}
 					onToggleTodo={() => setIsTodoOpened((prev) => !prev)}
+
+					onShowMobileEditTodoForm={handleShowMobileEditTodoForm}
 				/>
 			</div>
 
@@ -520,7 +544,10 @@ function TodoApp() {
 						animate={{ opacity: 0.75 }}
 						exit={{ opacity: 0 }}
 						className={styles.overlay}
-						onPointerDown={handleCloseBottomPopup}
+						onPointerDown={() => {
+							setMobileEditTodoFormVisible(false);
+							handleCloseBottomPopup();
+						}}
 					/>
 				)}
 
@@ -538,7 +565,8 @@ function TodoApp() {
 				{modalIsVisible && (
 					<Modal
 						key={'modal'}
-						onClose={() => setModalIsVisible(false)}>
+						onClose={() => setModalIsVisible(false)}
+					>
 						{modalContent}
 					</Modal>
 				)}

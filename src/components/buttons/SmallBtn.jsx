@@ -3,14 +3,15 @@ import styles from '../../css/SmallBtn.module.css';
 // components
 import Tooltip from '../Tooltip';
 
-function SmallBtn({ text, title, icon, iconColor, bgColor, onClick }) {
+function SmallBtn({ text, title, icon, iconColor, bgColor, onClick, type }) {
 	return (
 		<Tooltip text={title}>
 			<button
 				style={{ backgroundColor: bgColor }}
 				className={styles.smallBtn}
 				onClick={onClick}
-				aria-label={text}
+				aria-label={title}
+				type={type}
 			>
 				{text && (
 					<span>
@@ -18,12 +19,14 @@ function SmallBtn({ text, title, icon, iconColor, bgColor, onClick }) {
 					</span>
 				)}
 
-				<span
-					style={{ color: iconColor }}
-					className={styles.iconWrapper}
-				>
-					{icon}
-				</span>
+				{icon && (
+					<span
+						style={{ color: iconColor }}
+						className={styles.iconWrapper}
+					>
+						{icon}
+					</span>
+				)}
 			</button>
 		</Tooltip>
 	);

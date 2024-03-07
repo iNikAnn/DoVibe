@@ -100,8 +100,15 @@ li {
 	list-style: none;
 }
 
-input {
+input,
+textarea {
+	color: var(--text-color-primary);
 	border: none;
+}
+
+input:focus,
+textarea:focus {
+	outline: 2px solid var(--accent-color);
 }
 
 .focus {

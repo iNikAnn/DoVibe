@@ -39,7 +39,7 @@
 }
 
 .modal input,
-textarea {
+.modal textarea {
 	background-color: var(--bg-color-primary);
 	border-radius: 0.4rem;
 	padding: 1rem;

@@ -34,7 +34,9 @@ function TodoList(props) {
 		isOnlyUncompleted,
 
 		isTodoOpen,
-		onToggleTodo
+		onToggleTodo,
+
+		onShowMobileEditTodoForm
 	} = props;
 
 	const [delay, setDelay] = useState(false);
@@ -83,33 +85,39 @@ function TodoList(props) {
 	};
 
 	const handleEditTodo = (bin, id, title, desc) => {
-		showCustomModal(
-			<form
-				action="submit"
-				onSubmit={(e) => {
-					e.preventDefault();
-					onEditTodo(bin, id, e.target.newTitle.value, e.target.newDesc.value);
-					showCustomModal(null);
-				}}
-			>
-				<h3>Edit todo</h3>
+		if (window.matchMedia('(max-width: 576px)').matches) {
+			const props = { bin, id, title, desc };
 
-				<label htmlFor="newTitle">
-					New title:
-					<input type="text" name="newTitle" id="newTitle" defaultValue={title} autoFocus />
-				</label>
+			onShowMobileEditTodoForm(props);
+		} else {
+			showCustomModal(
+				<form
+					action="submit"
+					onSubmit={(e) => {
+						e.preventDefault();
+						onEditTodo(bin, id, e.target.newTitle.value, e.target.newDesc.value);
+						showCustomModal(null);
+					}}
+				>
+					<h3>Edit todo</h3>
 
-				<label htmlFor="newDesc">
-					New description:
-					<textarea name="newDesc" id="newDesc" cols="1" rows="3" defaultValue={desc}></textarea>
-				</label>
+					<label htmlFor="newTitle">
+						New title:
+						<input type="text" name="newTitle" id="newTitle" defaultValue={title} autoFocus />
+					</label>
 
-				<div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem' }}>
-					<button style={{ flex: 1 }} type="button" data-type="cancel" onClick={() => showCustomModal(null)}>Cancel</button>
-					<button style={{ flex: 1 }} type="submit">Save</button>
-				</div>
-			</form>
-		)
+					<label htmlFor="newDesc">
+						New description:
+						<textarea name="newDesc" id="newDesc" cols="1" rows="3" defaultValue={desc}></textarea>
+					</label>
+
+					<div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem' }}>
+						<button style={{ flex: 1 }} type="button" data-type="cancel" onClick={() => showCustomModal(null)}>Cancel</button>
+						<button style={{ flex: 1 }} type="submit">Save</button>
+					</div>
+				</form>
+			);
+		}
 	};
 
 	const handleRemoveTodo = (bin, id) => {
