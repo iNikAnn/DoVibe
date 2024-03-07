@@ -439,6 +439,9 @@ function TodoApp() {
 		setMobileBottomPopupVisible(false);
 	};
 
+	// mobile overlay
+	const [isOverlayVisible, setOverlayVisible] = useState(false);
+
 	// mobile bottom menu
 	const [isMobileBottomMenuVisible, setMobileBottomMenuVisible] = useState(true);
 
@@ -446,9 +449,10 @@ function TodoApp() {
 	useEffect(() => {
 		if (!isMobileVersion) return;
 
-		setMobileBottomMenuVisible(!(
-			isInputBarVisible || isMobileBottomPopupVisible || isTodoOpen
-		));
+		const shouldHideMenu = isInputBarVisible || isMobileBottomPopupVisible || isTodoOpen
+
+		setMobileBottomMenuVisible(!shouldHideMenu);
+		setOverlayVisible(shouldHideMenu);
 	}, [isMobileVersion, isInputBarVisible, isMobileBottomPopupVisible, isTodoOpen]);
 
 	// mobile settings
@@ -509,7 +513,7 @@ function TodoApp() {
 			</div>
 
 			<AnimatePresence initial={false}>
-				{isMobileBottomPopupVisible && (
+				{isOverlayVisible && (
 					<motion.div
 						key="overlay"
 						initial={{ opacity: 0 }}
