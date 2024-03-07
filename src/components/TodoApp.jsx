@@ -12,6 +12,8 @@ import FiltersBar from './FiltersBar';
 import TodoList from './TodoList';
 import Modal from '../components/Modal';
 import Notification from './Hotification';
+
+//mobile components
 import MobileBottomMenu from './mobile/MobileBottomMenu';
 import MobileBottomPopup from '../components/mobile/MobileBottomPopup';
 import MobileSettings from '../components/mobile/MobileSettings';
@@ -413,14 +415,17 @@ function TodoApp() {
 
 	// mobail bottom popup
 	const [isMobileBottomPopupVisible, setIsMobileBottomPopupVisible] = useState(false);
-	const [mobailBottomMenuContent, setMobailBottomMenuContent] = useState(null)
+	const [mobileBottomMenuContent, setMobileBottomMenuContent] = useState(null)
 
-	const handleShowMobailBottomPopup = (content) => {
-		if (!isMobileVersion) return;
+	// const handleShowMobailBottomPopup = (content) => {
+	// 	if (!isMobileVersion) return;
 
-		setMobailBottomMenuContent(content || null);
-		setIsMobileBottomPopupVisible(content ? true : false);
-	};
+	// 	setMobileBottomMenuContent(content || null);
+	// 	setIsMobileBottomPopupVisible(content ? true : false);
+	// };
+
+	// mobile settings
+	const [isMobileSettingsVisible, setMobileSettingsVisible] = useState(false);
 
 	return (
 		<div className={styles.todoApp}>
@@ -463,7 +468,7 @@ function TodoApp() {
 					onRemoveTodo={handleRemoveTodo}
 					onMarkTodo={handleMarkTodo}
 					onMarkTodoAsCurrent={handleMarkTodoAsCurrent}
-					onShowItemMenu={handleShowMobailBottomPopup}
+					// onShowItemMenu={handleShowMobailBottomPopup}
 					isOnlyUncompleted={isOnlyUncompleted}
 
 					isTodoOpen={isTodoOpen}
@@ -526,21 +531,8 @@ function TodoApp() {
 							}, 0)
 						}}
 						onOpenSettings={() => {
-							handleShowMobailBottomPopup(
-								<MobileSettings
-									// color scheme switcher
-									colorScheme={colorScheme}
-									onChangeScheme={handleChangeScheme}
-
-									// view mode
-									initialDate={date}
-									onChangeViewMode={handleChangeViewMode}
-
-									// filter (is only uncompleted)
-									isOnlyUncompleted={isOnlyUncompleted}
-									setOnlyUncompleted={setOnlyUncompleted}
-								/>
-							)
+							setMobileSettingsVisible(true);
+							setIsMobileBottomPopupVisible(true);
 						}}
 					/>
 				)}
@@ -548,9 +540,25 @@ function TodoApp() {
 				{isMobileBottomPopupVisible && (
 					<MobileBottomPopup
 						key="mobailTodoItemMenu"
-						children={mobailBottomMenuContent}
+						// children={mobileBottomMenuContent}
 						onClose={() => setIsMobileBottomPopupVisible(false)}
-					/>
+					>
+						{isMobileSettingsVisible && (
+							<MobileSettings
+								// color scheme switcher
+								colorScheme={colorScheme}
+								onChangeScheme={handleChangeScheme}
+
+								// view mode
+								initialDate={date}
+								onChangeViewMode={handleChangeViewMode}
+
+								// filter (is only uncompleted)
+								isOnlyUncompleted={isOnlyUncompleted}
+								setOnlyUncompleted={setOnlyUncompleted}
+							/>
+						)}
+					</MobileBottomPopup>
 				)}
 			</AnimatePresence>
 		</div>

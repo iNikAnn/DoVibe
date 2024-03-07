@@ -30,11 +30,13 @@ function MobileSettings(props) {
 		<div className={styles.settings}>
 			<h2>Settings</h2>
 
+			<div className={styles.separator} />
+
 			<div className={styles.settingsItem}>
 				<span>Color scheme</span>
 
 				<Switcher
-					name="colorScheme"
+					name="colorScheme-mobile"
 					iconLeft={<FaSun />}
 					activeLeftColor='#ffcc66'
 					tooltipLeft="Light scheme"
@@ -48,11 +50,13 @@ function MobileSettings(props) {
 				/>
 			</div>
 
+			<div className={styles.separator} />
+
 			<div className={styles.settingsItem}>
 				<span>View mode</span>
 
 				<Switcher
-					name="viewMode"
+					name="viewMode-mobile"
 					iconLeft={<FaCalendarAlt />}
 					activeLeftColor='#ff9977'
 					tooltipLeft="Show all todos"
@@ -66,10 +70,13 @@ function MobileSettings(props) {
 				/>
 			</div>
 
+			<div className={styles.separator} />
+
 			<div className={styles.settingsItem}>
 				<span>Show only uncompleted</span>
+
 				<Filter
-					name="onlyUncompleted"
+					name="onlyUncompleted-mobile"
 					icon={<FaListAlt />}
 					tooltip="Show only uncompleted todos"
 					checked={isOnlyUncompleted}

@@ -30,6 +30,7 @@
 	width: var(--small-btn-width);
 	height: var(--small-btn-height);
 
+	color: var(--text-color-dimmed);
 	cursor: pointer;
 
 	z-index: 1;
