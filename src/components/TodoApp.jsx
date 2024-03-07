@@ -11,7 +11,7 @@ import InputBar from './InputBar';
 import FiltersBar from './FiltersBar';
 import TodoList from './TodoList';
 import Modal from '../components/Modal';
-import Notification from './Hotification';
+import Notification from './Notification';
 
 //mobile components
 import MobileBottomMenu from './mobile/MobileBottomMenu';
@@ -413,16 +413,43 @@ function TodoApp() {
 		setModalIsVisible(true);
 	};
 
-	// mobail bottom popup
-	const [isMobileBottomPopupVisible, setIsMobileBottomPopupVisible] = useState(false);
-	const [mobileBottomMenuContent, setMobileBottomMenuContent] = useState(null)
+	// mobile bottom popup
+	const [isMobileBottomPopupVisible, setMobileBottomPopupVisible] = useState(false);
+	const [mobileBottomPopupContent, setMobileBottomPopupContent] = useState(null);
 
-	// const handleShowMobailBottomPopup = (content) => {
-	// 	if (!isMobileVersion) return;
+	const handleShowBottomPopup = (name, content) => {
+		if (!isMobileVersion) return;
 
-	// 	setMobileBottomMenuContent(content || null);
-	// 	setIsMobileBottomPopupVisible(content ? true : false);
-	// };
+		switch (name) {
+			case 'mobileSettings':
+				setMobileSettingsVisible(true);
+				break;
+
+			default:
+				setMobileBottomPopupContent(content);
+				break;
+		};
+
+		setMobileBottomPopupVisible(true);
+	};
+
+	const handleCloseBottomPopup = () => {
+		setMobileSettingsVisible(false);
+		setMobileBottomPopupContent(null);
+		setMobileBottomPopupVisible(false);
+	};
+
+	// mobile bottom menu
+	const [isMobileBottomMenuVisible, setMobileBottomMenuVisible] = useState(true);
+
+	// Toggle mobile bottom menu visibility based on...
+	useEffect(() => {
+		if (!isMobileVersion) return;
+
+		setMobileBottomMenuVisible(!(
+			isInputBarVisible || isMobileBottomPopupVisible || isTodoOpen
+		));
+	}, [isMobileVersion, isInputBarVisible, isMobileBottomPopupVisible, isTodoOpen]);
 
 	// mobile settings
 	const [isMobileSettingsVisible, setMobileSettingsVisible] = useState(false);
@@ -468,7 +495,12 @@ function TodoApp() {
 					onRemoveTodo={handleRemoveTodo}
 					onMarkTodo={handleMarkTodo}
 					onMarkTodoAsCurrent={handleMarkTodoAsCurrent}
-					// onShowItemMenu={handleShowMobailBottomPopup}
+
+					onShowItemMenu={(content) => {
+						handleShowBottomPopup('todoItemMenu', content)
+					}}
+					onCloseItemMenu={handleCloseBottomPopup}
+
 					isOnlyUncompleted={isOnlyUncompleted}
 
 					isTodoOpen={isTodoOpen}
@@ -477,17 +509,14 @@ function TodoApp() {
 			</div>
 
 			<AnimatePresence initial={false}>
-				{((isInputBarVisible || isMobileBottomPopupVisible) && isMobileVersion) && (
+				{isMobileBottomPopupVisible && (
 					<motion.div
 						key="overlay"
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 0.75 }}
 						exit={{ opacity: 0 }}
 						className={styles.overlay}
-
-						onPointerDown={() => {
-							setIsMobileBottomPopupVisible(false);
-						}}
+						onPointerDown={handleCloseBottomPopup}
 					/>
 				)}
 
@@ -520,7 +549,7 @@ function TodoApp() {
 					</Notification>
 				)}
 
-				{((!isInputBarVisible && !isTodoOpen) && isMobileVersion) && (
+				{(isMobileBottomMenuVisible && isMobileVersion) && (
 					<MobileBottomMenu
 						key="mobileBottomMenu"
 						onOpenLeftSidebar={() => setLeftSideBarIsVisible((prevState) => !prevState)}
@@ -530,18 +559,14 @@ function TodoApp() {
 								inputBarRef.current.focus();
 							}, 0)
 						}}
-						onOpenSettings={() => {
-							setMobileSettingsVisible(true);
-							setIsMobileBottomPopupVisible(true);
-						}}
+						onOpenSettings={() => handleShowBottomPopup('mobileSettings')}
 					/>
 				)}
 
 				{isMobileBottomPopupVisible && (
 					<MobileBottomPopup
-						key="mobailTodoItemMenu"
-						// children={mobileBottomMenuContent}
-						onClose={() => setIsMobileBottomPopupVisible(false)}
+						key="mobailBottomPopup"
+						onClose={handleCloseBottomPopup}
 					>
 						{isMobileSettingsVisible && (
 							<MobileSettings
@@ -557,6 +582,10 @@ function TodoApp() {
 								isOnlyUncompleted={isOnlyUncompleted}
 								setOnlyUncompleted={setOnlyUncompleted}
 							/>
+						)}
+
+						{mobileBottomPopupContent && (
+							mobileBottomPopupContent
 						)}
 					</MobileBottomPopup>
 				)}

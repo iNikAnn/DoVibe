@@ -40,7 +40,7 @@ function DetailCard({ childrens, onClose }) {
 			className={styles.detailCard}
 
 			{...cardVariants}
-			transition={{ ease: 'easeInOut', duration: .3 }}
+			transition={{ ease: 'easeInOut', duration: .2 }}
 
 			drag="x"
 			dragConstraints={{ left: 0, right: 0 }}

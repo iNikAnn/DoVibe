@@ -66,7 +66,7 @@ function TodoItem(props) {
 		pressTimer = setTimeout(() => {
 			onLongPress(bin, id, title, description, isCompleted, isCurrent);
 			navigator.vibrate?.([10]);
-		}, 300);
+		}, 200);
 	};
 
 	const endPress = () => {

@@ -10,6 +10,7 @@ function SmallBtn({ text, title, icon, iconColor, bgColor, onClick }) {
 				style={{ backgroundColor: bgColor }}
 				className={styles.smallBtn}
 				onClick={onClick}
+				aria-label={text}
 			>
 				{text && (
 					<span>

@@ -27,7 +27,9 @@ function TodoList(props) {
 		onRemoveTodo,
 		onMarkTodo,
 		onMarkTodoAsCurrent,
+
 		onShowItemMenu,
+		onCloseItemMenu,
 
 		isOnlyUncompleted,
 
@@ -142,7 +144,7 @@ function TodoList(props) {
 				isCompleted={isCompleted}
 				isCurrent={isCurrent}
 
-				onActionFinished={() => onShowItemMenu(null)}
+				onActionFinished={onCloseItemMenu}
 				onMarkAsCurrent={() => onMarkTodoAsCurrent(bin, id)}
 				onMark={() => onMarkTodo(bin, id)}
 				onEdit={() => handleEditTodo(bin, id, title, desc)}

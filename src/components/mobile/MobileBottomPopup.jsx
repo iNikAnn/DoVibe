@@ -30,7 +30,7 @@ function MobileBottomPopup({ children, onClose }) {
 
 	return (
 		<motion.div
-			className={styles.mobileItemMenu}
+			className={styles.mobileBottomPopup}
 
 			{...menuVariants}
 

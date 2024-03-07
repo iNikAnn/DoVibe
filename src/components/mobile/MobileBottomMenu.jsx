@@ -46,13 +46,15 @@ function MobileBottomMenu(props) {
 					icon={<BsLayoutSidebarInset />}
 					onClick={onOpenLeftSidebar}
 				/>
+
 				<SmallBtn
-					text="Create todo"
+					text="Create ToDo"
 					title="Create new todo"
 					icon={<MdLibraryAdd />}
 					bgColor="#1970c2"
 					onClick={onCreateTodo}
 				/>
+
 				<SmallBtn
 					title="Settings"
 					icon={<MdSettings />}
