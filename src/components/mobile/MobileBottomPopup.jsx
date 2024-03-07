@@ -1,9 +1,9 @@
-import styles from '../../css/MobileTodoItemMenu.module.css';
+import styles from '../../css/MobileBottomPopup.module.css';
 
 // framer
 import { motion } from 'framer-motion';
 
-function MobileTodoItemMenu({ children, onClose }) {
+function MobileBottomPopup({ children, onClose }) {
 	const menuVariants = {
 		initial: {
 			opacity: 0,
@@ -30,7 +30,7 @@ function MobileTodoItemMenu({ children, onClose }) {
 
 	return (
 		<motion.div
-			className={styles.mobileItemMenu}
+			className={styles.mobileBottomPopup}
 
 			{...menuVariants}
 
@@ -47,4 +47,4 @@ function MobileTodoItemMenu({ children, onClose }) {
 	);
 }
 
-export default MobileTodoItemMenu;
+export default MobileBottomPopup;

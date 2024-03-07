@@ -1,10 +1,19 @@
 .smallBtn {
-	width: var(--small-btn-width);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.6rem;
+
+	min-width: var(--small-btn-width);
 	height: var(--small-btn-height);
 
 	background-color: var(--bg-color-secondary);
 	border-radius: var(--border-radius-secondary);
 	box-shadow: var(--box-shadow-primary);
+	font-size: 1rem;
+	font-weight: 700;
+
+	padding: 0 1rem;
 }
 
 /* svg */

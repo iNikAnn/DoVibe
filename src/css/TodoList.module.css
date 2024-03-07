@@ -2,7 +2,8 @@
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	margin-top: 1rem;
+	/* margin-top: 1rem; */
+	padding-top: 1rem;
 	margin-bottom: 5rem;
 }
 
@@ -28,7 +29,7 @@
 }
 
 .binTitle div {
-	border-bottom: 2px solid var(--bg-color-primary);
+	border-bottom: 1px solid var(--bg-color-primary);
 	padding-bottom: 0.4rem;
 }
 

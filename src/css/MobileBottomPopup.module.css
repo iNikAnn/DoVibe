@@ -1,4 +1,4 @@
-.mobileItemMenu {
+.mobileBottomPopup {
 	/* outline: 4px solid tomato; */
 	position: fixed;
 	bottom: 0;
@@ -30,4 +30,6 @@
 
 	background-color: var(--bg-color-tertiary);
 	border-radius: var(--border-radius-primary);
+
+	margin-bottom: 1rem;
 }

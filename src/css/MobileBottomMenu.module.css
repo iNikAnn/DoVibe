@@ -6,10 +6,18 @@
 
 	width: 100%;
 
+	background: linear-gradient(to top, var(--bg) 10%, transparent);
+
+	padding: 0.6rem;
+	z-index: 149;
+}
+
+.content {
 	display: flex;
 	justify-content: space-between;
 
-	background: linear-gradient(to top, var(--bg) 10%, transparent);
-	padding: 1rem;
-	z-index: 149;
+	background-color: var(--bg-color-primary);
+	border-radius: var(--border-radius-primary);
+	box-shadow: var(--box-shadow-primary);
+	padding: 0.6rem;
 }
