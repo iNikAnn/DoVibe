@@ -587,6 +587,7 @@ function TodoApp() {
 				{isNotifVisible && (
 					<Notification
 						key={'notif'}
+						onClose={() => setIsNotifVisible(false)}
 						onHoverStart={handleNotifHoverStart}
 						onHoverEnd={handleNotifHoverEnd}
 					>

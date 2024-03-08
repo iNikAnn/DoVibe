@@ -1,13 +1,17 @@
 .notification {
 	/* outline: 1px solid tomato; */
 	position: fixed;
-	bottom: 1rem;
-	left: 50%;
-	transform: translateX(-50%);
+	width: 100%;
+
+	display: flex;
+	justify-content: center;
+	/* left: 50%; */
+	/* transform: translateX(-50%); */
 
 	background: linear-gradient(to top, var(--bg) 10%, transparent);
 
-	z-index: 9;
+	bottom: 1rem;
+	z-index: 159;
 }
 
 .childrenWrapper {
@@ -20,8 +24,11 @@
 
 @media screen and (max-width: 576px) {
 	.notification {
-		width: 100%;
 		padding: 0.6rem;
 		bottom: 0;
+	}
+
+	.childrenWrapper {
+		width: 100%;
 	}
 }
