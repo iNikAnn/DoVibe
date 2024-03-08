@@ -48,18 +48,20 @@ function MobileBottomMenu(props) {
 				/>
 
 				<SmallBtn
-					text="Create ToDo"
+					title="Settings"
+					icon={<MdSettings />}
+					onClick={onOpenSettings}
+				/>
+
+				<SmallBtn
+					// text="Create ToDo"
 					title="Create new todo"
 					icon={<MdLibraryAdd />}
 					bgColor="#1970c2"
 					onClick={onCreateTodo}
 				/>
 
-				<SmallBtn
-					title="Settings"
-					icon={<MdSettings />}
-					onClick={onOpenSettings}
-				/>
+
 			</div>
 		</motion.div>
 	);

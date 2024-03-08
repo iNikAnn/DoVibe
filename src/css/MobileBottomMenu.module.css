@@ -15,9 +15,14 @@
 .content {
 	display: flex;
 	justify-content: space-between;
+	gap: 0.6rem;
 
-	background-color: var(--bg-color-primary);
+	/* background-color: var(--bg-color-primary); */
 	border-radius: var(--border-radius-primary);
 	box-shadow: var(--box-shadow-primary);
-	padding: 0.6rem;
+	padding: 0 0.6rem;
+}
+
+.content div:last-child {
+	margin-left: auto;
 }
