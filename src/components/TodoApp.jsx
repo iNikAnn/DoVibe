@@ -30,6 +30,7 @@ import { FaUndoAlt } from "react-icons/fa";
 import MobileEditTodoForm from './mobile/MobileEditTodoForm';
 import SmallBtn from './buttons/SmallBtn';
 import DatePicker from './datepicker/DatePicker';
+import TodoDetails from './TodoDetails';
 
 function TodoApp() {
 	const isMobileVersion = window.matchMedia('(max-width: 576px)').matches;
@@ -430,6 +431,10 @@ function TodoApp() {
 				setIsMobileCalendarVisible(true);
 				break;
 
+			case 'mobileTodoDetails':
+				setMobileTodoDetailsProps(content);
+				break;
+
 			default:
 				setMobileBottomPopupContent(content);
 				break;
@@ -442,11 +447,15 @@ function TodoApp() {
 		setIsMobileCalendarVisible(false);
 		setMobileSettingsVisible(false);
 		setMobileBottomPopupContent(null);
+		setIsTodoOpened(false);
 		setMobileBottomPopupVisible(false);
 	};
 
 	// mobile overlay
 	const [isOverlayVisible, setOverlayVisible] = useState(false);
+
+	// mobile todo details props
+	const [mobileTodoDetailsProps, setMobileTodoDetailsProps] = useState(null);
 
 	// mobile bottom menu
 	const [isMobileBottomMenuVisible, setMobileBottomMenuVisible] = useState(true);
@@ -551,7 +560,13 @@ function TodoApp() {
 					isOnlyUncompleted={isOnlyUncompleted}
 
 					isTodoOpen={isTodoOpen}
-					onToggleTodo={() => setIsTodoOpened((prev) => !prev)}
+					onToggleTodo={(props) => {
+						if (isMobileVersion) {
+							handleShowBottomPopup('mobileTodoDetails', props);
+						};
+
+						setIsTodoOpened((prev) => !prev);
+					}}
 
 					onShowMobileEditTodoForm={handleShowMobileEditTodoForm}
 					isMobileVersion={isMobileVersion}
@@ -568,6 +583,7 @@ function TodoApp() {
 						className={styles.overlay}
 						onPointerDown={() => {
 							setMobileEditTodoFormVisible(false);
+							setIsTodoOpened(false);
 							handleCloseBottomPopup();
 						}}
 					/>
@@ -646,6 +662,12 @@ function TodoApp() {
 								initialDate={date}
 								onPickDate={handleChangeViewMode}
 								checkForUnfinishedTodosInDay={checkForUnfinishedTodosInDay}
+							/>
+						)}
+
+						{isTodoOpen && (
+							<TodoDetails
+								{...mobileTodoDetailsProps}
 							/>
 						)}
 

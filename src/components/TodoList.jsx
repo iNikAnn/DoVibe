@@ -74,6 +74,8 @@ function TodoList(props) {
 	}, [date]);
 
 	const handleOpenTodo = (title, desc, bin, isCompleted) => {
+		const props = { title, desc, bin, isCompleted };
+
 		setDetailCardContent(
 			<TodoDetails
 				title={title}
@@ -83,7 +85,7 @@ function TodoList(props) {
 			/>
 		);
 
-		onToggleTodo();
+		onToggleTodo(props);
 	};
 
 	const handleEditTodo = (bin, id, title, desc) => {
@@ -211,7 +213,7 @@ function TodoList(props) {
 	return (
 		<div className={styles.todoList}>
 			<AnimatePresence>
-				{isTodoOpen && (
+				{(isTodoOpen && !isMobileVersion) && (
 					<DetailCard
 						key="detailCard"
 						childrens={detailCardContent}
