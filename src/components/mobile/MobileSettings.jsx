@@ -10,6 +10,7 @@ import { FaMoon } from "react-icons/fa"; // dark mode
 import { FaCalendarAlt } from "react-icons/fa"; // all todos
 import { FaCalendarDay } from "react-icons/fa"; // todos for the day
 import { FaListAlt } from "react-icons/fa"; // only uncompleted todos
+import Footer from '../Footer';
 
 function MobileSettings(props) {
 	const {
@@ -82,6 +83,12 @@ function MobileSettings(props) {
 					checked={isOnlyUncompleted}
 					onChange={setOnlyUncompleted}
 				/>
+			</div>
+
+			<div className={styles.separator} />
+
+			<div style={{ alignSelf: 'center' }} className={styles.settingsItem}>
+				<Footer />
 			</div>
 		</div>
 	);
