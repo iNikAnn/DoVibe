@@ -3,7 +3,7 @@ import styles from '../../css/MobileBottomPopup.module.css';
 // framer
 import { motion } from 'framer-motion';
 
-function MobileBottomPopup({ children, onClose }) {
+function MobileBottomPopup({ title, children, onClose }) {
 	const menuVariants = {
 		initial: {
 			opacity: 0,
@@ -41,6 +41,11 @@ function MobileBottomPopup({ children, onClose }) {
 		>
 			<div className={styles.contentWrapper}>
 				<div className={styles.dragHandle} />
+
+				{title && (
+					<h2 className={styles.title}>{title}</h2>
+				)}
+
 				{children}
 			</div>
 		</motion.div>

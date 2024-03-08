@@ -12,3 +12,9 @@
 
 	padding: 0.6rem;
 }
+
+@media screen and (max-width: 576px) {
+	.textBadge {
+		min-height: var(--small-btn-height);
+	}
+}

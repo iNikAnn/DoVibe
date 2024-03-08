@@ -29,8 +29,6 @@ function MobileSettings(props) {
 
 	return (
 		<div className={styles.settings}>
-			<h2>Settings</h2>
-
 			<div className={styles.separator} />
 
 			<div className={styles.settingsItem}>

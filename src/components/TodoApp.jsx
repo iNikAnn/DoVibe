@@ -417,6 +417,7 @@ function TodoApp() {
 
 	// mobile bottom popup
 	const [isMobileBottomPopupVisible, setMobileBottomPopupVisible] = useState(false);
+	const [mobilePopupTitle, setMobilePopupTitle] = useState(null);
 	const [mobileBottomPopupContent, setMobileBottomPopupContent] = useState(null);
 
 	const handleShowBottomPopup = (name, content) => {
@@ -424,18 +425,22 @@ function TodoApp() {
 
 		switch (name) {
 			case 'mobileSettings':
+				setMobilePopupTitle('Settings');
 				setMobileSettingsVisible(true);
 				break;
 
 			case 'mobileCalendar':
+				setMobilePopupTitle('Calendar');
 				setIsMobileCalendarVisible(true);
 				break;
 
 			case 'mobileTodoDetails':
+				setMobilePopupTitle('Todo details');
 				setMobileTodoDetailsProps(content);
 				break;
 
 			default:
+				setMobilePopupTitle(null);
 				setMobileBottomPopupContent(content);
 				break;
 		};
@@ -638,6 +643,7 @@ function TodoApp() {
 				{isMobileBottomPopupVisible && (
 					<MobileBottomPopup
 						key="mobailBottomPopup"
+						title={mobilePopupTitle}
 						onClose={handleCloseBottomPopup}
 					>
 						{isMobileSettingsVisible && (
