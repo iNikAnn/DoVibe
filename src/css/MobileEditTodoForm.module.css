@@ -3,7 +3,7 @@
 	top: 0;
 	left: 0;
 
-	background-color: var(--bg);
+	/* background-color: var(--bg); */
 	border-radius: 0 0 1rem 1rem;
 	z-index: 99;
 }
@@ -46,4 +46,10 @@
 
 .btnWrapper div button {
 	flex: 1;
+}
+
+/* save btn */
+.form button[aria-label='Save Changes'],
+.form button[aria-label='Save Changes'] svg {
+	color: #3eb489;
 }

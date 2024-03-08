@@ -76,7 +76,7 @@ function MobileEditTodoForm({ bin, id, title, desc, onClose, onSubmit }) {
 						title="Save Changes"
 						icon={<FaSave />}
 						type="submit"
-						bgColor="#3eb489"
+					// bgColor="#3eb489"
 					/>
 				</div>
 			</form>

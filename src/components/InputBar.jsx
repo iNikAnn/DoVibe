@@ -28,17 +28,20 @@ function InputBar({ inputBarRef, onSubmit }) {
 		initial: {
 			opacity: 0,
 			height: 0,
+			y: '-100%'
 
 		},
 
 		animate: {
 			opacity: 1,
 			height: 'auto',
+			y: 0
 		},
 
 		exit: {
 			opacity: 0,
 			height: 0,
+			y: 0
 		},
 	};
 
