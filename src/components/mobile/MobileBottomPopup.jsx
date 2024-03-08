@@ -43,7 +43,10 @@ function MobileBottomPopup({ title, children, onClose }) {
 				<div className={styles.dragHandle} />
 
 				{title && (
-					<h2 className={styles.title}>{title}</h2>
+					<>
+						<h2 className={styles.title}>{title}</h2>
+						<div className={styles.separator} />
+					</>
 				)}
 
 				{children}

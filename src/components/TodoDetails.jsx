@@ -7,8 +7,6 @@ import TextBadge from './TextBadge';
 function TodoDetails({ title, desc, bin, isCompleted }) {
 	return (
 		<div className={styles.todoDetails}>
-			<div className={styles.separator} />
-
 			<div className={styles.info}>
 				<TextBadge
 					text={<span><strong>Date:</strong> {bin}</span>}

@@ -237,7 +237,7 @@ function TodoList(props) {
 							let element = null;
 
 							if (isDateSeparator) {
-								element = <div>{item.bin}</div>;
+								element = <div>{new Date(item.bin).toLocaleDateString()}</div>;
 							} else {
 								element = (
 									<TodoItem

@@ -31,6 +31,7 @@ import MobileEditTodoForm from './mobile/MobileEditTodoForm';
 import SmallBtn from './buttons/SmallBtn';
 import DatePicker from './datepicker/DatePicker';
 import TodoDetails from './TodoDetails';
+import MobileHeader from './mobile/MobileHeader';
 
 function TodoApp() {
 	const isMobileVersion = window.matchMedia('(max-width: 576px)').matches;
@@ -511,6 +512,11 @@ function TodoApp() {
 		<div className={styles.todoApp}>
 			<div className={styles.content}>
 				{/* <h1>DoVibe</h1> */}
+				{isMobileVersion && (
+					<MobileHeader
+						date={date}
+					/>
+				)}
 
 				<AnimatePresence initial={false}>
 					{isInputBarVisible && (
