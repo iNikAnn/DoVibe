@@ -47,7 +47,6 @@
 	bottom: 0;
 
 	background-color: var(--bg);
-	opacity: 1;
 
 	touch-action: none;
 	z-index: 89;

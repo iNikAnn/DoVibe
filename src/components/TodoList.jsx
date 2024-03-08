@@ -36,7 +36,9 @@ function TodoList(props) {
 		isTodoOpen,
 		onToggleTodo,
 
-		onShowMobileEditTodoForm
+		onShowMobileEditTodoForm,
+
+		isMobileVersion
 	} = props;
 
 	const [delay, setDelay] = useState(false);
@@ -219,7 +221,7 @@ function TodoList(props) {
 			</AnimatePresence>
 
 			<Reorder.Group
-				className={isTodoOpen ? styles.hidden : ''}
+				className={(isTodoOpen && !isMobileVersion) ? styles.hidden : ''}
 				axis="y"
 				values={list ? list : []}
 				onReorder={(reorderedList) => onReorderTodo(reorderedList, list[movedItemIndex])}

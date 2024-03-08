@@ -533,6 +533,7 @@ function TodoApp() {
 					onToggleTodo={() => setIsTodoOpened((prev) => !prev)}
 
 					onShowMobileEditTodoForm={handleShowMobileEditTodoForm}
+					isMobileVersion={isMobileVersion}
 				/>
 			</div>
 
@@ -541,7 +542,7 @@ function TodoApp() {
 					<motion.div
 						key="overlay"
 						initial={{ opacity: 0 }}
-						animate={{ opacity: 0.75 }}
+						animate={{ opacity: .8 }}
 						exit={{ opacity: 0 }}
 						className={styles.overlay}
 						onPointerDown={() => {
