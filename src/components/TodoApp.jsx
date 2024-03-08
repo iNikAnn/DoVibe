@@ -256,7 +256,7 @@ function TodoApp() {
 			);
 
 			setIsNotifVisible(true);
-			hideNotifTimeOutRef.current = hideNotifeTimeout(400000);
+			hideNotifTimeOutRef.current = hideNotifeTimeout(4000);
 		};
 	};
 
