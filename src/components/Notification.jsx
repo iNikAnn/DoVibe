@@ -3,11 +3,11 @@ import styles from '../css/Notification.module.css';
 // framer
 import { motion } from 'framer-motion';
 
-function Hotification({ children, onHoverStart, onHoverEnd }) {
+function Notification({ children, onHoverStart, onHoverEnd }) {
 	const notiVariants = {
 		initial: {
 			opacity: 0,
-			y: '50%',
+			y: '100%',
 			x: '-50%'
 		},
 
@@ -19,7 +19,7 @@ function Hotification({ children, onHoverStart, onHoverEnd }) {
 
 		exit: {
 			opacity: 0,
-			y: '50%',
+			y: '100%',
 			x: '-50%',
 		},
 	};
@@ -31,9 +31,11 @@ function Hotification({ children, onHoverStart, onHoverEnd }) {
 			onHoverStart={onHoverStart}
 			onHoverEnd={onHoverEnd}
 		>
-			{children}
+			<div className={styles.childrenWrapper}>
+				{children}
+			</div>
 		</motion.div>
 	);
 }
 
-export default Hotification;
+export default Notification;

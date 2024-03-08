@@ -1,12 +1,27 @@
 .notification {
 	/* outline: 1px solid tomato; */
 	position: fixed;
-	background-color: var(--bg-color-secondary);
-	box-shadow: var(--box-shadow-primary);
-	padding: 0.4rem 0.4rem 0.4rem 0.8rem;
-	border-radius: 0.6rem;
-	bottom: 3rem;
+	bottom: 1rem;
 	left: 50%;
 	transform: translateX(-50%);
+
+	background: linear-gradient(to top, var(--bg) 10%, transparent);
+
 	z-index: 9;
+}
+
+.childrenWrapper {
+	background-color: var(--bg-color-primary);
+	box-shadow: var(--box-shadow-primary);
+	border-radius: var(--border-radius-primary);
+	padding: 0.6rem;
+	padding-left: 1rem;
+}
+
+@media screen and (max-width: 576px) {
+	.notification {
+		width: 100%;
+		padding: 0.6rem;
+		bottom: 0;
+	}
 }

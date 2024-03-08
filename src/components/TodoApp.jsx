@@ -28,6 +28,7 @@ import sortTodosByCompletion from '../utils/sortTodosByCompletion';
 // icons
 import { FaUndoAlt } from "react-icons/fa";
 import MobileEditTodoForm from './mobile/MobileEditTodoForm';
+import SmallBtn from './buttons/SmallBtn';
 
 function TodoApp() {
 	const isMobileVersion = window.matchMedia('(max-width: 576px)').matches;
@@ -66,7 +67,7 @@ function TodoApp() {
 	const [currentTodo, setCurrentTodo] = useState(JSON.parse(localStorage.getItem('currentTodo')) || null);
 
 	// notification
-	const [notifIsVisible, setNotifIsVisible] = useState(false);
+	const [isNotifVisible, setIsNotifVisible] = useState(false);
 	const [notifContent, setNotifContent] = useState(null);
 	const hideNotifTimeOutRef = useRef(null);
 
@@ -238,32 +239,30 @@ function TodoApp() {
 
 		// display notification about todo deletion
 		if (showNotif) {
-			setTimeout(() => {
-				setNotifContent(
-					<div className={styles.removeTodoNotif}>
-						<span>Removed successfully!</span>
+			setNotifContent(
+				<div className={styles.removeTodoNotif}>
+					<span>Removed successfully!</span>
 
-						<button onClick={() => {
+					<SmallBtn
+						text="Undo"
+						title="Undo Deletion"
+						icon={<FaUndoAlt />}
+						onClick={() => {
 							setTodos({ ...todos });
-							setTimeout(() => {
-								setNotifIsVisible(false);
-							}, 200);
-						}}>
-							<span>Undo</span>
-							<FaUndoAlt />
-						</button>
-					</div>
-				);
+							setIsNotifVisible(false);
+						}}
+					/>
+				</div>
+			);
 
-				setNotifIsVisible(true);
-				hideNotifTimeOutRef.current = hideNotifeTimeout(4000);
-			}, 600);
+			setIsNotifVisible(true);
+			hideNotifTimeOutRef.current = hideNotifeTimeout(400000);
 		};
 	};
 
 	const hideNotifeTimeout = (duration) => {
 		return setTimeout(() => {
-			setNotifIsVisible(false);
+			setIsNotifVisible(false);
 		}, duration);
 	};
 
@@ -275,7 +274,7 @@ function TodoApp() {
 	// setting a timeout on the 'onHoverEnd' event
 	const handleNotifHoverEnd = () => {
 		setTimeout(() => {
-			setNotifIsVisible(false);
+			setIsNotifVisible(false);
 		}, 2000);
 	};
 
@@ -458,7 +457,21 @@ function TodoApp() {
 		setMobileEditTodoFormVisible(true);
 	};
 
-	// Toggle mobile bottom menu visibility based on...
+	// toggle mobile bottom menu visibility based on...
+	useEffect(() => {
+		if (!isMobileVersion) return;
+
+		const shouldHideMenu =
+			isInputBarVisible ||
+			isMobileBottomPopupVisible ||
+			isTodoOpen ||
+			isMobileEditTodoFormVisible ||
+			isNotifVisible;
+
+		setMobileBottomMenuVisible(!shouldHideMenu);
+	}, [isMobileVersion, isInputBarVisible, isMobileBottomPopupVisible, isTodoOpen, isMobileEditTodoFormVisible, isNotifVisible]);
+
+	// toggle mobile overlay visibility based on...
 	useEffect(() => {
 		if (!isMobileVersion) return;
 
@@ -468,7 +481,6 @@ function TodoApp() {
 			isTodoOpen ||
 			isMobileEditTodoFormVisible;
 
-		setMobileBottomMenuVisible(!shouldHideMenu);
 		setOverlayVisible(shouldHideMenu);
 	}, [isMobileVersion, isInputBarVisible, isMobileBottomPopupVisible, isTodoOpen, isMobileEditTodoFormVisible]);
 
@@ -572,7 +584,7 @@ function TodoApp() {
 					</Modal>
 				)}
 
-				{notifIsVisible && (
+				{isNotifVisible && (
 					<Notification
 						key={'notif'}
 						onHoverStart={handleNotifHoverStart}

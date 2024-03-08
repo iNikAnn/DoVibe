@@ -6,6 +6,7 @@
 
 	width: 100%;
 
+	background: linear-gradient(to top, var(--bg) 10%, transparent);
 	text-align: center;
 
 	padding: 0.6rem;

@@ -11,7 +11,7 @@ function SmallBtn({ text, title, icon, iconColor, bgColor, onClick, type }) {
 				className={styles.smallBtn}
 				onClick={onClick}
 				aria-label={title}
-				type={type}
+				type={type || "button"}
 			>
 				{text && (
 					<span>
