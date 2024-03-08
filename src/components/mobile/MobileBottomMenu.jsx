@@ -8,6 +8,7 @@ import SmallBtn from '../buttons/SmallBtn';
 
 // icons
 import { BsLayoutSidebarInset } from "react-icons/bs";
+import { FaCalendar } from "react-icons/fa";
 import { MdLibraryAdd } from "react-icons/md";
 import { MdSettings } from "react-icons/md";
 
@@ -15,6 +16,7 @@ function MobileBottomMenu(props) {
 	const {
 		onOpenLeftSidebar,
 		onCreateTodo,
+		onOpenCalendar,
 		onOpenSettings
 	} = props;
 
@@ -41,14 +43,20 @@ function MobileBottomMenu(props) {
 			className={styles.mobileBottomMenu}
 		>
 			<div className={styles.content}>
-				<SmallBtn
+				{/* <SmallBtn
 					title="Toggle sidebar"
 					icon={<BsLayoutSidebarInset />}
 					onClick={onOpenLeftSidebar}
+				/> */}
+
+				<SmallBtn
+					title="Open calendar"
+					icon={<FaCalendar />}
+					onClick={onOpenCalendar}
 				/>
 
 				<SmallBtn
-					title="Settings"
+					title="Open settings"
 					icon={<MdSettings />}
 					onClick={onOpenSettings}
 				/>

@@ -29,6 +29,7 @@ import sortTodosByCompletion from '../utils/sortTodosByCompletion';
 import { FaUndoAlt } from "react-icons/fa";
 import MobileEditTodoForm from './mobile/MobileEditTodoForm';
 import SmallBtn from './buttons/SmallBtn';
+import DatePicker from './datepicker/DatePicker';
 
 function TodoApp() {
 	const isMobileVersion = window.matchMedia('(max-width: 576px)').matches;
@@ -425,6 +426,10 @@ function TodoApp() {
 				setMobileSettingsVisible(true);
 				break;
 
+			case 'mobileCalendar':
+				setIsMobileCalendarVisible(true);
+				break;
+
 			default:
 				setMobileBottomPopupContent(content);
 				break;
@@ -434,6 +439,7 @@ function TodoApp() {
 	};
 
 	const handleCloseBottomPopup = () => {
+		setIsMobileCalendarVisible(false);
 		setMobileSettingsVisible(false);
 		setMobileBottomPopupContent(null);
 		setMobileBottomPopupVisible(false);
@@ -447,6 +453,9 @@ function TodoApp() {
 
 	// mobile settings
 	const [isMobileSettingsVisible, setMobileSettingsVisible] = useState(false);
+
+	// mobile calendar
+	const [isMobileCalendarVisible, setIsMobileCalendarVisible] = useState(false);
 
 	// mobile edit todo form
 	const [isMobileEditTodoFormVisible, setMobileEditTodoFormVisible] = useState(false);
@@ -605,6 +614,7 @@ function TodoApp() {
 								inputBarRef.current.focus();
 							}, 0)
 						}}
+						onOpenCalendar={() => handleShowBottomPopup('mobileCalendar')}
 						onOpenSettings={() => handleShowBottomPopup('mobileSettings')}
 					/>
 				)}
@@ -627,6 +637,15 @@ function TodoApp() {
 								// filter (is only uncompleted)
 								isOnlyUncompleted={isOnlyUncompleted}
 								setOnlyUncompleted={setOnlyUncompleted}
+							/>
+						)}
+
+						{isMobileCalendarVisible && (
+							<DatePicker
+								todos={todos}
+								initialDate={date}
+								onPickDate={handleChangeViewMode}
+								checkForUnfinishedTodosInDay={checkForUnfinishedTodosInDay}
 							/>
 						)}
 

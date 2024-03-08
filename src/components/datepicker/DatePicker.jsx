@@ -9,6 +9,7 @@ import DatePickerCell from './DatePickerCell';
 
 // icons
 import { IoIosArrowForward } from "react-icons/io";
+import SmallBtn from '../buttons/SmallBtn';
 
 function DatePicker({ todos, initialDate, onPickDate, checkForUnfinishedTodosInDay }) {
 	const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -122,12 +123,11 @@ function DatePicker({ todos, initialDate, onPickDate, checkForUnfinishedTodosInD
 				)}
 			</div>
 
-			<button
-				className={styles.todayBtn}
+			<SmallBtn
+				text="Current Day"
+				title="Select the current day"
 				onClick={() => handleBackToTheToday(new Date())}
-			>
-				Today
-			</button>
+			/>
 		</motion.div>
 	);
 }

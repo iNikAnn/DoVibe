@@ -1,9 +1,12 @@
 .datePicker {
 	/* outline: 1px solid tomato; */
+	width: 100%;
+
 	background-color: var(--bg-color-primary);
 	color: var(--text-color-primary);
 	box-shadow: var(--box-shadow-primary);
 	border-radius: 0.6rem;
+
 	padding: 0.6rem;
 }
 
@@ -65,19 +68,17 @@
 	font-weight: 600;
 }
 
-.todayBtn {
-	height: var(--small-btn-height);
-	width: 100%;
-
-	background-color: var(--bg-color-tertiary);
-	color: inherit;
-	border-radius: var(--border-radius-secondary);
-	box-shadow: var(--box-shadow-primary);
-
+.datePicker button[aria-label='Select the current day'] {
 	margin-top: 0.6rem;
+	width: 100%;
 }
 
 @media screen and (max-width: 567px) {
+	.datePicker {
+		padding: 0;
+		box-shadow: unset;
+	}
+
 	.days {
 		grid-template-columns: repeat(7, 1fr);
 		grid-auto-rows: minmax(1fr, auto);
