@@ -1,7 +1,7 @@
 import styles from '../css/TodoItem.module.css';
 
 // react, framer
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 
 // components
@@ -34,6 +34,13 @@ function TodoItem(props) {
 	} = props;
 
 	const todoRef = useRef(null);
+
+	// set 'bg' state with the value of the '--bg' CSS variable
+	const [bg, setBg] = useState('');
+
+	useEffect(() => {
+		setBg(getComputedStyle(document.documentElement).getPropertyValue('--bg'));
+	}, []);
 
 	// enables keyboard focus styling for the todo item using :focus-visible pseudoclass
 	useEffect(() => {
@@ -76,7 +83,7 @@ function TodoItem(props) {
 	};
 
 	const isMobileVersion = window.matchMedia('(max-width: 576px)').matches;
-	const tap = isMobileVersion ? { backgroundColor: 'hsl(0, 0%, 16%)' } : {};
+	const tapStyle = isMobileVersion ? { backgroundColor: bg } : {};
 
 	return (
 		<motion.div
@@ -88,7 +95,7 @@ function TodoItem(props) {
 			onPointerUp={endPress}
 			onPointerLeave={endPress}
 
-			whileTap={tap}
+			whileTap={tapStyle}
 		>
 			<div className={`${styles.left} ${isCompleted ? styles.isCompleted : ''}`}>
 				{description && (

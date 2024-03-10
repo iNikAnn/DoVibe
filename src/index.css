@@ -132,4 +132,14 @@ textarea:focus {
 		--small-icon-width: 1.5rem;
 		--small-icon-height: 1.5rem;
 	}
+
+	html[data-scheme='dark'] {
+		--text-color-primary: hsl(0, 0%, 80%);
+		--text-color-dimmed: hsl(0, 0%, 30%);
+
+		--bg: #000000;
+		--bg-color-primary: hsl(0, 0%, 8%);
+		--bg-color-secondary: hsl(0, 0%, 12%);
+		--bg-color-tertiary: hsl(0, 0%, 16%);
+	}
 }
