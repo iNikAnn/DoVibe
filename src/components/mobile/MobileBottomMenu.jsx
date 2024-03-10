@@ -35,7 +35,7 @@ function MobileBottomMenu(props) {
 			opacity: 0,
 			y: '100%'
 		},
-	}
+	};
 
 	return (
 		<motion.div
@@ -50,15 +50,17 @@ function MobileBottomMenu(props) {
 				/> */}
 
 				<SmallBtn
-					title="Open calendar"
-					icon={<FaCalendar />}
-					onClick={onOpenCalendar}
-				/>
-
-				<SmallBtn
 					title="Open settings"
 					icon={<MdSettings />}
 					onClick={onOpenSettings}
+					bgColor="unset"
+				/>
+
+				<SmallBtn
+					title="Open calendar"
+					icon={<FaCalendar />}
+					onClick={onOpenCalendar}
+					bgColor="unset"
 				/>
 
 				<SmallBtn
@@ -68,8 +70,6 @@ function MobileBottomMenu(props) {
 					bgColor="#1970c2"
 					onClick={onCreateTodo}
 				/>
-
-
 			</div>
 		</motion.div>
 	);
