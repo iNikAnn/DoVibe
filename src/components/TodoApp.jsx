@@ -74,6 +74,39 @@ function TodoApp() {
 	const [notifContent, setNotifContent] = useState(null);
 	const hideNotifTimeOutRef = useRef(null);
 
+	// system notification
+	const [isNotifEnabled, setIsNotifEnabled] = useState(() => {
+		if ('Notification' in window) {
+			return window.Notification.permission === 'granted';
+		};
+	});
+
+	const handleToggleNotif = (boolean) => {
+		if ('Notification' in window) {
+			if (window.Notification.permission === 'granted' && !boolean) {
+				alert(
+					'To turn off notifications, ' +
+					'please do so in your browser settings.'
+				);
+			}
+			else if (window.Notification.permission === 'denied' && boolean) {
+				alert(
+					'You have denied notification sending. ' +
+					'To enable notifications, please adjust your browser settings.'
+				);
+			}
+			else {
+				window.Notification.requestPermission().then((res) => {
+					if (res === 'granted') {
+						setIsNotifEnabled(true);
+					} else {
+						setIsNotifEnabled(false);
+					};
+				});
+			};
+		};
+	};
+
 	// modal
 	const [modalIsVisible, setModalIsVisible] = useState(false);
 	const [modalContent, setModalContent] = useState(null);
@@ -654,6 +687,10 @@ function TodoApp() {
 					>
 						{isMobileSettingsVisible && (
 							<MobileSettings
+								//notifications
+								isNotifEnabled={isNotifEnabled}
+								onToogleNotif={handleToggleNotif}
+
 								// color scheme switcher
 								colorScheme={colorScheme}
 								onChangeScheme={handleChangeScheme}
