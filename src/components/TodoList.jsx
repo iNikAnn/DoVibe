@@ -229,7 +229,7 @@ function TodoList(props) {
 				onReorder={(reorderedList) => onReorderTodo(reorderedList, list[movedItemIndex])}
 			>
 				<AnimatePresence initial={false} mode="popLayout">
-					{list
+					{list && list.length > 0
 						? list.map((item, index) => {
 							const isDraggable = isTodoDraggable(list, index);
 							const isDateSeparator = item.type === 'dateSeparator';

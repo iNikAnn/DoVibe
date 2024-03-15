@@ -12,11 +12,16 @@ import FiltersBar from './FiltersBar';
 import TodoList from './TodoList';
 import Modal from '../components/Modal';
 import Notification from './Notification';
+import SmallBtn from './buttons/SmallBtn';
+import DatePicker from './datepicker/DatePicker';
+import TodoDetails from './TodoDetails';
 
 //mobile components
+import MobileHeader from './mobile/MobileHeader';
 import MobileBottomMenu from './mobile/MobileBottomMenu';
 import MobileBottomPopup from '../components/mobile/MobileBottomPopup';
 import MobileSettings from '../components/mobile/MobileSettings';
+import MobileEditTodoForm from './mobile/MobileEditTodoForm';
 
 // utils
 import getFormattedDate from '../utils/getFormattedDate';
@@ -27,11 +32,6 @@ import sortTodosByCompletion from '../utils/sortTodosByCompletion';
 
 // icons
 import { FaUndoAlt } from "react-icons/fa";
-import MobileEditTodoForm from './mobile/MobileEditTodoForm';
-import SmallBtn from './buttons/SmallBtn';
-import DatePicker from './datepicker/DatePicker';
-import TodoDetails from './TodoDetails';
-import MobileHeader from './mobile/MobileHeader';
 
 function TodoApp() {
 	const isMobileVersion = window.matchMedia('(max-width: 576px)').matches;
@@ -54,7 +54,79 @@ function TodoApp() {
 	});
 
 	// todos
-	const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || {});
+	const [todos, setTodos] = useState({});
+
+	useEffect(() => {
+		if ('indexedDB' in window) {
+			const request = indexedDB.open('todosDB', 1);
+
+			request.onupgradeneeded = (event) => {
+				const db = event.target.result;
+				db.createObjectStore('todosStore', { keyPath: 'id' });
+			};
+
+			request.onsuccess = (event) => {
+				const db = event.target.result;
+
+				const requestData = db
+					.transaction('todosStore', 'readonly')
+					.objectStore('todosStore')
+					.getAll();
+
+				requestData.onsuccess = (event) => {
+					const todosArray = event.target.result;
+
+					const todosObject = todosArray.reduce((acc, curr) => {
+						if (curr.bin in acc) {
+							acc[curr.bin].push(curr);
+						} else {
+							acc[curr.bin] = [curr];
+						};
+
+						return acc;
+					}, {});
+
+					for (const key in todosObject) {
+						sortTodosByCompletion(todosObject[key]);
+					};
+
+					setTodos(todosObject);
+				};
+			};
+
+			request.onerror = (event) => {
+				console.log('Database error: ' + event.target.errorCode);
+			};
+		}
+		else {
+			window.alert('Your browser does not support IndexedDB.');
+		};
+	}, []);
+
+	useEffect(() => {
+		const handleUpdateIndexedDB = () => {
+			const request = window.indexedDB.open('todosDB', 1);
+
+			request.onsuccess = (event) => {
+				const db = event.target.result;
+
+				const todosStore = db
+					.transaction('todosStore', 'readwrite')
+					.objectStore('todosStore');
+
+				todosStore.clear();
+
+				for (const todo of Object.values(todos).flat()) {
+					todosStore.add(todo);
+				};
+			};
+		};
+
+		if ('indexedDB' in window) {
+			handleUpdateIndexedDB();
+		};
+	}, [todos]);
+
 	const allTodos = Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse();
 	const [isTodoOpen, setIsTodoOpened] = useState(false);
 
@@ -111,9 +183,8 @@ function TodoApp() {
 	const [modalIsVisible, setModalIsVisible] = useState(false);
 	const [modalContent, setModalContent] = useState(null);
 
-	// save todos to local storage
+	// save current todo to local storage
 	useEffect(() => {
-		localStorage.setItem('todos', JSON.stringify(todos));
 		localStorage.setItem('currentTodo', JSON.stringify(currentTodo));
 	}, [todos, currentTodo]);
 
