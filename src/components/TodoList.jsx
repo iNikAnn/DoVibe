@@ -23,6 +23,7 @@ function TodoList(props) {
 		showCustomModal,
 
 		onReorderTodo,
+		onSetReminder,
 		onEditTodo,
 		onRemoveTodo,
 		onMarkTodo,
@@ -159,6 +160,7 @@ function TodoList(props) {
 				onActionFinished={onCloseItemMenu}
 				onMarkAsCurrent={() => onMarkTodoAsCurrent(bin, id)}
 				onMark={() => onMarkTodo(bin, id)}
+				onSetReminder={() => onSetReminder(bin, id)}
 				onEdit={() => handleEditTodo(bin, id, title, desc)}
 				onRemove={() => onRemoveTodo(bin, id)}
 			/>

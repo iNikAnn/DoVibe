@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import TodoActionBtn from './buttons/TodoActionBtn';
 
 // icons
+import { IoAlarm } from "react-icons/io5";
 import { MdDescription } from "react-icons/md";
 import { BsBookmark } from "react-icons/bs"; // mark todo as current
 import { BsBookmarkFill } from "react-icons/bs";
@@ -23,6 +24,7 @@ function TodoItem(props) {
 		bin,
 		isCompleted,
 		isCurrent,
+		hasReminder,
 
 		// actions
 		onOpen,
@@ -98,6 +100,10 @@ function TodoItem(props) {
 			whileTap={tapStyle}
 		>
 			<div className={`${styles.left} ${isCompleted ? styles.isCompleted : ''}`}>
+				{hasReminder && (
+					<IoAlarm />
+				)}
+
 				{description && (
 					<MdDescription title="Todo has a description" />
 				)}

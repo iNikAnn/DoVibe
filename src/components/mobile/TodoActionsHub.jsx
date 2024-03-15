@@ -10,6 +10,7 @@ function TodoActionsHub(props) {
 		onActionFinished,
 		onMarkAsCurrent,
 		onMark,
+		onSetReminder,
 		onEdit,
 		onRemove,
 	} = props;
@@ -32,6 +33,12 @@ function TodoActionsHub(props) {
 				<li>
 					<button onClick={onMark}>
 						{isCompleted ? 'Uncomplete' : 'Complete'}
+					</button>
+				</li>
+
+				<li>
+					<button onClick={onSetReminder}>
+						Set reminder
 					</button>
 				</li>
 

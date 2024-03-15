@@ -19,11 +19,13 @@ import TodoDetails from './TodoDetails';
 //mobile components
 import MobileHeader from './mobile/MobileHeader';
 import MobileBottomMenu from './mobile/MobileBottomMenu';
-import MobileBottomPopup from '../components/mobile/MobileBottomPopup';
-import MobileSettings from '../components/mobile/MobileSettings';
+import MobileBottomPopup from './mobile/MobileBottomPopup';
+import MobileSettings from './mobile/MobileSettings';
 import MobileEditTodoForm from './mobile/MobileEditTodoForm';
 
 // utils
+import initDatabase from '../utils/initDatabase';
+import updateDatabase from '../utils/updateDatabase';
 import getFormattedDate from '../utils/getFormattedDate';
 import modifyDateByOneDay from '../utils/modifyDateByOneDay';
 import isTodoDuplicate from '../utils/isTodoDuplicate';
@@ -57,74 +59,11 @@ function TodoApp() {
 	const [todos, setTodos] = useState({});
 
 	useEffect(() => {
-		if ('indexedDB' in window) {
-			const request = indexedDB.open('todosDB', 1);
-
-			request.onupgradeneeded = (event) => {
-				const db = event.target.result;
-				db.createObjectStore('todosStore', { keyPath: 'id' });
-			};
-
-			request.onsuccess = (event) => {
-				const db = event.target.result;
-
-				const requestData = db
-					.transaction('todosStore', 'readonly')
-					.objectStore('todosStore')
-					.getAll();
-
-				requestData.onsuccess = (event) => {
-					const todosArray = event.target.result;
-
-					const todosObject = todosArray.reduce((acc, curr) => {
-						if (curr.bin in acc) {
-							acc[curr.bin].push(curr);
-						} else {
-							acc[curr.bin] = [curr];
-						};
-
-						return acc;
-					}, {});
-
-					for (const key in todosObject) {
-						sortTodosByCompletion(todosObject[key]);
-					};
-
-					setTodos(todosObject);
-				};
-			};
-
-			request.onerror = (event) => {
-				console.log('Database error: ' + event.target.errorCode);
-			};
-		}
-		else {
-			window.alert('Your browser does not support IndexedDB.');
-		};
+		initDatabase(setTodos);
 	}, []);
 
 	useEffect(() => {
-		const handleUpdateIndexedDB = () => {
-			const request = window.indexedDB.open('todosDB', 1);
-
-			request.onsuccess = (event) => {
-				const db = event.target.result;
-
-				const todosStore = db
-					.transaction('todosStore', 'readwrite')
-					.objectStore('todosStore');
-
-				todosStore.clear();
-
-				for (const todo of Object.values(todos).flat()) {
-					todosStore.add(todo);
-				};
-			};
-		};
-
-		if ('indexedDB' in window) {
-			handleUpdateIndexedDB();
-		};
+		updateDatabase(todos);
 	}, [todos]);
 
 	const allTodos = Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse();
@@ -297,6 +236,7 @@ function TodoApp() {
 			id: uuidv4(),
 			isCompleted: false,
 			isCurrent: false,
+			hasReminder: false,
 			date: Date.now(),
 			bin: day
 		};
@@ -309,6 +249,122 @@ function TodoApp() {
 
 		setTodos(updatedTodos);
 	};
+
+	// set reminder
+	const handleSetReminder = (bin, id) => {
+		console.log('set reminder');
+		setTodos((prevTodos) => {
+			const updatedTodos = { ...prevTodos };
+			const updatedDailyTodos = updatedTodos[bin].map((todo) => {
+				const now = new Date();
+
+				return (todo.id === id)
+					? {
+						...todo,
+						year: now.getFullYear(),
+						month: now.getMonth(),
+						day: now.getDate(),
+						hours: now.getHours(),
+						minutes: now.getMinutes() + 1,
+
+						hasReminder: true,
+					}
+					: { ...todo };
+			});
+
+			updatedTodos[bin] = updatedDailyTodos;
+
+			return updatedTodos;
+		});
+	};
+
+	const checkReminders = () => {
+		console.log('check');
+		const now = new Date();
+
+		const yearCheck = now.getFullYear();
+		const monthCheck = now.getMonth();
+		const dayCheck = now.getDate();
+		const hourCheck = now.getHours();
+		const minuteCheck = now.getMinutes();
+
+		const request = window.indexedDB.open('todosDB', 1);
+
+		request.onsuccess = (event) => {
+			const db = event.target.result;
+
+			const todosStore = db
+				.transaction('todosStore', 'readwrite')
+				.objectStore('todosStore');
+
+			todosStore.openCursor().onsuccess = (event) => {
+				const cursor = event.target.result;
+				if (!cursor) return;
+
+				const { year, month, day, hours, minutes, hasReminder, bin, id, title } = cursor.value;
+
+				const isMatched =
+					yearCheck >= year &&
+					monthCheck >= month &&
+					minuteCheck >= minutes &&
+					dayCheck >= day &&
+					hourCheck >= hours;
+
+				if (isMatched && hasReminder) {
+					createNotification(bin, id, title);
+				};
+
+				cursor.continue();
+			};
+		};
+	};
+
+	const createNotification = (bin, id, title) => {
+		console.log('notification');
+
+		if ('Notification' in window) {
+			window.Notification.requestPermission((res) => {
+				if (res === 'granted') {
+					new window.Notification('DoVibe', { body: title });
+				};
+			});
+		};
+
+		setTodos((prevTodos) => {
+			const updatedTodos = { ...prevTodos };
+			const updatedDailyTodos = updatedTodos[bin].map((todo) => {
+				return (todo.id === id) ? { ...todo, hasReminder: false } : { ...todo };
+			});
+
+			updatedTodos[bin] = updatedDailyTodos;
+
+			return updatedTodos;
+		});
+
+		// const openDBRequest = window.indexedDB.open('todosDB', 1);
+
+		// openDBRequest.onsuccess = (event) => {
+		// 	const db = event.target.result;
+
+		// 	const todosStore = db
+		// 		.transaction('todosStore', 'readwrite')
+		// 		.objectStore('todosStore');
+
+		// 	const getCurrTodoRequest = todosStore.get(id);
+
+		// 	getCurrTodoRequest.onsuccess = (event) => {
+		// 		const todo = event.target.result;
+		// 		todo.hasReminder = false;
+
+		// 		todosStore.put(todo);
+		// 	};
+		// };
+	};
+
+	// setInterval(() => {
+	// 	// console.log('hi');
+	// 	// checkReminders();
+	// }, 10000);
 
 	// edit todo
 	const handleEditTodo = (bin, id, newTitle, newDesc) => {
@@ -663,6 +719,7 @@ function TodoApp() {
 					showCustomModal={handleToggleModal}
 					onReorderTodo={handleReorderTodo}
 					onEditTodo={handleEditTodo}
+					onSetReminder={handleSetReminder}
 					onRemoveTodo={handleRemoveTodo}
 					onMarkTodo={handleMarkTodo}
 					onMarkTodoAsCurrent={handleMarkTodoAsCurrent}
