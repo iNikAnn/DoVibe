@@ -67,6 +67,7 @@ function TodoApp() {
 	}, [todos]);
 
 	const allTodos = Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse();
+	// const allTodos = Object.values(todos).flat();
 	const [isTodoOpen, setIsTodoOpened] = useState(false);
 
 	// filters
@@ -362,7 +363,6 @@ function TodoApp() {
 	};
 
 	// setInterval(() => {
-	// 	// console.log('hi');
 	// 	// checkReminders();
 	// }, 10000);
 

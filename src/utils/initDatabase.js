@@ -8,13 +8,20 @@ function initDatabse(setState) {
 			const db = event.target.result;
 			const todosStore = db.createObjectStore('todosStore', { keyPath: 'id' });
 
-			todosStore.createIndex('year', 'year', { unique: false });
-			todosStore.createIndex('month', 'month', { unique: false });
-			todosStore.createIndex('day', 'day', { unique: false });
-			todosStore.createIndex('hours', 'hours', { unique: false });
-			todosStore.createIndex('minutes', 'minutes', { unique: false });
+			['year', 'month', 'day', 'hours', 'minutes', 'hasReminder'].forEach((item) => {
+				todosStore.createIndex(item, item, { unique: false });
+			});
 
-			todosStore.createIndex('hasReminder', 'hasReminder', { unique: false });
+			// move todos from local storage
+			if (localStorage.getItem('todos')) {
+				const todosObject = JSON.parse(localStorage.getItem('todos'));
+
+				for (const todo of Object.values(todosObject).flat()) {
+					todosStore.add(todo);
+				};
+
+				localStorage.removeItem('todos');
+			};
 		};
 
 		request.onsuccess = (event) => {
@@ -28,15 +35,17 @@ function initDatabse(setState) {
 			requestData.onsuccess = (event) => {
 				const todosArray = event.target.result;
 
-				const todosObject = todosArray.reduce((acc, curr) => {
-					if (curr.bin in acc) {
-						acc[curr.bin].push(curr);
-					} else {
-						acc[curr.bin] = [curr];
-					};
+				const todosObject = todosArray
+					.sort((a, b) => new Date(a.bin).getTime() - new Date(b.bin).getTime())
+					.reduce((acc, curr) => {
+						if (curr.bin in acc) {
+							acc[curr.bin].push(curr);
+						} else {
+							acc[curr.bin] = [curr];
+						};
 
-					return acc;
-				}, {});
+						return acc;
+					}, {});
 
 				for (const key in todosObject) {
 					sortTodosByCompletion(todosObject[key]);
