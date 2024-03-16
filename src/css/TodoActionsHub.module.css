@@ -3,6 +3,8 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+
+	width: 100%;
 }
 
 /* title */
@@ -13,9 +15,22 @@
 /* actions list */
 .actionsList {
 	/* outline: 1px solid green; */
+	width: 100%;
 }
 
-/* action */
+.todoActionsHub li {
+	outline: 1px solid transparent;
+	transition: outline 0.2s ease;
+	overflow: hidden;
+}
+
+.liActive {
+	outline: 1px solid var(--bg-color-secondary) !important;
+	/* background-color: var(--bg-color-secondary); */
+	border-radius: var(--border-radius-secondary);
+}
+
+/* actions btn */
 .actionsList button {
 	/* outline: 1px solid red; */
 	min-height: var(--small-btn-height);
@@ -26,4 +41,43 @@
 
 	background-color: unset;
 	padding: 1rem;
+
+	transition: color 0.2s ease;
+}
+
+.actionsList button[aria-label='Remove todo'] {
+	color: #e4717a;
+}
+
+/* when sub menu is opened */
+.actionsListDimmed li > button {
+	color: var(--text-color-dimmed) !important;
+}
+
+.subMenu {
+	position: relative;
+	width: 100%;
+
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+
+	padding: 0 1rem 1rem;
+	z-index: 1;
+}
+
+.subMenuItem {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+}
+
+.subMenuOverlay {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 0;
 }

@@ -254,29 +254,31 @@ function TodoApp() {
 	// set reminder
 	const handleSetReminder = (bin, id) => {
 		console.log('set reminder');
-		setTodos((prevTodos) => {
-			const updatedTodos = { ...prevTodos };
-			const updatedDailyTodos = updatedTodos[bin].map((todo) => {
-				const now = new Date();
+		// setTodos((prevTodos) => {
+		// 	const updatedTodos = { ...prevTodos };
+		// 	const updatedDailyTodos = updatedTodos[bin].map((todo) => {
+		// 		const now = new Date();
 
-				return (todo.id === id)
-					? {
-						...todo,
-						year: now.getFullYear(),
-						month: now.getMonth(),
-						day: now.getDate(),
-						hours: now.getHours(),
-						minutes: now.getMinutes() + 1,
+		// 		return (todo.id === id)
+		// 			? {
+		// 				...todo,
+		// 				year: now.getFullYear(),
+		// 				month: now.getMonth(),
+		// 				day: now.getDate(),
+		// 				hours: now.getHours(),
+		// 				minutes: now.getMinutes() + 1,
 
-						hasReminder: true,
-					}
-					: { ...todo };
-			});
+		// 				hasReminder: true,
+		// 			}
+		// 			: { ...todo };
+		// 	});
 
-			updatedTodos[bin] = updatedDailyTodos;
+		// 	updatedTodos[bin] = updatedDailyTodos;
 
-			return updatedTodos;
-		});
+		// 	return updatedTodos;
+		// });
+
+		handleShowBottomPopup(null, <div>hello</div>)
 	};
 
 	const checkReminders = () => {
@@ -583,6 +585,7 @@ function TodoApp() {
 
 	const handleShowBottomPopup = (name, content) => {
 		if (!isMobileVersion) return;
+		console.log('pop');
 
 		switch (name) {
 			case 'mobileSettings':
