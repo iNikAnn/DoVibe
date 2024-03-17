@@ -22,6 +22,7 @@ import MobileBottomMenu from './mobile/MobileBottomMenu';
 import MobileBottomPopup from './mobile/MobileBottomPopup';
 import MobileSettings from './mobile/MobileSettings';
 import MobileEditTodoForm from './mobile/MobileEditTodoForm';
+import TodoActionsHub from './mobile/TodoActionsHub';
 
 // utils
 import initDatabase from '../utils/initDatabase';
@@ -67,7 +68,6 @@ function TodoApp() {
 	}, [todos]);
 
 	const allTodos = Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse();
-	// const allTodos = Object.values(todos).flat();
 	const [isTodoOpen, setIsTodoOpened] = useState(false);
 
 	// filters
@@ -238,6 +238,7 @@ function TodoApp() {
 			isCompleted: false,
 			isCurrent: false,
 			hasReminder: false,
+			reminders: [],
 			date: Date.now(),
 			bin: day
 		};
@@ -585,7 +586,6 @@ function TodoApp() {
 
 	const handleShowBottomPopup = (name, content) => {
 		if (!isMobileVersion) return;
-		console.log('pop');
 
 		switch (name) {
 			case 'mobileSettings':
@@ -596,6 +596,12 @@ function TodoApp() {
 			case 'mobileCalendar':
 				setMobilePopupTitle('Calendar');
 				setIsMobileCalendarVisible(true);
+				break;
+
+			case 'mobileTodoItemMenu':
+				setMobilePopupTitle(content.title);
+				setMobileTodoActionsHubProps(content);
+				setIsMobileTodoActionsHubVisible(true);
 				break;
 
 			case 'mobileTodoDetails':
@@ -618,6 +624,7 @@ function TodoApp() {
 		setMobileBottomPopupContent(null);
 		setIsTodoOpened(false);
 		setMobileBottomPopupVisible(false);
+		setIsMobileTodoActionsHubVisible(false);
 	};
 
 	// mobile overlay
@@ -634,6 +641,10 @@ function TodoApp() {
 
 	// mobile calendar
 	const [isMobileCalendarVisible, setIsMobileCalendarVisible] = useState(false);
+
+	// mobilde todo actions hub
+	const [isMobileTodoActionsHubVisible, setIsMobileTodoActionsHubVisible] = useState(false);
+	const [mobileTodoActionsHubProps, setMobileTodoActionsHubProps] = useState(null);
 
 	// mobile edit todo form
 	const [isMobileEditTodoFormVisible, setMobileEditTodoFormVisible] = useState(false);
@@ -727,8 +738,8 @@ function TodoApp() {
 					onMarkTodo={handleMarkTodo}
 					onMarkTodoAsCurrent={handleMarkTodoAsCurrent}
 
-					onShowItemMenu={(content) => {
-						handleShowBottomPopup('todoItemMenu', content)
+					onShowItemMenu={(props) => {
+						handleShowBottomPopup('mobileTodoItemMenu', props)
 					}}
 					onCloseItemMenu={handleCloseBottomPopup}
 
@@ -842,6 +853,18 @@ function TodoApp() {
 								initialDate={date}
 								onPickDate={handleChangeViewMode}
 								checkForUnfinishedTodosInDay={checkForUnfinishedTodosInDay}
+							/>
+						)}
+
+						{isMobileTodoActionsHubVisible && (
+							<TodoActionsHub
+								{...todos[mobileTodoActionsHubProps.bin].find((todo) => {
+									return todo.id === mobileTodoActionsHubProps.id;
+								})}
+								onMarkAsCurrent={handleMarkTodoAsCurrent}
+								onMark={handleMarkTodo}
+								onRemove={handleRemoveTodo}
+								onActionFinished={handleCloseBottomPopup}
 							/>
 						)}
 

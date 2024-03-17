@@ -149,23 +149,10 @@ function TodoList(props) {
 		}, 1200);
 	};
 
-	const handleLongPress = (bin, id, title, desc, isCompleted, isCurrent) => {
-		onShowItemMenu(
-			<TodoActionsHub
-				title={title}
-
-				isCompleted={isCompleted}
-				isCurrent={isCurrent}
-
-				onActionFinished={onCloseItemMenu}
-				onMarkAsCurrent={() => onMarkTodoAsCurrent(bin, id)}
-				onMark={() => onMarkTodo(bin, id)}
-				onSetReminder={() => onSetReminder(bin, id)}
-				onEdit={() => handleEditTodo(bin, id, title, desc)}
-				onRemove={() => onRemoveTodo(bin, id)}
-			/>
-		);
-	}
+	const handleLongPress = (bin, id, title) => {
+		const props = { bin, id, title };
+		onShowItemMenu(props);
+	};
 
 	const itemVariants = {
 		initial: {

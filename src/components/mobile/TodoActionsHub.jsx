@@ -3,6 +3,8 @@ import styles from '../../css/TodoActionsHub.module.css';
 // react, framer
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+
+// components
 import Switcher from '../Switcher';
 
 // icons
@@ -11,7 +13,8 @@ import { MdAlarmOff } from "react-icons/md";
 
 function TodoActionsHub(props) {
 	const {
-		title,
+		bin,
+		id,
 
 		isCompleted,
 		isCurrent,
@@ -55,10 +58,6 @@ function TodoActionsHub(props) {
 				<div className={styles.subMenuOverlay} onClick={handleCloseSubMenu} />
 			)}
 
-			<h2 className={styles.title}>
-				{title.length > 35 ? title.slice(0, 35).trim() + '...' : title}
-			</h2>
-
 			<ul
 				className={`${styles.actionsList} ${isRemindersVisible ? styles.actionsListDimmed : ''}`}
 				onClick={(e) => {
@@ -69,14 +68,14 @@ function TodoActionsHub(props) {
 			>
 				{!isCompleted && (
 					<li>
-						<button data-type="actionBtn" onClick={onMarkAsCurrent}>
+						<button data-type="actionBtn" onClick={() => onMarkAsCurrent(bin, id)}>
 							{isCurrent ? 'Unmark as Current' : 'Mark as Current'}
 						</button>
 					</li>
 				)}
 
 				<li>
-					<button data-type="actionBtn" onClick={onMark}>
+					<button data-type="actionBtn" onClick={() => onMark(bin, id)}>
 						{isCompleted ? 'Uncomplete' : 'Complete'}
 					</button>
 				</li>
@@ -167,7 +166,7 @@ function TodoActionsHub(props) {
 				<li>
 					<button
 						data-type="actionBtn"
-						onClick={onRemove}
+						onClick={() => onRemove(bin, id)}
 						aria-label="Remove todo"
 					>
 						Remove
