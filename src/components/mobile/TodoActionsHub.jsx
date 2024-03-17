@@ -15,6 +15,8 @@ function TodoActionsHub(props) {
 	const {
 		bin,
 		id,
+		title,
+		description,
 
 		isCompleted,
 		isCurrent,
@@ -157,7 +159,7 @@ function TodoActionsHub(props) {
 
 				{!isCompleted && (
 					<li>
-						<button data-type="actionBtn" onClick={onEdit}>
+						<button data-type="actionBtn" onClick={() => onEdit({ bin, id, title, description })}>
 							Edit
 						</button>
 					</li>

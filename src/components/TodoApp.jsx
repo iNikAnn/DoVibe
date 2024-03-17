@@ -754,7 +754,6 @@ function TodoApp() {
 						setIsTodoOpened((prev) => !prev);
 					}}
 
-					onShowMobileEditTodoForm={handleShowMobileEditTodoForm}
 					isMobileVersion={isMobileVersion}
 				/>
 			</div>
@@ -863,6 +862,7 @@ function TodoApp() {
 								})}
 								onMarkAsCurrent={handleMarkTodoAsCurrent}
 								onMark={handleMarkTodo}
+								onEdit={handleShowMobileEditTodoForm}
 								onRemove={handleRemoveTodo}
 								onActionFinished={handleCloseBottomPopup}
 							/>
