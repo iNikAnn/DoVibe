@@ -20,6 +20,7 @@ function TodoActionsHub(props) {
 
 		isCompleted,
 		isCurrent,
+		reminders,
 
 		onActionFinished,
 		onMarkAsCurrent,
@@ -103,15 +104,15 @@ function TodoActionsHub(props) {
 											<Switcher
 												name="onTheDay"
 												iconLeft={<MdAlarmOff />}
-												// activeLeftColor='#ffcc66'
+												activeLeftColor='#e4717a'
 												tooltipLeft="Light scheme"
-												// checkedLeft={colorScheme === 'light'}
-												// onChangeLeft={() => onChangeScheme('light')}
+												checkedLeft={!reminders?.find((reminder) => reminder.name === 'onTheDay')}
+												onChangeLeft={() => onSetReminder(bin, id, 'onTheDay', false)}
 												iconRight={<MdAlarmOn />}
-												activeRightColor='#bb88ff'
+												activeRightColor='#7fc7ff'
 												tooltipRight="Dark scheme"
-											// checkedRight={colorScheme === 'dark'}
-											// onChangeRight={() => onChangeScheme('dark')}
+												checkedRight={reminders?.find((reminder) => reminder.name === 'onTheDay') || false}
+												onChangeRight={() => onSetReminder(bin, id, 'onTheDay', true)}
 											/>
 										</div>
 
@@ -121,15 +122,15 @@ function TodoActionsHub(props) {
 											<Switcher
 												name="1DayBefore"
 												iconLeft={<MdAlarmOff />}
-												// activeLeftColor='#ffcc66'
+												activeLeftColor='#e4717a'
 												tooltipLeft="Light scheme"
-												// checkedLeft={colorScheme === 'light'}
-												// onChangeLeft={() => onChangeScheme('light')}
+												checkedLeft={!reminders?.find((reminder) => reminder.name === '1DayBefore')}
+												onChangeLeft={() => onSetReminder(bin, id, '1DayBefore', false)}
 												iconRight={<MdAlarmOn />}
-												activeRightColor='#bb88ff'
+												activeRightColor='#7fc7ff'
 												tooltipRight="Dark scheme"
-											// checkedRight={colorScheme === 'dark'}
-											// onChangeRight={() => onChangeScheme('dark')}
+												checkedRight={reminders?.find((reminder) => reminder.name === '1DayBefore')}
+												onChangeRight={() => onSetReminder(bin, id, '1DayBefore', true)}
 											/>
 										</div>
 
@@ -139,15 +140,15 @@ function TodoActionsHub(props) {
 											<Switcher
 												name="3DayBefore"
 												iconLeft={<MdAlarmOff />}
-												// activeLeftColor='#ffcc66'
+												activeLeftColor='#e4717a'
 												tooltipLeft="Light scheme"
-												// checkedLeft={colorScheme === 'light'}
-												// onChangeLeft={() => onChangeScheme('light')}
+												checkedLeft={!reminders?.find((reminder) => reminder.name === '3DayBefore')}
+												onChangeLeft={() => onSetReminder(bin, id, '3DayBefore', false)}
 												iconRight={<MdAlarmOn />}
-												activeRightColor='#bb88ff'
+												activeRightColor='#7fc7ff'
 												tooltipRight="Dark scheme"
-											// checkedRight={colorScheme === 'dark'}
-											// onChangeRight={() => onChangeScheme('dark')}
+												checkedRight={reminders?.find((reminder) => reminder.name === '3DayBefore')}
+												onChangeRight={() => onSetReminder(bin, id, '3DayBefore', true)}
 											/>
 										</div>
 									</div>
