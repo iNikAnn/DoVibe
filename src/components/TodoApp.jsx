@@ -461,7 +461,7 @@ function TodoApp() {
 		setTodos((prevTodos) => {
 			const updatedTodos = { ...prevTodos };
 
-			if (currentTodo && currentTodo.bin !== bin) {
+			if (currentTodo && updatedTodos[currentTodo.bin] && currentTodo.bin !== bin) {
 				updatedTodos[currentTodo.bin] = updatedTodos[currentTodo.bin].map((todo) => {
 					return (todo.id === currentTodo.id)
 						? { ...todo, isCurrent: false }

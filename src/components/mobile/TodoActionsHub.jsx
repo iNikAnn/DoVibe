@@ -55,6 +55,19 @@ function TodoActionsHub(props) {
 		},
 	};
 
+	const daysUntilToday = () => {
+		const todoDate = new Date(bin);
+		todoDate.setHours(0, 0, 0, 0);
+
+		const today = new Date();
+		today.setHours(0, 0, 0, 0);
+
+		const differenceInTime = todoDate.getTime() - today.getTime();
+		const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
+
+		return differenceInDays;
+	};
+
 	return (
 		<div className={styles.todoActionsHub}>
 			{isSubMenuOpen && (
@@ -83,7 +96,7 @@ function TodoActionsHub(props) {
 					</button>
 				</li>
 
-				{!isCompleted && (
+				{(!isCompleted && !(daysUntilToday() <= 0)) && (
 					<li className={isRemindersVisible ? styles.liActive : ''}>
 						<button
 							onClick={() => {
@@ -116,41 +129,45 @@ function TodoActionsHub(props) {
 											/>
 										</div>
 
-										<div className={styles.subMenuItem}>
-											<span>1 day before</span>
+										{daysUntilToday() >= 2 && (
+											<div className={styles.subMenuItem}>
+												<span>1 day before</span>
 
-											<Switcher
-												name="1DayBefore"
-												iconLeft={<MdAlarmOff />}
-												activeLeftColor='#e4717a'
-												tooltipLeft="Light scheme"
-												checkedLeft={!reminders?.find((reminder) => reminder.name === '1DayBefore')}
-												onChangeLeft={() => onSetReminder(bin, id, '1DayBefore', false)}
-												iconRight={<MdAlarmOn />}
-												activeRightColor='#7fc7ff'
-												tooltipRight="Dark scheme"
-												checkedRight={reminders?.find((reminder) => reminder.name === '1DayBefore')}
-												onChangeRight={() => onSetReminder(bin, id, '1DayBefore', true)}
-											/>
-										</div>
+												<Switcher
+													name="1DayBefore"
+													iconLeft={<MdAlarmOff />}
+													activeLeftColor='#e4717a'
+													tooltipLeft="Light scheme"
+													checkedLeft={!reminders?.find((reminder) => reminder.name === '1DayBefore')}
+													onChangeLeft={() => onSetReminder(bin, id, '1DayBefore', false)}
+													iconRight={<MdAlarmOn />}
+													activeRightColor='#7fc7ff'
+													tooltipRight="Dark scheme"
+													checkedRight={reminders?.find((reminder) => reminder.name === '1DayBefore')}
+													onChangeRight={() => onSetReminder(bin, id, '1DayBefore', true)}
+												/>
+											</div>
+										)}
 
-										<div className={styles.subMenuItem}>
-											<span>3 day before</span>
+										{daysUntilToday() >= 4 && (
+											<div className={styles.subMenuItem}>
+												<span>3 day before</span>
 
-											<Switcher
-												name="3DayBefore"
-												iconLeft={<MdAlarmOff />}
-												activeLeftColor='#e4717a'
-												tooltipLeft="Light scheme"
-												checkedLeft={!reminders?.find((reminder) => reminder.name === '3DayBefore')}
-												onChangeLeft={() => onSetReminder(bin, id, '3DayBefore', false)}
-												iconRight={<MdAlarmOn />}
-												activeRightColor='#7fc7ff'
-												tooltipRight="Dark scheme"
-												checkedRight={reminders?.find((reminder) => reminder.name === '3DayBefore')}
-												onChangeRight={() => onSetReminder(bin, id, '3DayBefore', true)}
-											/>
-										</div>
+												<Switcher
+													name="3DayBefore"
+													iconLeft={<MdAlarmOff />}
+													activeLeftColor='#e4717a'
+													tooltipLeft="Light scheme"
+													checkedLeft={!reminders?.find((reminder) => reminder.name === '3DayBefore')}
+													onChangeLeft={() => onSetReminder(bin, id, '3DayBefore', false)}
+													iconRight={<MdAlarmOn />}
+													activeRightColor='#7fc7ff'
+													tooltipRight="Dark scheme"
+													checkedRight={reminders?.find((reminder) => reminder.name === '3DayBefore')}
+													onChangeRight={() => onSetReminder(bin, id, '3DayBefore', true)}
+												/>
+											</div>
+										)}
 									</div>
 								</motion.div>
 							)}
