@@ -254,6 +254,22 @@ function TodoApp() {
 	};
 
 	// set reminder
+	useEffect(() => {
+		const messageHandler = (event) => {
+			console.log('message from sw');
+
+			if (event.data.action === 'removeReminder') {
+				handleSetReminder(event.data.bin, event.data.id, event.data.reminderName, false);
+			};
+		};
+
+		navigator.serviceWorker.addEventListener('message', messageHandler);
+
+		return () => {
+			navigator.serviceWorker.removeEventListener('message', messageHandler);
+		};
+	}, [])
+
 	const handleSetReminder = (bin, id, reminderName, enabling) => {
 		setTodos((prevTodos) => {
 			const updatedTodos = { ...prevTodos };

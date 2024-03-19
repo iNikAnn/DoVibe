@@ -114,7 +114,16 @@ const checkReminders = () => {
 					if (isMatched) {
 						createNotification(title);
 
-						// remove reminder
+						self.clients.matchAll().then(clients => {
+							clients.forEach(client => {
+								client.postMessage({
+									action: 'removeReminder',
+									bin,
+									id,
+									reminderName
+								});
+							});
+						});
 					};
 				};
 			};
