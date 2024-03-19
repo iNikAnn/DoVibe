@@ -8,9 +8,11 @@ function initDatabse(setState) {
 			const db = event.target.result;
 			const todosStore = db.createObjectStore('todosStore', { keyPath: 'id' });
 
-			['year', 'month', 'day', 'hours', 'minutes', 'hasReminder'].forEach((item) => {
-				todosStore.createIndex(item, item, { unique: false });
-			});
+			// ['year', 'month', 'day', 'hours', 'minutes', 'hasReminder'].forEach((item) => {
+			// 	todosStore.createIndex(item, item, { unique: false });
+			// });
+
+			// todosStore.createIndex('reminders', 'reminders', { unique: false });
 
 			// move todos from local storage
 			if (localStorage.getItem('todos')) {
