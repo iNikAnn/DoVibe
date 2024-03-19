@@ -1,7 +1,7 @@
 {
 	"name": "dovibe",
 	"description": "A straightforward and user-friendly task management web application that allows you to efficiently organize your tasks directly in the browser, hassle-free and without the need for registration.",
-	"version": "0.12.2",
+	"version": "0.13.0",
 	"homepage": "https://inikann.github.io/DoVibe/",
 	"private": true,
 	"dependencies": {

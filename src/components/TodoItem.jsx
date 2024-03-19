@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import TodoActionBtn from './buttons/TodoActionBtn';
 
 // icons
+import { IoAlarm } from "react-icons/io5";
 import { MdDescription } from "react-icons/md";
 import { BsBookmark } from "react-icons/bs"; // mark todo as current
 import { BsBookmarkFill } from "react-icons/bs";
@@ -23,6 +24,7 @@ function TodoItem(props) {
 		bin,
 		isCompleted,
 		isCurrent,
+		hasReminder,
 
 		// actions
 		onOpen,
@@ -39,7 +41,7 @@ function TodoItem(props) {
 	const [bg, setBg] = useState('');
 
 	useEffect(() => {
-		setBg(getComputedStyle(document.documentElement).getPropertyValue('--bg'));
+		setBg(getComputedStyle(document.documentElement).getPropertyValue('--bg-color-primary'));
 	}, []);
 
 	// enables keyboard focus styling for the todo item using :focus-visible pseudoclass
@@ -71,7 +73,7 @@ function TodoItem(props) {
 
 	const startPress = (e) => {
 		pressTimer = setTimeout(() => {
-			onLongPress(bin, id, title, description, isCompleted, isCurrent);
+			onLongPress(bin, id, title);
 			navigator.vibrate?.([10]);
 		}, 200);
 	};
@@ -108,6 +110,10 @@ function TodoItem(props) {
 				>
 					<span className={styles.title}>{title}</span>
 				</div>
+
+				{hasReminder && (
+					<IoAlarm />
+				)}
 			</div>
 
 			<div className={styles.btnWrapper}>

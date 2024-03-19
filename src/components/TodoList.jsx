@@ -9,7 +9,6 @@ import TodoItem from './TodoItem';
 import TodoDetails from './TodoDetails';
 import DetailCard from './DetailCard';
 import ReorderItem from './ReorderItem';
-import TodoActionsHub from './mobile/TodoActionsHub';
 
 // utils
 import insertDateSeparator from '../utils/insertDateSeparator';
@@ -23,6 +22,7 @@ function TodoList(props) {
 		showCustomModal,
 
 		onReorderTodo,
+		onSetReminder,
 		onEditTodo,
 		onRemoveTodo,
 		onMarkTodo,
@@ -35,8 +35,6 @@ function TodoList(props) {
 
 		isTodoOpen,
 		onToggleTodo,
-
-		onShowMobileEditTodoForm,
 
 		isMobileVersion
 	} = props;
@@ -89,39 +87,33 @@ function TodoList(props) {
 	};
 
 	const handleEditTodo = (bin, id, title, desc) => {
-		if (window.matchMedia('(max-width: 576px)').matches) {
-			const props = { bin, id, title, desc };
+		showCustomModal(
+			<form
+				action="submit"
+				onSubmit={(e) => {
+					e.preventDefault();
+					onEditTodo(bin, id, e.target.newTitle.value, e.target.newDesc.value);
+					showCustomModal(null);
+				}}
+			>
+				<h3>Edit todo</h3>
 
-			onShowMobileEditTodoForm(props);
-		} else {
-			showCustomModal(
-				<form
-					action="submit"
-					onSubmit={(e) => {
-						e.preventDefault();
-						onEditTodo(bin, id, e.target.newTitle.value, e.target.newDesc.value);
-						showCustomModal(null);
-					}}
-				>
-					<h3>Edit todo</h3>
+				<label htmlFor="newTitle">
+					New title:
+					<input type="text" name="newTitle" id="newTitle" defaultValue={title} autoFocus />
+				</label>
 
-					<label htmlFor="newTitle">
-						New title:
-						<input type="text" name="newTitle" id="newTitle" defaultValue={title} autoFocus />
-					</label>
+				<label htmlFor="newDesc">
+					New description:
+					<textarea name="newDesc" id="newDesc" cols="1" rows="3" defaultValue={desc}></textarea>
+				</label>
 
-					<label htmlFor="newDesc">
-						New description:
-						<textarea name="newDesc" id="newDesc" cols="1" rows="3" defaultValue={desc}></textarea>
-					</label>
-
-					<div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem' }}>
-						<button style={{ flex: 1 }} type="button" data-type="cancel" onClick={() => showCustomModal(null)}>Cancel</button>
-						<button style={{ flex: 1 }} type="submit">Save</button>
-					</div>
-				</form>
-			);
-		}
+				<div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem' }}>
+					<button style={{ flex: 1 }} type="button" data-type="cancel" onClick={() => showCustomModal(null)}>Cancel</button>
+					<button style={{ flex: 1 }} type="submit">Save</button>
+				</div>
+			</form>
+		);
 	};
 
 	const handleRemoveTodo = (bin, id) => {
@@ -148,22 +140,10 @@ function TodoList(props) {
 		}, 1200);
 	};
 
-	const handleLongPress = (bin, id, title, desc, isCompleted, isCurrent) => {
-		onShowItemMenu(
-			<TodoActionsHub
-				title={title}
-
-				isCompleted={isCompleted}
-				isCurrent={isCurrent}
-
-				onActionFinished={onCloseItemMenu}
-				onMarkAsCurrent={() => onMarkTodoAsCurrent(bin, id)}
-				onMark={() => onMarkTodo(bin, id)}
-				onEdit={() => handleEditTodo(bin, id, title, desc)}
-				onRemove={() => onRemoveTodo(bin, id)}
-			/>
-		);
-	}
+	const handleLongPress = (bin, id, title) => {
+		const props = { bin, id, title };
+		onShowItemMenu(props);
+	};
 
 	const itemVariants = {
 		initial: {
@@ -229,7 +209,7 @@ function TodoList(props) {
 				onReorder={(reorderedList) => onReorderTodo(reorderedList, list[movedItemIndex])}
 			>
 				<AnimatePresence initial={false} mode="popLayout">
-					{list
+					{list && list.length > 0
 						? list.map((item, index) => {
 							const isDraggable = isTodoDraggable(list, index);
 							const isDateSeparator = item.type === 'dateSeparator';

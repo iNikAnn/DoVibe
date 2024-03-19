@@ -12,26 +12,30 @@ import FiltersBar from './FiltersBar';
 import TodoList from './TodoList';
 import Modal from '../components/Modal';
 import Notification from './Notification';
+import SmallBtn from './buttons/SmallBtn';
+import DatePicker from './datepicker/DatePicker';
+import TodoDetails from './TodoDetails';
 
 //mobile components
+import MobileHeader from './mobile/MobileHeader';
 import MobileBottomMenu from './mobile/MobileBottomMenu';
-import MobileBottomPopup from '../components/mobile/MobileBottomPopup';
-import MobileSettings from '../components/mobile/MobileSettings';
+import MobileBottomPopup from './mobile/MobileBottomPopup';
+import MobileSettings from './mobile/MobileSettings';
+import MobileEditTodoForm from './mobile/MobileEditTodoForm';
+import TodoActionsHub from './mobile/TodoActionsHub';
 
 // utils
+import initDatabase from '../utils/initDatabase';
+import updateDatabase from '../utils/updateDatabase';
 import getFormattedDate from '../utils/getFormattedDate';
 import modifyDateByOneDay from '../utils/modifyDateByOneDay';
 import isTodoDuplicate from '../utils/isTodoDuplicate';
 import isIdDuplicate from '../utils/isIdDuplicate';
 import sortTodosByCompletion from '../utils/sortTodosByCompletion';
+import updateReminders from '../utils/updateReminders';
 
 // icons
 import { FaUndoAlt } from "react-icons/fa";
-import MobileEditTodoForm from './mobile/MobileEditTodoForm';
-import SmallBtn from './buttons/SmallBtn';
-import DatePicker from './datepicker/DatePicker';
-import TodoDetails from './TodoDetails';
-import MobileHeader from './mobile/MobileHeader';
 
 function TodoApp() {
 	const isMobileVersion = window.matchMedia('(max-width: 576px)').matches;
@@ -54,7 +58,16 @@ function TodoApp() {
 	});
 
 	// todos
-	const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || {});
+	const [todos, setTodos] = useState({});
+
+	useEffect(() => {
+		initDatabase(setTodos);
+	}, []);
+
+	useEffect(() => {
+		updateDatabase(todos);
+	}, [todos]);
+
 	const allTodos = Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse();
 	const [isTodoOpen, setIsTodoOpened] = useState(false);
 
@@ -74,13 +87,45 @@ function TodoApp() {
 	const [notifContent, setNotifContent] = useState(null);
 	const hideNotifTimeOutRef = useRef(null);
 
+	// system notification
+	const [isNotifEnabled, setIsNotifEnabled] = useState(() => {
+		if ('Notification' in window) {
+			return window.Notification.permission === 'granted';
+		};
+	});
+
+	const handleToggleNotif = (boolean) => {
+		if ('Notification' in window) {
+			if (window.Notification.permission === 'granted' && !boolean) {
+				alert(
+					'To turn off notifications, ' +
+					'please do so in your browser settings.'
+				);
+			}
+			else if (window.Notification.permission === 'denied' && boolean) {
+				alert(
+					'You have denied notification sending. ' +
+					'To enable notifications, please adjust your browser settings.'
+				);
+			}
+			else {
+				window.Notification.requestPermission().then((res) => {
+					if (res === 'granted') {
+						setIsNotifEnabled(true);
+					} else {
+						setIsNotifEnabled(false);
+					};
+				});
+			};
+		};
+	};
+
 	// modal
 	const [modalIsVisible, setModalIsVisible] = useState(false);
 	const [modalContent, setModalContent] = useState(null);
 
-	// save todos to local storage
+	// save current todo to local storage
 	useEffect(() => {
-		localStorage.setItem('todos', JSON.stringify(todos));
 		localStorage.setItem('currentTodo', JSON.stringify(currentTodo));
 	}, [todos, currentTodo]);
 
@@ -193,6 +238,8 @@ function TodoApp() {
 			id: uuidv4(),
 			isCompleted: false,
 			isCurrent: false,
+			hasReminder: false,
+			reminders: [],
 			date: Date.now(),
 			bin: day
 		};
@@ -204,6 +251,40 @@ function TodoApp() {
 		updatedTodos[day] = [newTodo, ...updatedTodos[day]];
 
 		setTodos(updatedTodos);
+	};
+
+	// set reminder
+	useEffect(() => {
+		const messageHandler = (event) => {
+			console.log('message from sw');
+
+			if (event.data.action === 'removeReminder') {
+				handleSetReminder(event.data.bin, event.data.id, event.data.reminderName, false);
+			};
+		};
+
+		navigator?.serviceWorker?.addEventListener('message', messageHandler);
+
+		return () => {
+			navigator?.serviceWorker?.removeEventListener('message', messageHandler);
+		};
+	}, [])
+
+	const handleSetReminder = (bin, id, reminderName, enabling) => {
+		setTodos((prevTodos) => {
+			const updatedTodos = { ...prevTodos };
+			const updatedDailyTodos = updatedTodos[bin].map((todo) => {
+				if (todo.id === id) {
+					return updateReminders(todo, reminderName, enabling);
+				} else {
+					return { ...todo };
+				};
+			});
+
+			updatedTodos[bin] = updatedDailyTodos;
+
+			return updatedTodos;
+		});
 	};
 
 	// edit todo
@@ -309,7 +390,7 @@ function TodoApp() {
 		setTodos((prevTodos) => {
 			const updatedTodos = { ...prevTodos };
 
-			if (currentTodo && currentTodo.bin !== bin) {
+			if (currentTodo && updatedTodos[currentTodo.bin] && currentTodo.bin !== bin) {
 				updatedTodos[currentTodo.bin] = updatedTodos[currentTodo.bin].map((todo) => {
 					return (todo.id === currentTodo.id)
 						? { ...todo, isCurrent: false }
@@ -435,6 +516,12 @@ function TodoApp() {
 				setIsMobileCalendarVisible(true);
 				break;
 
+			case 'mobileTodoItemMenu':
+				setMobilePopupTitle(content.title);
+				setMobileTodoActionsHubProps(content);
+				setIsMobileTodoActionsHubVisible(true);
+				break;
+
 			case 'mobileTodoDetails':
 				setMobilePopupTitle('Todo details');
 				setMobileTodoDetailsProps(content);
@@ -455,6 +542,7 @@ function TodoApp() {
 		setMobileBottomPopupContent(null);
 		setIsTodoOpened(false);
 		setMobileBottomPopupVisible(false);
+		setIsMobileTodoActionsHubVisible(false);
 	};
 
 	// mobile overlay
@@ -471,6 +559,10 @@ function TodoApp() {
 
 	// mobile calendar
 	const [isMobileCalendarVisible, setIsMobileCalendarVisible] = useState(false);
+
+	// mobilde todo actions hub
+	const [isMobileTodoActionsHubVisible, setIsMobileTodoActionsHubVisible] = useState(false);
+	const [mobileTodoActionsHubProps, setMobileTodoActionsHubProps] = useState(null);
 
 	// mobile edit todo form
 	const [isMobileEditTodoFormVisible, setMobileEditTodoFormVisible] = useState(false);
@@ -559,12 +651,13 @@ function TodoApp() {
 					showCustomModal={handleToggleModal}
 					onReorderTodo={handleReorderTodo}
 					onEditTodo={handleEditTodo}
+					onSetReminder={handleSetReminder}
 					onRemoveTodo={handleRemoveTodo}
 					onMarkTodo={handleMarkTodo}
 					onMarkTodoAsCurrent={handleMarkTodoAsCurrent}
 
-					onShowItemMenu={(content) => {
-						handleShowBottomPopup('todoItemMenu', content)
+					onShowItemMenu={(props) => {
+						handleShowBottomPopup('mobileTodoItemMenu', props)
 					}}
 					onCloseItemMenu={handleCloseBottomPopup}
 
@@ -579,7 +672,6 @@ function TodoApp() {
 						setIsTodoOpened((prev) => !prev);
 					}}
 
-					onShowMobileEditTodoForm={handleShowMobileEditTodoForm}
 					isMobileVersion={isMobileVersion}
 				/>
 			</div>
@@ -654,6 +746,10 @@ function TodoApp() {
 					>
 						{isMobileSettingsVisible && (
 							<MobileSettings
+								//notifications
+								isNotifEnabled={isNotifEnabled}
+								onToogleNotif={handleToggleNotif}
+
 								// color scheme switcher
 								colorScheme={colorScheme}
 								onChangeScheme={handleChangeScheme}
@@ -674,6 +770,20 @@ function TodoApp() {
 								initialDate={date}
 								onPickDate={handleChangeViewMode}
 								checkForUnfinishedTodosInDay={checkForUnfinishedTodosInDay}
+							/>
+						)}
+
+						{isMobileTodoActionsHubVisible && (
+							<TodoActionsHub
+								{...todos[mobileTodoActionsHubProps.bin].find((todo) => {
+									return todo.id === mobileTodoActionsHubProps.id;
+								})}
+								onMarkAsCurrent={handleMarkTodoAsCurrent}
+								onMark={handleMarkTodo}
+								onSetReminder={handleSetReminder}
+								onEdit={handleShowMobileEditTodoForm}
+								onRemove={handleRemoveTodo}
+								onActionFinished={handleCloseBottomPopup}
 							/>
 						)}
 

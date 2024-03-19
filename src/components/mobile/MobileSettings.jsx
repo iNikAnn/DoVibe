@@ -5,6 +5,8 @@ import Switcher from '../Switcher';
 import Filter from '../Filter';
 
 // icons
+import { IoNotifications } from "react-icons/io5";
+import { IoNotificationsOff } from "react-icons/io5";
 import { FaSun } from "react-icons/fa"; // light mode
 import { FaMoon } from "react-icons/fa"; // dark mode
 import { FaCalendarAlt } from "react-icons/fa"; // all todos
@@ -14,6 +16,10 @@ import Footer from '../Footer';
 
 function MobileSettings(props) {
 	const {
+		// notifications
+		isNotifEnabled,
+		onToogleNotif,
+
 		// color scheme switcher
 		colorScheme,
 		onChangeScheme,
@@ -29,6 +35,26 @@ function MobileSettings(props) {
 
 	return (
 		<div className={styles.settings}>
+			<div className={styles.settingsItem}>
+				<span>Notifications</span>
+
+				<Switcher
+					name="notifications-mobile"
+					iconLeft={<IoNotificationsOff />}
+					activeLeftColor='#e4717a'
+					tooltipLeft="Light scheme"
+					checkedLeft={!isNotifEnabled}
+					onChangeLeft={() => onToogleNotif(false)}
+					iconRight={<IoNotifications />}
+					activeRightColor='#7fc7ff'
+					tooltipRight="Dark scheme"
+					checkedRight={isNotifEnabled}
+					onChangeRight={() => onToogleNotif(true)}
+				/>
+			</div>
+
+			<div className={styles.separator} />
+
 			<div className={styles.settingsItem}>
 				<span>Color scheme</span>
 

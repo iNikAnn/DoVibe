@@ -9,7 +9,7 @@ import SmallBtn from '../buttons/SmallBtn';
 // icons
 import { FaSave } from "react-icons/fa";
 
-function MobileEditTodoForm({ bin, id, title, desc, onClose, onSubmit }) {
+function MobileEditTodoForm({ bin, id, title, description, onClose, onSubmit }) {
 	const formVariants = {
 		initial: {
 			opacity: 0,
@@ -58,7 +58,7 @@ function MobileEditTodoForm({ bin, id, title, desc, onClose, onSubmit }) {
 					id="newDesc"
 					cols="1"
 					rows="8"
-					defaultValue={desc}
+					defaultValue={description}
 					placeholder="Description"
 				>
 
