@@ -41,7 +41,7 @@ function TodoItem(props) {
 	const [bg, setBg] = useState('');
 
 	useEffect(() => {
-		setBg(getComputedStyle(document.documentElement).getPropertyValue('--bg'));
+		setBg(getComputedStyle(document.documentElement).getPropertyValue('--bg-color-primary'));
 	}, []);
 
 	// enables keyboard focus styling for the todo item using :focus-visible pseudoclass
@@ -100,10 +100,6 @@ function TodoItem(props) {
 			whileTap={tapStyle}
 		>
 			<div className={`${styles.left} ${isCompleted ? styles.isCompleted : ''}`}>
-				{hasReminder && (
-					<IoAlarm />
-				)}
-
 				{description && (
 					<MdDescription title="Todo has a description" />
 				)}
@@ -114,6 +110,10 @@ function TodoItem(props) {
 				>
 					<span className={styles.title}>{title}</span>
 				</div>
+
+				{hasReminder && (
+					<IoAlarm />
+				)}
 			</div>
 
 			<div className={styles.btnWrapper}>

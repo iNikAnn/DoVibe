@@ -116,7 +116,7 @@ function TodoActionsHub(props) {
 
 											<Switcher
 												name="onTheDay"
-												iconLeft={<MdAlarmOff />}
+												// iconLeft={<MdAlarmOff />}
 												activeLeftColor='#e4717a'
 												tooltipLeft="Light scheme"
 												checkedLeft={!reminders?.find((reminder) => reminder.name === 'onTheDay')}
@@ -135,7 +135,7 @@ function TodoActionsHub(props) {
 
 												<Switcher
 													name="1DayBefore"
-													iconLeft={<MdAlarmOff />}
+													// iconLeft={<MdAlarmOff />}
 													activeLeftColor='#e4717a'
 													tooltipLeft="Light scheme"
 													checkedLeft={!reminders?.find((reminder) => reminder.name === '1DayBefore')}
@@ -155,7 +155,7 @@ function TodoActionsHub(props) {
 
 												<Switcher
 													name="3DayBefore"
-													iconLeft={<MdAlarmOff />}
+													// iconLeft={<MdAlarmOff />}
 													activeLeftColor='#e4717a'
 													tooltipLeft="Light scheme"
 													checkedLeft={!reminders?.find((reminder) => reminder.name === '3DayBefore')}
@@ -168,6 +168,10 @@ function TodoActionsHub(props) {
 												/>
 											</div>
 										)}
+
+										<small className={styles.remindersDesc}>
+											The notification will arrive at 8 AM.
+										</small>
 									</div>
 								</motion.div>
 							)}

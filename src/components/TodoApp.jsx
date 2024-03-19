@@ -263,10 +263,10 @@ function TodoApp() {
 			};
 		};
 
-		navigator.serviceWorker.addEventListener('message', messageHandler);
+		navigator?.serviceWorker?.addEventListener('message', messageHandler);
 
 		return () => {
-			navigator.serviceWorker.removeEventListener('message', messageHandler);
+			navigator?.serviceWorker?.removeEventListener('message', messageHandler);
 		};
 	}, [])
 
