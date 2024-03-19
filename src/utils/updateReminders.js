@@ -9,8 +9,28 @@ function updateReminders(todo, reminderName, enabling) {
 	let updatedReminders = reminders || [];
 
 	if (enabling) {
+		const todoDate = new Date(todo.bin);
+
+		switch (reminderName) {
+			case '1DayBefore':
+				todoDate.setDate(todoDate.getDate() - 1);
+				break;
+
+			case '3DayBefore':
+				todoDate.setDate(todoDate.getDate() - 3);
+				break;
+
+			default:
+				break;
+		};
+
 		updatedReminders.push({
-			name: reminderName
+			name: reminderName,
+			year: todoDate.getFullYear(),
+			month: todoDate.getMonth(),
+			day: todoDate.getDate(),
+			hours: 8,
+			minutes: 0
 		});
 	} else {
 		updatedReminders = updatedReminders.filter((reminder) => reminder.name !== reminderName);
