@@ -134,11 +134,5 @@ const checkReminders = () => {
 };
 
 const createNotification = (title) => {
-	if ('Notification' in self) {
-		self.Notification.requestPermission((res) => {
-			if (res === 'granted') {
-				self.registration.showNotification('DoVibe', { body: title });
-			};
-		});
-	};
+	self.registration.showNotification('DoVibe', { body: title });
 };
