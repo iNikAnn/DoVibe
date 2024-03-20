@@ -33,10 +33,33 @@ function MobileSettings(props) {
 		setOnlyUncompleted
 	} = props;
 
+	let pressTimer;
+
+	const startPress = () => {
+		pressTimer = setTimeout(() => {
+			if ('serviceWorker' in navigator) {
+				navigator.serviceWorker.ready.then((registration) => {
+					registration.showNotification('DoVibe', {
+						body: "If you're seeing this, it means the notification has been successfully sent."
+					});
+				});
+			};
+		}, 3000);
+	};
+
+	const endPress = () => {
+		clearTimeout(pressTimer);
+	};
+
 	return (
 		<div className={styles.settings}>
 			<div className={styles.settingsItem}>
-				<span>Notifications</span>
+				<span
+					onPointerDown={startPress}
+					onPointerUp={endPress}
+				>
+					Notifications
+				</span>
 
 				<Switcher
 					name="notifications-mobile"
