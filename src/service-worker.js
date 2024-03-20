@@ -84,7 +84,7 @@ const checkReminders = () => {
 	const hourCheck = now.getHours();
 	const minuteCheck = now.getMinutes();
 
-	const request = indexedDB.open('todosDB');
+	const request = self.indexedDB.open('todosDB');
 
 	request.onsuccess = (event) => {
 		const db = event.target.result;
