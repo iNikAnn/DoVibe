@@ -608,6 +608,7 @@ function TodoApp() {
 				{isMobileVersion && (
 					<MobileHeader
 						date={date}
+						onChangeViewMode={handleChangeViewMode}
 					/>
 				)}
 

@@ -3,7 +3,7 @@ import styles from '../../css/MobileHeader.module.css';
 // framer
 import { AnimatePresence, motion } from 'framer-motion';
 
-function MobileHeader({ date }) {
+function MobileHeader({ date, onChangeViewMode }) {
 	const selectedDate = new Date(date).toLocaleDateString();
 
 	const viewModeVariants = {
@@ -36,6 +36,7 @@ function MobileHeader({ date }) {
 						<motion.div
 							key="selectedDate"
 							{...viewModeVariants}
+							onClick={() => onChangeViewMode('')}
 						>
 							{selectedDate}
 						</motion.div>
@@ -43,6 +44,7 @@ function MobileHeader({ date }) {
 						<motion.div
 							key="allTodos"
 							{...viewModeVariants}
+							onClick={() => onChangeViewMode(new Date())}
 						>
 							All todos
 						</motion.div>
