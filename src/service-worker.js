@@ -72,26 +72,25 @@ self.addEventListener('message', (event) => {
 // Any other custom service worker logic can go here.
 setInterval(() => {
 	checkReminders();
-}, 10000);
+}, 30000);
 
 const checkReminders = () => {
 	console.log('check reminders');
-	const now = new Date();
-
-	const yearCheck = now.getFullYear();
-	const monthCheck = now.getMonth();
-	const dayCheck = now.getDate();
-	const hourCheck = now.getHours();
-	const minuteCheck = now.getMinutes();
-
 	const request = self.indexedDB.open('todosDB');
 
 	request.onsuccess = (event) => {
+		console.log('database opened successfully');
 		const db = event.target.result;
 
-		const todosStore = db
-			.transaction('todosStore', 'readwrite')
-			.objectStore('todosStore');
+		let todosStore;
+
+		try {
+			todosStore = db
+				.transaction('todosStore', 'readwrite')
+				.objectStore('todosStore');
+		} catch (error) {
+			alert('Error accessing todosStore:', error);
+		};
 
 		todosStore.openCursor().onsuccess = (event) => {
 			const cursor = event.target.result;
@@ -104,35 +103,45 @@ const checkReminders = () => {
 				for (const reminder of todo.reminders) {
 					const { name: reminderName, year, month, day, hours, minutes } = reminder;
 
-					const isMatched =
-						yearCheck >= year &&
-						monthCheck >= month &&
-						dayCheck >= day &&
-						hourCheck >= hours &&
-						minuteCheck >= minutes;
+					const now = new Date();
+					const todoDateTime = new Date(year, month, day, hours, minutes);
+					const isMatched = now >= todoDateTime;
 
 					if (isMatched) {
 						createNotification(title);
 
-						self.clients.matchAll().then(clients => {
-							clients.forEach(client => {
-								client.postMessage({
-									action: 'removeReminder',
-									bin,
-									id,
-									reminderName
+						self.clients.matchAll()
+							.then((clients) => {
+								clients.forEach(client => {
+									client.postMessage({
+										action: 'removeReminder',
+										bin,
+										id,
+										reminderName
+									});
 								});
-							});
-						});
+							})
+							.cath((error) => {
+								alert('Error while sending message to clients:', error);
+							})
 					};
 				};
 			};
 
 			cursor.continue();
 		};
+
+		todosStore.openCursor().onerror = (event) => {
+			alert('An error occurred while opening the cursor on the store');
+		};
+	};
+
+	request.onerror = (event) => {
+		alert('Database error: ' + event.target.errorCode);
 	};
 };
 
 const createNotification = (title) => {
+	console.log('Notification created:', title);
 	self.registration.showNotification('DoVibe', { body: title });
 };

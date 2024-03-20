@@ -259,6 +259,7 @@ function TodoApp() {
 			console.log('message from sw: ', event);
 
 			if (event.data.action === 'removeReminder') {
+				console.log('removing reminder...');
 				handleSetReminder(event.data.bin, event.data.id, event.data.reminderName, false);
 			};
 		};
