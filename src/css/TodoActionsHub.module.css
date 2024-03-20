@@ -45,13 +45,17 @@
 	transition: color 0.2s ease;
 }
 
-.actionsList button[aria-label='Remove todo'] {
+.actionsList button[aria-label='Remove todo'].colored {
 	color: #e4717a;
 }
 
 /* when sub menu is opened */
 .actionsListDimmed li > button {
-	color: var(--text-color-dimmed) !important;
+	color: var(--text-color-dimmed);
+}
+
+.liActive > button {
+	color: inherit !important;
 }
 
 .subMenu {

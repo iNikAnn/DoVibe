@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Switcher from '../Switcher';
 
 // icons
-import { MdAlarmOn } from "react-icons/md";
+import { IoAlarm } from "react-icons/io5";
 import { MdAlarmOff } from "react-icons/md";
 
 function TodoActionsHub(props) {
@@ -121,7 +121,7 @@ function TodoActionsHub(props) {
 												tooltipLeft="Light scheme"
 												checkedLeft={!reminders?.find((reminder) => reminder.name === 'onTheDay')}
 												onChangeLeft={() => onSetReminder(bin, id, 'onTheDay', false)}
-												iconRight={<MdAlarmOn />}
+												iconRight={<IoAlarm />}
 												activeRightColor='#7fc7ff'
 												tooltipRight="Dark scheme"
 												checkedRight={reminders?.find((reminder) => reminder.name === 'onTheDay') || false}
@@ -140,7 +140,7 @@ function TodoActionsHub(props) {
 													tooltipLeft="Light scheme"
 													checkedLeft={!reminders?.find((reminder) => reminder.name === '1DayBefore')}
 													onChangeLeft={() => onSetReminder(bin, id, '1DayBefore', false)}
-													iconRight={<MdAlarmOn />}
+													iconRight={<IoAlarm />}
 													activeRightColor='#7fc7ff'
 													tooltipRight="Dark scheme"
 													checkedRight={reminders?.find((reminder) => reminder.name === '1DayBefore')}
@@ -160,7 +160,7 @@ function TodoActionsHub(props) {
 													tooltipLeft="Light scheme"
 													checkedLeft={!reminders?.find((reminder) => reminder.name === '3DayBefore')}
 													onChangeLeft={() => onSetReminder(bin, id, '3DayBefore', false)}
-													iconRight={<MdAlarmOn />}
+													iconRight={<IoAlarm />}
 													activeRightColor='#7fc7ff'
 													tooltipRight="Dark scheme"
 													checkedRight={reminders?.find((reminder) => reminder.name === '3DayBefore')}
@@ -189,6 +189,7 @@ function TodoActionsHub(props) {
 
 				<li>
 					<button
+						className={isSubMenuOpen ? '' : styles.colored}
 						data-type="actionBtn"
 						onClick={() => onRemove(bin, id)}
 						aria-label="Remove todo"
