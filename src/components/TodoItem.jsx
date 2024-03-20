@@ -100,16 +100,16 @@ function TodoItem(props) {
 			whileTap={tapStyle}
 		>
 			<div className={`${styles.left} ${isCompleted ? styles.isCompleted : ''}`}>
-				{description && (
-					<MdDescription title="Todo has a description" />
-				)}
-
 				<div
 					className={`${styles.titleWrapper} ${description ? styles.hasDescription : ''} ${isCurrent ? styles.isCurrent : ''}`}
 					onClick={description ? () => onOpen(title, description, bin, isCompleted) : null}
 				>
 					<span className={styles.title}>{title}</span>
 				</div>
+
+				{description && (
+					<MdDescription title="Todo has a description" />
+				)}
 
 				{hasReminder && (
 					<IoAlarm />
