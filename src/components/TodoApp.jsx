@@ -256,7 +256,7 @@ function TodoApp() {
 	// set reminder
 	useEffect(() => {
 		const messageHandler = (event) => {
-			console.log('message from sw');
+			console.log('message from sw: ', event);
 
 			if (event.data.action === 'removeReminder') {
 				handleSetReminder(event.data.bin, event.data.id, event.data.reminderName, false);

@@ -84,7 +84,7 @@ const checkReminders = () => {
 	const hourCheck = now.getHours();
 	const minuteCheck = now.getMinutes();
 
-	const request = window.indexedDB.open('todosDB');
+	const request = indexedDB.open('todosDB');
 
 	request.onsuccess = (event) => {
 		const db = event.target.result;
@@ -134,8 +134,8 @@ const checkReminders = () => {
 };
 
 const createNotification = (title) => {
-	if ('Notification' in window) {
-		window.Notification.requestPermission((res) => {
+	if ('Notification' in self) {
+		self.Notification.requestPermission((res) => {
 			if (res === 'granted') {
 				self.registration.showNotification('DoVibe', { body: title });
 			};
