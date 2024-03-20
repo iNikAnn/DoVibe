@@ -89,8 +89,10 @@ const checkReminders = () => {
 				.transaction('todosStore', 'readwrite')
 				.objectStore('todosStore');
 		} catch (error) {
-			alert('Error accessing todosStore:', error);
+			console.log('Error accessing todosStore:', error);
 		};
+
+		let notificationStatusMessage = "No reminders found to send";
 
 		todosStore.openCursor().onsuccess = (event) => {
 			const cursor = event.target.result;
@@ -121,9 +123,11 @@ const checkReminders = () => {
 									});
 								});
 							})
-							.cath((error) => {
-								alert('Error while sending message to clients:', error);
-							})
+							.catch((error) => {
+								console.log('Error while sending message to clients:', error);
+							});
+
+						notificationStatusMessage = 'Reminders have been sent successfully';
 					};
 				};
 			};
@@ -131,13 +135,15 @@ const checkReminders = () => {
 			cursor.continue();
 		};
 
+		console.log(notificationStatusMessage);
+
 		todosStore.openCursor().onerror = (event) => {
-			alert('An error occurred while opening the cursor on the store');
+			console.log('An error occurred while opening the cursor on the store');
 		};
 	};
 
 	request.onerror = (event) => {
-		alert('Database error: ' + event.target.errorCode);
+		console.log('Database error: ' + event.target.errorCode);
 	};
 };
 
