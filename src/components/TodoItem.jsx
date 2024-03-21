@@ -116,7 +116,11 @@ function TodoItem(props) {
 					className={`${styles.titleWrapper} ${description ? styles.hasDescription : ''} ${isCurrent ? styles.isCurrent : ''}`}
 					onClick={description ? () => onOpen(title, description, bin, isCompleted) : null}
 				>
-					<span className={styles.title}>{title}</span>
+					<span
+						className={styles.title}
+					>
+						{title.length >= 50 ? title.slice(0, 47).trim() + '...' : title}
+					</span>
 				</div>
 
 				{description && (
