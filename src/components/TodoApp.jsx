@@ -373,7 +373,15 @@ function TodoApp() {
 			};
 
 			return (todo.id === id)
-				? { ...todo, isCompleted: !todo.isCompleted, isCurrent: todo.isCurrent && false, date: Date.now(), id: uuidv4() }
+				? {
+					...todo,
+					isCompleted: !todo.isCompleted,
+					isCurrent: todo.isCurrent && false,
+					date: Date.now(),
+					id: uuidv4(),
+					reminders: [],
+					hasReminder: false
+				}
 				: { ...todo };
 		});
 

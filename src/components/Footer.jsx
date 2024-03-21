@@ -9,7 +9,7 @@ function Footer() {
 	return (
 		<footer className={styles.footer}>
 			<small>
-				DoVibe on <a className={styles.link} href={homePage} target="_blank" rel="noreferrer">GitHub</a>
+				DoVibe on <a className={styles.link} href={homePage} target="_blank" rel="noreferrer">GitHub</a>.
 			</small>
 
 			<small>Version: {version}</small>

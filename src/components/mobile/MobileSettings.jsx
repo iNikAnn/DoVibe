@@ -132,7 +132,7 @@ function MobileSettings(props) {
 
 			<div className={styles.separator} />
 
-			<div style={{ alignSelf: 'center' }} className={styles.settingsItem}>
+			<div className={styles.settingsItem}>
 				<Footer />
 			</div>
 		</div>
