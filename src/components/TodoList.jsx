@@ -129,15 +129,19 @@ function TodoList(props) {
 	};
 
 	const handleMarkTodo = (bin, id) => {
-		setDelay(true);
+		if (!isMobileVersion) {
+			setDelay(true);
+		};
 
 		setTimeout(() => {
 			onMarkTodo(bin, id);
 		}, 0);
 
-		setTimeout(() => {
-			setDelay(false);
-		}, 1200);
+		if (!isMobileVersion) {
+			setTimeout(() => {
+				setDelay(false);
+			}, 1200);
+		};
 	};
 
 	const handleLongPress = (bin, id, title) => {
@@ -228,6 +232,7 @@ function TodoList(props) {
 										onMark={handleMarkTodo}
 										onMarkAsCurrent={onMarkTodoAsCurrent}
 										onLongPress={handleLongPress}
+										isMobileVersion={isMobileVersion}
 									/>
 								);
 							};

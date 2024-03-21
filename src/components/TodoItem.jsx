@@ -8,6 +8,8 @@ import { motion } from 'framer-motion';
 import TodoActionBtn from './buttons/TodoActionBtn';
 
 // icons
+import { FaRegCircle } from "react-icons/fa";
+import { FaRegCheckCircle } from "react-icons/fa";
 import { IoAlarm } from "react-icons/io5";
 import { MdDescription } from "react-icons/md";
 import { HiMiniBookmark } from "react-icons/hi2";// mark todo as current
@@ -32,7 +34,9 @@ function TodoItem(props) {
 		onRemove,
 		onMark,
 		onMarkAsCurrent,
-		onLongPress
+		onLongPress,
+
+		isMobileVersion
 	} = props;
 
 	const todoRef = useRef(null);
@@ -84,7 +88,6 @@ function TodoItem(props) {
 		};
 	};
 
-	const isMobileVersion = window.matchMedia('(max-width: 576px)').matches;
 	const tapStyle = isMobileVersion ? { backgroundColor: bg } : {};
 
 	return (
@@ -100,6 +103,15 @@ function TodoItem(props) {
 			whileTap={tapStyle}
 		>
 			<div className={`${styles.left} ${isCompleted ? styles.isCompleted : ''}`}>
+				{isMobileVersion && (
+					<div
+						className={styles.markTodoIconWrapper}
+						onClick={() => onMark(bin, id)}
+					>
+						{isCompleted ? <FaRegCheckCircle /> : <FaRegCircle />}
+					</div>
+				)}
+
 				<div
 					className={`${styles.titleWrapper} ${description ? styles.hasDescription : ''} ${isCurrent ? styles.isCurrent : ''}`}
 					onClick={description ? () => onOpen(title, description, bin, isCompleted) : null}

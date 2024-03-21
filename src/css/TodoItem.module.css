@@ -39,6 +39,14 @@
 	flex-shrink: 0;
 	width: 1rem;
 	height: 1rem;
+	/* transform: translateY(-1px); */
+}
+
+.markTodoIconWrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--text-color-dimmed);
 }
 
 /* title */
