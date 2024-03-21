@@ -87,6 +87,9 @@
 }
 
 /* reminders */
+.reminderStatusMsg {
+	color: var(--text-color-dimmed);
+}
 .remindersDesc {
 	color: var(--text-color-dimmed);
 }

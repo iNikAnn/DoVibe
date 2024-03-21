@@ -30,7 +30,7 @@ function MobileHeader({ date, onChangeViewMode }) {
 				<h2>DoVibe</h2>
 			</div>
 
-			<div>
+			<div style={{ whiteSpace: 'nowrap' }}>
 				<AnimatePresence mode='popLayout'>
 					{date ? (
 						<motion.div

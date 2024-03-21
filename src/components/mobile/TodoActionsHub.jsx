@@ -5,11 +5,11 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 // components
-import Switcher from '../Switcher';
+import Filter from '../Filter';
 
 // icons
 import { IoAlarm } from "react-icons/io5";
-import { MdAlarmOff } from "react-icons/md";
+import { IoIosArrowDown } from "react-icons/io";
 
 function TodoActionsHub(props) {
 	const {
@@ -68,6 +68,10 @@ function TodoActionsHub(props) {
 		return differenceInDays;
 	};
 
+	const reminderStatus = (reminderName) => {
+		return reminders?.find((reminder) => reminder.name === reminderName);
+	}
+
 	return (
 		<div className={styles.todoActionsHub}>
 			{isSubMenuOpen && (
@@ -112,59 +116,53 @@ function TodoActionsHub(props) {
 								<motion.div {...subMenuVariants}>
 									<div className={styles.subMenu}>
 										<div className={styles.subMenuItem}>
-											<span>On the day</span>
+											<span style={{ textAlign: 'left' }}>
+												On the day<br />
+												<small className={styles.reminderStatusMsg}>
+													{reminderStatus('onTheDay') ? 'Enabled' : 'Disabled'}
+												</small>
+											</span>
 
-											<Switcher
+											<Filter
 												name="onTheDay"
-												// iconLeft={<MdAlarmOff />}
-												activeLeftColor='#e4717a'
-												tooltipLeft="Light scheme"
-												checkedLeft={!reminders?.find((reminder) => reminder.name === 'onTheDay')}
-												onChangeLeft={() => onSetReminder(bin, id, 'onTheDay', false)}
-												iconRight={<IoAlarm />}
-												activeRightColor='#7fc7ff'
-												tooltipRight="Dark scheme"
-												checkedRight={reminders?.find((reminder) => reminder.name === 'onTheDay') || false}
-												onChangeRight={() => onSetReminder(bin, id, 'onTheDay', true)}
+												icon={<IoAlarm />}
+												checked={reminderStatus('onTheDay')}
+												onChange={(boolean) => onSetReminder(bin, id, 'onTheDay', boolean)}
 											/>
 										</div>
 
 										{daysUntilToday() >= 2 && (
 											<div className={styles.subMenuItem}>
-												<span>1 day before</span>
+												<span style={{ textAlign: 'left' }}>
+													1 day before<br />
+													<small className={styles.reminderStatusMsg}>
+														{reminderStatus('1DayBefore') ? 'Enabled' : 'Disabled'}
+													</small>
+												</span>
 
-												<Switcher
+												<Filter
 													name="1DayBefore"
-													// iconLeft={<MdAlarmOff />}
-													activeLeftColor='#e4717a'
-													tooltipLeft="Light scheme"
-													checkedLeft={!reminders?.find((reminder) => reminder.name === '1DayBefore')}
-													onChangeLeft={() => onSetReminder(bin, id, '1DayBefore', false)}
-													iconRight={<IoAlarm />}
-													activeRightColor='#7fc7ff'
-													tooltipRight="Dark scheme"
-													checkedRight={reminders?.find((reminder) => reminder.name === '1DayBefore')}
-													onChangeRight={() => onSetReminder(bin, id, '1DayBefore', true)}
+													icon={<IoAlarm />}
+													checked={reminderStatus('1DayBefore')}
+													onChange={(boolean) => onSetReminder(bin, id, '1DayBefore', boolean)}
 												/>
 											</div>
 										)}
 
 										{daysUntilToday() >= 4 && (
 											<div className={styles.subMenuItem}>
-												<span>3 day before</span>
+												<span style={{ textAlign: 'left' }}>
+													3 day before<br />
+													<small className={styles.reminderStatusMsg}>
+														{reminderStatus('3DayBefore') ? 'Enabled' : 'Disabled'}
+													</small>
+												</span>
 
-												<Switcher
+												<Filter
 													name="3DayBefore"
-													// iconLeft={<MdAlarmOff />}
-													activeLeftColor='#e4717a'
-													tooltipLeft="Light scheme"
-													checkedLeft={!reminders?.find((reminder) => reminder.name === '3DayBefore')}
-													onChangeLeft={() => onSetReminder(bin, id, '3DayBefore', false)}
-													iconRight={<IoAlarm />}
-													activeRightColor='#7fc7ff'
-													tooltipRight="Dark scheme"
-													checkedRight={reminders?.find((reminder) => reminder.name === '3DayBefore')}
-													onChangeRight={() => onSetReminder(bin, id, '3DayBefore', true)}
+													icon={<IoAlarm />}
+													checked={reminderStatus('3DayBefore')}
+													onChange={(boolean) => onSetReminder(bin, id, '3DayBefore', boolean)}
 												/>
 											</div>
 										)}
