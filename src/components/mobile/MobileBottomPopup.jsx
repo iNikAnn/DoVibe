@@ -44,7 +44,7 @@ function MobileBottomPopup({ title, children, onClose }) {
 
 				{title && (
 					<>
-						<h2 className={styles.title}>{title}</h2>
+						<h2 className={styles.title}>{title.length > 40 ? title.slice(0, 35).trim() + '...' : title}</h2>
 						<div className={styles.separator} />
 					</>
 				)}

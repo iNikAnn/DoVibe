@@ -10,8 +10,8 @@ import TodoActionBtn from './buttons/TodoActionBtn';
 // icons
 import { IoAlarm } from "react-icons/io5";
 import { MdDescription } from "react-icons/md";
-import { BsBookmark } from "react-icons/bs"; // mark todo as current
-import { BsBookmarkFill } from "react-icons/bs";
+import { HiMiniBookmark } from "react-icons/hi2";// mark todo as current
+import { HiOutlineBookmark } from "react-icons/hi2";
 import { HiMiniPencilSquare } from "react-icons/hi2"; // edit todo
 import { FaTrash } from "react-icons/fa"; // remove todo
 import { FaCheck } from "react-icons/fa";	// mark todo as complete
@@ -114,13 +114,17 @@ function TodoItem(props) {
 				{hasReminder && (
 					<IoAlarm />
 				)}
+
+				{isCurrent && (
+					<HiMiniBookmark />
+				)}
 			</div>
 
 			<div className={styles.btnWrapper}>
 				{!isCompleted && (
 					<TodoActionBtn
 						title="Mark as current"
-						icon={isCurrent ? <BsBookmarkFill /> : <BsBookmark />}
+						icon={isCurrent ? <HiMiniBookmark /> : <HiOutlineBookmark />}
 						iconColor="#3eb489"
 						onClick={() => onMarkAsCurrent(bin, id)}
 					/>

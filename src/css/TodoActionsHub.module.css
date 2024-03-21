@@ -33,20 +33,40 @@
 /* actions btn */
 .actionsList button {
 	/* outline: 1px solid red; */
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+
 	min-height: var(--small-btn-height);
 	width: 100%;
 
+	border-radius: var(--border-radius-secondary);
 	color: inherit;
 	font-weight: 700;
 
 	background-color: unset;
 	padding: 1rem;
 
-	transition: color 0.2s ease;
+	/* transition: color 0.2s ease; */
+	transition-property: color, background-color;
+	transition-duration: 0.2s;
+	transition-timing-function: ease;
+}
+
+.actionsList button:active {
+	background-color: var(--bg-color-secondary);
+	transform: unset;
 }
 
 .actionsList button[aria-label='Remove todo'].colored {
 	color: #e4717a;
+}
+
+/* icons */
+.actionsList button svg {
+	width: 1rem;
+	height: 1rem;
+	transform: translateY(-1px);
 }
 
 /* when sub menu is opened */
@@ -91,5 +111,13 @@
 	color: var(--text-color-dimmed);
 }
 .remindersDesc {
+	text-align: left;
 	color: var(--text-color-dimmed);
+}
+
+/* separator */
+.separator {
+	width: 100%;
+	height: 1px;
+	background-color: var(--bg-color-secondary);
 }

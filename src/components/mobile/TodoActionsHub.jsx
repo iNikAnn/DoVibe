@@ -8,8 +8,13 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Filter from '../Filter';
 
 // icons
+import { HiMiniBookmark } from "react-icons/hi2";// mark todo as current
+import { HiOutlineBookmark } from "react-icons/hi2";
+import { FaCheck } from "react-icons/fa";	// mark todo as complete
+import { FaPlus } from "react-icons/fa";
 import { IoAlarm } from "react-icons/io5";
-import { IoIosArrowDown } from "react-icons/io";
+import { HiMiniPencilSquare } from "react-icons/hi2"; // edit todo
+import { FaTrash } from "react-icons/fa"; // remove todo
 
 function TodoActionsHub(props) {
 	const {
@@ -89,6 +94,7 @@ function TodoActionsHub(props) {
 				{!isCompleted && (
 					<li>
 						<button data-type="actionBtn" onClick={() => onMarkAsCurrent(bin, id)}>
+							{isCurrent ? <HiOutlineBookmark /> : <HiMiniBookmark />}
 							{isCurrent ? 'Unmark as Current' : 'Mark as Current'}
 						</button>
 					</li>
@@ -96,6 +102,13 @@ function TodoActionsHub(props) {
 
 				<li>
 					<button data-type="actionBtn" onClick={() => onMark(bin, id)}>
+						{isCompleted ?
+							<span
+								style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', transform: 'rotate(45deg)' }}
+							>
+								<FaPlus />
+							</span>
+							: <FaCheck />}
 						{isCompleted ? 'Uncomplete' : 'Complete'}
 					</button>
 				</li>
@@ -108,6 +121,7 @@ function TodoActionsHub(props) {
 								setIsSubMenuOpen((prev) => !prev);
 							}}
 						>
+							<IoAlarm />
 							Set reminder
 						</button>
 
@@ -115,6 +129,8 @@ function TodoActionsHub(props) {
 							{isRemindersVisible && (
 								<motion.div {...subMenuVariants}>
 									<div className={styles.subMenu}>
+										<div className={styles.separator} />
+
 										<div className={styles.subMenuItem}>
 											<span style={{ textAlign: 'left' }}>
 												On the day<br />
@@ -167,6 +183,8 @@ function TodoActionsHub(props) {
 											</div>
 										)}
 
+										<div className={styles.separator} />
+
 										<small className={styles.remindersDesc}>
 											The notification will arrive at 8 AM.
 										</small>
@@ -180,6 +198,7 @@ function TodoActionsHub(props) {
 				{!isCompleted && (
 					<li>
 						<button data-type="actionBtn" onClick={() => onEdit({ bin, id, title, description })}>
+							<HiMiniPencilSquare />
 							Edit
 						</button>
 					</li>
@@ -192,6 +211,7 @@ function TodoActionsHub(props) {
 						onClick={() => onRemove(bin, id)}
 						aria-label="Remove todo"
 					>
+						<FaTrash />
 						Remove
 					</button>
 				</li>
