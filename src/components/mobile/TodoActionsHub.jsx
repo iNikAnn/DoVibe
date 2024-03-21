@@ -140,7 +140,7 @@ function TodoActionsHub(props) {
 											</span>
 
 											<Filter
-												name="onTheDay"
+												name="onTheDay" // the value 'onTheDay' is utilized in the service worker
 												icon={<IoAlarm />}
 												checked={reminderStatus('onTheDay')}
 												onChange={(boolean) => onSetReminder(bin, id, 'onTheDay', boolean)}
@@ -157,7 +157,7 @@ function TodoActionsHub(props) {
 												</span>
 
 												<Filter
-													name="1DayBefore"
+													name="1DayBefore" // the value '1DayBefore' is utilized in the service worker
 													icon={<IoAlarm />}
 													checked={reminderStatus('1DayBefore')}
 													onChange={(boolean) => onSetReminder(bin, id, '1DayBefore', boolean)}
@@ -175,7 +175,7 @@ function TodoActionsHub(props) {
 												</span>
 
 												<Filter
-													name="3DayBefore"
+													name="3DayBefore" // the value '3DayBefore' is utilized in the service worker
 													icon={<IoAlarm />}
 													checked={reminderStatus('3DayBefore')}
 													onChange={(boolean) => onSetReminder(bin, id, '3DayBefore', boolean)}

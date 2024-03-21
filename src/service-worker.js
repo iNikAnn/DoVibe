@@ -110,7 +110,27 @@ const checkReminders = () => {
 					const isMatched = now >= todoDateTime;
 
 					if (isMatched) {
-						createNotification(title);
+						let prefix = '';
+
+						switch (reminderName) {
+							case 'onTheDay':
+								prefix = 'Today: ';
+								break;
+
+							case '1DayBefore':
+								prefix = 'Tomorrow: ';
+								break
+
+							case '3DayBefore':
+								prefix = 'In 3 days: ';
+								break;
+
+							default:
+								break;
+						};
+
+						const text = prefix + title;
+						createNotification(text);
 
 						self.clients.matchAll()
 							.then((clients) => {
@@ -147,7 +167,7 @@ const checkReminders = () => {
 	};
 };
 
-const createNotification = (title) => {
-	console.log('Notification created:', title);
-	self.registration.showNotification('DoVibe', { body: title });
+const createNotification = (text) => {
+	console.log('Notification created:', text);
+	self.registration.showNotification('DoVibe', { body: text });
 };
