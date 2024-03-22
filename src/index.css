@@ -54,9 +54,9 @@ html[data-scheme='light'] {
 
 	--bg: #f0f0f0;
 	--bg-color-primary: hsl(0, 0%, 97%);
-	/* --bg-color-secondary: hsl(0, 0%, 92%); */
-	--bg-color-secondary: transparent;
-	--bg-color-tertiary: hsl(0, 0%, 100%);
+	--bg-color-secondary: hsl(0, 0%, 90%);
+	/* --bg-color-secondary: transparent; */
+	--bg-color-tertiary: hsl(0, 0%, 93%);
 }
 
 * {
@@ -131,6 +131,9 @@ textarea:focus {
 
 		--small-icon-width: 1.5rem;
 		--small-icon-height: 1.5rem;
+
+		--border-radius-primary: 2rem;
+		--border-radius-secondary: 1.2rem;
 	}
 
 	html[data-scheme='dark'] {

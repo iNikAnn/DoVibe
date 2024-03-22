@@ -45,7 +45,7 @@ function TodoItem(props) {
 	const [bg, setBg] = useState('');
 
 	useEffect(() => {
-		setBg(getComputedStyle(document.documentElement).getPropertyValue('--bg-color-primary'));
+		setBg(getComputedStyle(document.documentElement).getPropertyValue('--bg-color-secondary'));
 	}, []);
 
 	// enables keyboard focus styling for the todo item using :focus-visible pseudoclass

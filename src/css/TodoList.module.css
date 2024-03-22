@@ -21,7 +21,7 @@
 	/* outline: 1px solid tomato; */
 	text-align: left;
 	font-weight: 600;
-	color: #ffcc66;
+	/* color: #ffcc66; */
 	opacity: 1;
 
 	padding: 0 1rem;
@@ -41,4 +41,22 @@
 .hidden {
 	opacity: 0.1;
 	pointer-events: none;
+}
+
+@media screen and (max-width: 576px) {
+	.todoList ul {
+		display: flex;
+		flex-direction: column;
+		/* gap: 0.4rem; */
+	}
+
+	.binTitle {
+		color: var(--text-color-dimmed);
+		padding: 0;
+	}
+
+	.binTitle div {
+		border-bottom: none;
+		padding: 0 1rem;
+	}
 }

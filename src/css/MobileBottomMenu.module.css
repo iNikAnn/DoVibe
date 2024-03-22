@@ -11,7 +11,7 @@
 	border-top: 1px solid var(--bg-color-primary);
 	box-shadow: var(--box-shadow-primary);
 
-	padding: 0.6rem;
+	padding: 0.6rem 0.8rem;
 	z-index: 149;
 }
 
@@ -23,7 +23,6 @@
 	/* background-color: var(--bg-color-primary); */
 	border-radius: var(--border-radius-primary);
 	box-shadow: var(--box-shadow-primary);
-	padding: 0 0.6rem;
 	padding-left: 0;
 }
 

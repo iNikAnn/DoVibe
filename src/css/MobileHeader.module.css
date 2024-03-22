@@ -13,7 +13,7 @@
 	/* border-radius: 0 0 var(--border-radius-primary) var(--border-radius-primary); */
 	border-bottom: 1px solid var(--bg-color-primary);
 
-	padding: 1rem 1.4rem;
+	padding: 1rem 0.8rem;
 	z-index: 99;
 }
 
