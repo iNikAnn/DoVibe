@@ -368,12 +368,12 @@ function TodoApp() {
 		const updatedTodos = { ...todos };
 
 		updatedTodos[bin] = updatedTodos[bin].map((todo) => {
-			if (todo.isCurrent) {
-				setCurrentTodo(null);
-			};
+			if (todo.id === id) {
+				if (todo.isCurrent) {
+					setCurrentTodo(null);
+				};
 
-			return (todo.id === id)
-				? {
+				return {
 					...todo,
 					isCompleted: !todo.isCompleted,
 					isCurrent: todo.isCurrent && false,
@@ -381,8 +381,10 @@ function TodoApp() {
 					id: uuidv4(),
 					reminders: [],
 					hasReminder: false
-				}
-				: { ...todo };
+				};
+			};
+
+			return { ...todo };
 		});
 
 		handleRemoveTodo(bin, id, false);
