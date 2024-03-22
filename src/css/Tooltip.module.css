@@ -1,11 +1,16 @@
 .tooltip {
-	display: none;
 	position: absolute;
 	top: calc(100% + 0.4rem);
+
+	display: none;
+
 	white-space: nowrap;
+
 	background-color: var(--bg-color-tertiary);
 	color: var(--text-color-primary);
+	font-weight: normal;
 	border-radius: 0.4rem;
+
 	padding: 0.4rem;
 	transition: opacity 0.3s ease;
 	pointer-events: none;

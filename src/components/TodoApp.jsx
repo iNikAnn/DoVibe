@@ -221,8 +221,8 @@ function TodoApp() {
 	};
 
 	// change view mode
-	const handleChangeViewMode = (date) => {
-		setDate(date ? getFormattedDate(date) : '');
+	const handleChangeViewMode = (dateObj) => {
+		setDate(dateObj ? getFormattedDate(dateObj) : '');
 	};
 
 	// add todo
@@ -667,6 +667,7 @@ function TodoApp() {
 					onRemoveTodo={handleRemoveTodo}
 					onMarkTodo={handleMarkTodo}
 					onMarkTodoAsCurrent={handleMarkTodoAsCurrent}
+					onChangeViewMode={handleChangeViewMode}
 
 					onShowItemMenu={(props) => {
 						handleShowBottomPopup('mobileTodoItemMenu', props)

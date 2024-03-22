@@ -9,6 +9,7 @@ import TodoItem from './TodoItem';
 import TodoDetails from './TodoDetails';
 import DetailCard from './DetailCard';
 import ReorderItem from './ReorderItem';
+import Tooltip from './Tooltip';
 
 // utils
 import insertDateSeparator from '../utils/insertDateSeparator';
@@ -20,6 +21,7 @@ function TodoList(props) {
 		list,
 		date,
 		showCustomModal,
+		onChangeViewMode,
 
 		onReorderTodo,
 		onSetReminder,
@@ -190,7 +192,7 @@ function TodoList(props) {
 	const dateSeparatorVariants = {
 		animate: (index) => ({
 			...itemVariants.animate(),
-			margin: index ? '2rem 0 0.6rem 0' : '0.6rem 0 0.6rem 0',
+			margin: index ? '1.2rem 0 0.6rem 0' : '0.6rem 0 0.6rem 0',
 		})
 	};
 
@@ -221,7 +223,19 @@ function TodoList(props) {
 							let element = null;
 
 							if (isDateSeparator) {
-								element = <div>{new Date(item.bin).toLocaleDateString()}</div>;
+								const separatorDate = new Date(item.bin);
+
+								element = (
+									<div style={{ display: 'flex' }}>
+										<Tooltip text="Switch to this date">
+											<button
+												onClick={() => onChangeViewMode(separatorDate)}
+												type='button'
+											>
+												{separatorDate.toLocaleDateString()}
+											</button>
+										</Tooltip>
+									</div>);
 							} else {
 								element = (
 									<TodoItem

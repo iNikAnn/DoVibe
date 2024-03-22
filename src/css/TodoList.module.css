@@ -20,17 +20,24 @@
 .binTitle {
 	/* outline: 1px solid tomato; */
 	text-align: left;
-	font-weight: 600;
 	/* color: #ffcc66; */
 	opacity: 1;
 
 	padding: 0 1rem;
-	margin: 2rem 0 0.6rem 0;
+	/* margin settings are defined in dateSeparatorVariants */
 }
 
-.binTitle div {
+.binTitle > div {
 	border-bottom: 1px solid var(--bg-color-primary);
 	padding-bottom: 0.4rem;
+}
+
+.binTitle button {
+	background-color: unset;
+	font-family: inherit;
+	font-size: 1rem;
+	font-weight: 600;
+	color: var(--text-color-dimmed);
 }
 
 .grabbing {
@@ -51,12 +58,11 @@
 	}
 
 	.binTitle {
-		color: var(--text-color-dimmed);
 		padding: 0;
 	}
 
 	.binTitle div {
 		border-bottom: none;
-		padding: 0 1rem;
+		padding: 0 0.4rem;
 	}
 }
