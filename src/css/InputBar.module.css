@@ -61,7 +61,7 @@
 	/* color: var(--text-color-primary); */
 	color: #dfdfdf;
 	font-weight: 600;
-	border-radius: 0.4rem;
+	border-radius: var(--border-radius-secondary);
 	height: var(--small-btn-height);
 	padding: 0 1rem;
 }

@@ -68,7 +68,11 @@ function TodoApp() {
 		updateDatabase(todos);
 	}, [todos]);
 
-	const allTodos = Object.values(todos).map((arr) => arr.slice().reverse()).flat().reverse();
+	const allTodos = Object.values(todos)
+		.map((arr) => arr.slice().reverse())
+		.sort((a, b) => new Date(a[0].bin) - new Date(b[0].bin))
+		.flat()
+		.reverse();
 	const [isTodoOpen, setIsTodoOpened] = useState(false);
 
 	// filters

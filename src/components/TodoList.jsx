@@ -224,15 +224,17 @@ function TodoList(props) {
 
 							if (isDateSeparator) {
 								const separatorDate = new Date(item.bin);
+								const isToday = separatorDate.toDateString() === new Date().toDateString();
 
 								element = (
 									<div style={{ display: 'flex' }}>
 										<Tooltip text="Switch to this date">
 											<button
+												className={`${styles.binTitleBtn} ${isToday ? styles.isToday : ''}`}
 												onClick={() => onChangeViewMode(separatorDate)}
 												type='button'
 											>
-												{separatorDate.toLocaleDateString()}
+												{separatorDate.toLocaleDateString() + (isToday ? ' - Today' : '')}
 											</button>
 										</Tooltip>
 									</div>);
