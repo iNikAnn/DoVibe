@@ -99,6 +99,7 @@ function TodoItem(props) {
 			onPointerDown={startPress}
 			onPointerUp={endPress}
 			onPointerLeave={endPress}
+			onPointerMove={endPress}
 
 			whileTap={tapStyle}
 		>
