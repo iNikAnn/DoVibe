@@ -89,6 +89,11 @@ function LeftSideBar({ initialDate, todos, currentTodo, onPickDate, checkForUnfi
 			className={styles.leftSideBar}
 		>
 			<div className={styles.content}>
+				<div className={styles.logoWrapper}>
+					<span className={styles.logo} />
+					<h2>DoVibe</h2>
+				</div>
+
 				<AnimatePresence initial={false}>
 					{currentTodo && (
 						<CurrentTodo

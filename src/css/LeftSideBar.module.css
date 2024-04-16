@@ -18,6 +18,24 @@
 	padding-right: 0;
 }
 
+.logoWrapper {
+	/* outline: 1px solid tomato; */
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+
+	padding: 0.6rem;
+	margin-bottom: 1rem;
+}
+
+.logo {
+	display: inline-block;
+	width: 2rem;
+	height: 2rem;
+	background: url(../../public/icons/logo192-alpha.png) no-repeat center;
+	background-size: contain;
+}
+
 @media screen and (max-width: 576px) {
 	.leftSideBar {
 		position: fixed;
