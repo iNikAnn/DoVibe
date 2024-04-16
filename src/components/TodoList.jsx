@@ -228,7 +228,7 @@ function TodoList(props) {
 
 								element = (
 									<div style={{ display: 'flex' }}>
-										<Tooltip text="Switch to this date">
+										<Tooltip text="Switch to this date" position="Right">
 											<button
 												className={`${styles.binTitleBtn} ${isToday ? styles.isToday : ''}`}
 												onClick={() => onChangeViewMode(separatorDate)}

@@ -3,7 +3,7 @@ import styles from '../css/Tooltip.module.css';
 // react
 import { useEffect, useRef, useState } from 'react';
 
-function Tooltip({ text, children }) {
+function Tooltip({ text, position, children }) {
 	const parentRef = useRef(null);
 	const tooltipRef = useRef(null);
 
@@ -19,19 +19,21 @@ function Tooltip({ text, children }) {
 		const spaceLeft = parentRect.left;
 		const spaceRigth = document.documentElement.clientWidth - parentRect.right;
 
-		if ((spaceRigth + (parentWidth / 2)) < (tooltipWidth / 2)) {
-			setTooltipStyles({
-				right: '0',
-			});
-		} else if ((spaceLeft + (parentWidth / 2)) < (tooltipWidth / 2)) {
-			setTooltipStyles({
-				left: '0',
-			});
-		} else {
-			setTooltipStyles({
-				left: '50%',
-				transform: 'translateX(-50%)'
-			});
+		if (!position) {
+			if ((spaceRigth + (parentWidth / 2)) < (tooltipWidth / 2)) {
+				setTooltipStyles({
+					right: '0',
+				});
+			} else if ((spaceLeft + (parentWidth / 2)) < (tooltipWidth / 2)) {
+				setTooltipStyles({
+					left: '0',
+				});
+			} else {
+				setTooltipStyles({
+					left: '50%',
+					transform: 'translateX(-50%)'
+				});
+			};
 		};
 	}, [isVisible]);
 
@@ -48,7 +50,7 @@ function Tooltip({ text, children }) {
 			<small
 				ref={tooltipRef}
 				style={tooltipStyles}
-				className={`${styles.tooltip} ${isVisible ? styles.visible : ''}`}
+				className={`${styles.tooltip} ${isVisible ? styles.visible : ''} ${position ? styles['pos' + position] : ''}`}
 			>
 				{text}
 			</small>

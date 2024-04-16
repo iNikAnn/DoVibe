@@ -1,6 +1,6 @@
 .tooltip {
 	position: absolute;
-	top: calc(100% + 0.4rem);
+	bottom: calc(-100% - 0.4rem);
 
 	display: none;
 
@@ -15,6 +15,23 @@
 	transition: opacity 0.3s ease;
 	pointer-events: none;
 	z-index: 199;
+}
+
+.tooltip.posRight::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translate(-5px, -50%);
+	border-width: 6px 6px 6px 0;
+	border-style: solid;
+	border-color: transparent var(--bg-color-tertiary) transparent transparent;
+}
+
+.posRight {
+	left: calc(100% + 0.8rem);
+	bottom: 50%;
+	transform: translateY(50%);
 }
 
 .visible {
