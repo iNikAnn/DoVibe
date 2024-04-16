@@ -8,14 +8,14 @@
 	/* left: 50%; */
 	/* transform: translateX(-50%); */
 
-	background: linear-gradient(to top, var(--bg) 10%, transparent);
+	/* background: linear-gradient(to top, var(--bg) 10%, transparent); */
 
 	bottom: 1rem;
 	z-index: 159;
 }
 
 .childrenWrapper {
-	background-color: var(--bg-color-primary);
+	background-color: var(--bg-color-secondary);
 	box-shadow: var(--box-shadow-primary);
 	border-radius: var(--border-radius-primary);
 	padding: 0.6rem;

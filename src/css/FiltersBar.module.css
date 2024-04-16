@@ -18,7 +18,7 @@
 
 	background-color: var(--bg-color-primary);
 	box-shadow: var(--box-shadow-primary);
-	border-radius: 0.6rem;
+	border-radius: var(--border-radius-primary) var(--border-radius-primary) 0 0;
 
 	padding: 0.6rem;
 }

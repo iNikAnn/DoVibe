@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 // icons
+import { HiPencil } from "react-icons/hi2";
 import { MdLibraryAdd } from "react-icons/md";
 
 function InputBar({ inputBarRef, onSubmit }) {
@@ -53,12 +54,14 @@ function InputBar({ inputBarRef, onSubmit }) {
 					action="submit"
 					onSubmit={(e) => handleSubmit(e)}
 				>
+					<HiPencil />
+
 					<input
 						ref={inputBarRef}
 						className={styles.input}
 						type="text"
 						value={input}
-						placeholder="Add a new task.."
+						placeholder="Add a new task"
 						onChange={(e) => handleChange(e)}
 					/>
 					{/* <div className={styles.btnWrapper}> */}

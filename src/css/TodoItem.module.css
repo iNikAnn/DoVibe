@@ -98,6 +98,23 @@
 }
 
 @media screen and (min-width: 577px) {
+	.todoItemWrapper::after {
+		content: '';
+
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		width: calc(100% - 2rem);
+		height: 1px;
+
+		background-color: var(--bg-color-secondary);
+	}
+
+	.todoItemWrapper:hover {
+		background-color: var(--bg-color-secondary);
+	}
+
 	.todoItemWrapper:hover .btnWrapper {
 		opacity: 1;
 		pointer-events: all;

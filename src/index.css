@@ -12,11 +12,11 @@
 }
 
 :root {
-	--app-content-width: 555px;
+	--app-content-width: 700px;
 	--box-shadow-primary: 0px 0px 10px rgba(0, 0, 0, 0.05);
 
-	--border-radius-primary: 0.6rem;
-	--border-radius-secondary: 0.4rem;
+	--border-radius-primary: 1.2rem;
+	--border-radius-secondary: 0.8rem;
 	--focus-primary: 2px solid var(--accent-color);
 
 	--small-btn-width: 2.6rem;
@@ -29,21 +29,18 @@
 html[data-scheme='dark'] {
 	--accent-color: #1970c2;
 
-	/* --text-color-primary: #dfdfdf;
-	--text-color-dimmed: hsl(211, 20%, 30%);
-
-	--bg: #1a2026;
-	--bg-color-primary: hsl(210, 19%, 15%);
-	--bg-color-secondary: hsl(210, 19%, 19%);
-	--bg-color-tertiary: hsl(210, 19%, 23%); */
-
 	--text-color-primary: #e2e2e2;
 	--text-color-dimmed: #4d4d4d;
 
-	--bg: #121212;
+	/* --bg: #121212;
 	--bg-color-primary: hsl(0, 0%, 12%);
 	--bg-color-secondary: hsl(0, 0%, 16%);
-	--bg-color-tertiary: hsl(0, 0%, 21%);
+	--bg-color-tertiary: hsl(0, 0%, 21%); */
+
+	--bg: #1b1b1b;
+	--bg-color-primary: hsl(0, 0%, 7%);
+	--bg-color-secondary: hsl(210, 4%, 10%);
+	--bg-color-tertiary: hsl(210, 4%, 15%);
 }
 
 html[data-scheme='light'] {
