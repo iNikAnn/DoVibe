@@ -11,7 +11,6 @@
 	border-radius: var(--border-radius-secondary);
 	box-shadow: var(--box-shadow-primary);
 	color: var(--text-color-primary);
-	font-size: 1rem;
 	font-weight: 700;
 
 	padding: 0 1rem;
@@ -29,4 +28,10 @@
 	height: var(--small-icon-height);
 
 	color: var(--text-color-primary);
+}
+
+@media screen and (max-width: 576px) {
+	.smallBtn {
+		font-size: 1rem;
+	}
 }

@@ -3,6 +3,7 @@ import styles from '../../css/MobileSettings.module.css';
 // components
 import Switcher from '../Switcher';
 import Filter from '../Filter';
+import Footer from '../Footer';
 
 // icons
 import { IoNotifications } from "react-icons/io5";
@@ -12,7 +13,7 @@ import { FaMoon } from "react-icons/fa"; // dark mode
 import { FaCalendarAlt } from "react-icons/fa"; // all todos
 import { FaCalendarDay } from "react-icons/fa"; // todos for the day
 import { FaListAlt } from "react-icons/fa"; // only uncompleted todos
-import Footer from '../Footer';
+import { BsEmojiLaughingFill } from "react-icons/bs";
 
 function MobileSettings(props) {
 	const {
@@ -23,6 +24,10 @@ function MobileSettings(props) {
 		// color scheme switcher
 		colorScheme,
 		onChangeScheme,
+
+		// add random emoji
+		addRandomEmoji,
+		onToggleRandomEmoji,
 
 		// view mode
 		initialDate,
@@ -99,7 +104,27 @@ function MobileSettings(props) {
 			<div className={styles.separator} />
 
 			<div className={styles.settingsItem}>
-				<span>View mode</span>
+				<div style={{ textAlign: 'left' }}>
+					<span>Add random emoji<br /></span>
+					<small className={styles.itemDesc}>Adds random emoji at todo creation</small>
+				</div>
+
+				<Filter
+					name="addRandomEmoji"
+					icon={<BsEmojiLaughingFill />}
+					tooltip={`${addRandomEmoji ? 'Disable' : 'Enable'} random emoji at the start`}
+					checked={addRandomEmoji}
+					onChange={onToggleRandomEmoji}
+				/>
+			</div>
+
+			<div className={styles.separator} />
+
+			<div className={styles.settingsItem}>
+				<div style={{ textAlign: 'left' }}>
+					<span>View mode<br /></span>
+					<small className={styles.itemDesc}>Toggle all vs. one-day view</small>
+				</div>
 
 				<Switcher
 					name="viewMode-mobile"

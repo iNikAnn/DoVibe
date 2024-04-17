@@ -351,7 +351,7 @@ function TodoApp() {
 
 					<SmallBtn
 						text="Undo"
-						title="Undo Deletion"
+						// title="Undo Deletion"
 						icon={<FaUndoAlt />}
 						onClick={() => {
 							setTodos({ ...todos });
@@ -790,6 +790,10 @@ function TodoApp() {
 								// color scheme switcher
 								colorScheme={colorScheme}
 								onChangeScheme={handleChangeScheme}
+
+								// add random emoji
+								addRandomEmoji={addRandomEmoji}
+								onToggleRandomEmoji={() => setAddRandomEmoji((curr) => !curr)}
 
 								// view mode
 								initialDate={date}

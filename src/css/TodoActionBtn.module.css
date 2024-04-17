@@ -19,6 +19,16 @@
 	height: 0.8rem;
 }
 
+.iconColorRed:hover {
+	color: var(--color-red);
+}
+.iconColorGreen:hover {
+	color: var(--color-green);
+}
+.iconColorBlue:hover {
+	color: var(--color-blue);
+}
+
 .btn:focus-visible {
 	outline: var(--focus-primary);
 }

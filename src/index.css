@@ -24,6 +24,10 @@
 
 	--small-icon-width: 1rem;
 	--small-icon-height: 1rem;
+
+	--color-red: #e4717a;
+	--color-green: #3eb489;
+	--color-blue: #7fc7ff;
 }
 
 html[data-scheme='dark'] {

@@ -119,8 +119,9 @@ function TodoItem(props) {
 				>
 					<span
 						className={styles.title}
+						title={title}
 					>
-						{title.length >= 50 ? title.slice(0, 47).trim() + '...' : title}
+						{title.length >= 70 ? title.slice(0, 67).trim() + '...' : title}
 					</span>
 				</div>
 
@@ -133,7 +134,7 @@ function TodoItem(props) {
 				)}
 
 				{isCurrent && (
-					<HiMiniBookmark />
+					<HiMiniBookmark color="var(--color-green)" />
 				)}
 			</div>
 
@@ -142,7 +143,8 @@ function TodoItem(props) {
 					<TodoActionBtn
 						title="Mark as current"
 						icon={isCurrent ? <HiMiniBookmark /> : <HiOutlineBookmark />}
-						iconColor="#3eb489"
+						// iconColor="#3eb489"
+						iconColorOnHover="Green"
 						onClick={() => onMarkAsCurrent(bin, id)}
 					/>
 				)}
@@ -151,7 +153,8 @@ function TodoItem(props) {
 					<TodoActionBtn
 						title="Edit todo"
 						icon={<HiMiniPencilSquare />}
-						iconColor="#7fc7ff"
+						// iconColor="#7fc7ff"
+						iconColorOnHover="Blue"
 						onClick={() => onEdit(bin, id, title, description)}
 					/>
 				)}
@@ -159,14 +162,16 @@ function TodoItem(props) {
 				<TodoActionBtn
 					title='Remove todo'
 					icon={<FaTrash />}
-					iconColor="#e4717a"
+					// iconColor="#e4717a"
+					iconColorOnHover="Red"
 					onClick={() => onRemove(bin, id)}
 				/>
 
 				<TodoActionBtn
 					title={`Mark as ${isCompleted ? 'incomplete' : 'complete'}`}
 					icon={<FaCheck />}
-					iconColor="#3eb489"
+					// iconColor="#3eb489"
+					iconColorOnHover="Green"
 					onClick={() => onMark(bin, id)}
 				/>
 			</div>

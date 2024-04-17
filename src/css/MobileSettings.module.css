@@ -11,6 +11,11 @@
 	justify-content: space-between;
 }
 
+.itemDesc {
+	color: var(--text-color-dimmed);
+}
+
+/* separator */
 .separator {
 	width: 100%;
 	height: 1px;

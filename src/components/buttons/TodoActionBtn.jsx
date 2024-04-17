@@ -1,10 +1,10 @@
 import styles from '../../css/TodoActionBtn.module.css';
 
-function TodoActionBtn({ title, icon, iconColor, onClick }) {
+function TodoActionBtn({ title, icon, iconColor, iconColorOnHover, onClick }) {
 	return (
 		<button
 			style={{ color: iconColor }}
-			className={styles.btn}
+			className={`${styles.btn} ${iconColorOnHover ? styles['iconColor' + iconColorOnHover] : ''}`}
 			title={title}
 			onClick={onClick}
 			aria-label={title}

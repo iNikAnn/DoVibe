@@ -41,7 +41,9 @@ function CurrentTodo({ title }) {
 		<motion.div {...currentTodoVariants}>
 			<div className={`${styles.currentTodo}`}>
 				<small className={styles.badge}>Current todo</small>
-				<div className={styles.titleWrapper}>{title}</div>
+				<div className={styles.titleWrapper} title={title}>
+					{title.length >= 70 ? title.slice(0, 67).trim() + '...' : title}
+				</div>
 			</div>
 		</motion.div>
 	);
