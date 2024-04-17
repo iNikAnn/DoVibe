@@ -5,6 +5,9 @@ import { useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { AnimatePresence, motion } from 'framer-motion';
 
+// db
+import emojis from '../db/dbEmojis';
+
 // components
 import LeftSideBar from './LeftSideBar';
 import InputBar from './InputBar';
@@ -55,6 +58,15 @@ function TodoApp() {
 	const today = getFormattedDate(new Date());
 	const [date, setDate] = useState(() => {
 		return storredSettings ? storredSettings.date : '';
+	});
+
+	// add random emoji
+	const [addRandomEmoji, setAddRandomEmoji] = useState(() => {
+		if (storredSettings && 'addRandomEmoji' in storredSettings) {
+			return storredSettings.addRandomEmoji;
+		} else {
+			return true;
+		};
 	});
 
 	// todos
@@ -139,13 +151,14 @@ function TodoApp() {
 			leftSideBar: leftSideBarIsVisible,
 			colorScheme,
 			date,
+			addRandomEmoji,
 			filters: {
 				isOnlyUncompleted
 			},
 		};
 
 		localStorage.setItem('settings', JSON.stringify(settings));
-	}, [leftSideBarIsVisible, colorScheme, date, isOnlyUncompleted]);
+	}, [leftSideBarIsVisible, colorScheme, date, addRandomEmoji, isOnlyUncompleted]);
 
 	// initialize scheme on first load
 	useEffect(() => {
@@ -235,9 +248,13 @@ function TodoApp() {
 
 		if (isTodoDuplicate(todos[day], input)) return;
 
+		function getRandomEmoji() {
+			return emojis[Math.floor(Math.random() * emojis.length)];
+		}
+
 		const updatedTodos = { ...todos };
 		const newTodo = {
-			title: input,
+			title: (addRandomEmoji ? getRandomEmoji() + ' ' : '') + input,
 			description: '',
 			id: uuidv4(),
 			isCompleted: false,
@@ -631,7 +648,11 @@ function TodoApp() {
 						<InputBar
 							key="inputBar"
 							inputBarRef={inputBarRef}
+							isMobileVersion={isMobileVersion}
 							onSubmit={handleAddTodo}
+
+							addRandomEmoji={addRandomEmoji}
+							onToggleRandomEmoji={() => setAddRandomEmoji((curr) => !curr)}
 						/>
 					)}
 

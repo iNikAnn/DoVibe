@@ -37,9 +37,9 @@ html[data-scheme='dark'] {
 	--bg-color-secondary: hsl(0, 0%, 16%);
 	--bg-color-tertiary: hsl(0, 0%, 21%); */
 
-	--bg: #1b1b1b;
+	--bg: hsl(0, 0%, 11%);
 	--bg-color-primary: hsl(0, 0%, 7%);
-	--bg-color-secondary: hsl(210, 4%, 10%);
+	--bg-color-secondary: hsl(210, 4%, 11%);
 	--bg-color-tertiary: hsl(210, 4%, 15%);
 }
 

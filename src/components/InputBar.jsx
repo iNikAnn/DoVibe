@@ -4,11 +4,15 @@ import styles from '../css/InputBar.module.css';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 
+// components
+import Filter from './Filter';
+
 // icons
 import { HiPencil } from "react-icons/hi2";
 import { MdLibraryAdd } from "react-icons/md";
+import { BsEmojiLaughingFill } from "react-icons/bs";
 
-function InputBar({ inputBarRef, onSubmit }) {
+function InputBar({ inputBarRef, isMobileVersion, onSubmit, addRandomEmoji, onToggleRandomEmoji }) {
 	const [input, setInput] = useState('');
 
 
@@ -48,30 +52,38 @@ function InputBar({ inputBarRef, onSubmit }) {
 
 	return (
 		<motion.div {...inputBarVariants} className={styles.formWrapper}>
-			<div style={{ paddingTop: '1rem' }}>
-				<form
-					className={styles.form}
-					action="submit"
-					onSubmit={(e) => handleSubmit(e)}
-				>
-					<HiPencil />
+			<form
+				className={styles.form}
+				action="submit"
+				onSubmit={(e) => handleSubmit(e)}
+			>
+				<HiPencil />
 
-					<input
-						ref={inputBarRef}
-						className={styles.input}
-						type="text"
-						value={input}
-						placeholder="Add a new task"
-						onChange={(e) => handleChange(e)}
-					/>
-					{/* <div className={styles.btnWrapper}> */}
-					<button className={styles.createBtn}>
-						<span>Create</span>
-						<span className={styles.btnIconWrapper}><MdLibraryAdd /></span>
-					</button>
-					{/* </div> */}
-				</form>
-			</div>
+				<input
+					ref={inputBarRef}
+					className={styles.input}
+					type="text"
+					value={input}
+					placeholder="Add a new task"
+					onChange={(e) => handleChange(e)}
+				/>
+				{/* <div className={styles.btnWrapper}> */}
+				<button className={styles.createBtn}>
+					<span>Create</span>
+					<span className={styles.btnIconWrapper}><MdLibraryAdd /></span>
+				</button>
+				{/* </div> */}
+			</form>
+
+			{!isMobileVersion && (
+				<Filter
+					name="addRandomEmoji"
+					icon={<BsEmojiLaughingFill />}
+					tooltip={`${addRandomEmoji ? 'Disable' : 'Enable'} random emoji at the start`}
+					checked={addRandomEmoji}
+					onChange={onToggleRandomEmoji}
+				/>
+			)}
 		</motion.div>
 	);
 }
