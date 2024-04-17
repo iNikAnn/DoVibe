@@ -650,7 +650,8 @@ function TodoApp() {
 							inputBarRef={inputBarRef}
 							isMobileVersion={isMobileVersion}
 							onSubmit={handleAddTodo}
-
+							colorScheme={colorScheme}
+							onChangeScheme={handleChangeScheme}
 							addRandomEmoji={addRandomEmoji}
 							onToggleRandomEmoji={() => setAddRandomEmoji((curr) => !curr)}
 						/>
@@ -668,8 +669,6 @@ function TodoApp() {
 				{!isMobileVersion && (
 					<FiltersBar
 						initialDate={date}
-						colorScheme={colorScheme}
-						onChangeScheme={handleChangeScheme}
 						onChangeViewMode={handleChangeViewMode}
 						onToggleLeftSideBar={handleToggleLeftSideBar}
 						setOnlyUncompleted={setOnlyUncompleted}

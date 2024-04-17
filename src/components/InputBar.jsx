@@ -5,14 +5,17 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 // components
+import Switcher from './Switcher';
 import Filter from './Filter';
 
 // icons
 import { HiPencil } from "react-icons/hi2";
 import { MdLibraryAdd } from "react-icons/md";
+import { FaSun } from "react-icons/fa"; // light mode
+import { FaMoon } from "react-icons/fa"; // dark mode
 import { BsEmojiLaughingFill } from "react-icons/bs";
 
-function InputBar({ inputBarRef, isMobileVersion, onSubmit, addRandomEmoji, onToggleRandomEmoji }) {
+function InputBar({ inputBarRef, isMobileVersion, onSubmit, colorScheme, onChangeScheme, addRandomEmoji, onToggleRandomEmoji }) {
 	const [input, setInput] = useState('');
 
 
@@ -76,13 +79,31 @@ function InputBar({ inputBarRef, isMobileVersion, onSubmit, addRandomEmoji, onTo
 			</form>
 
 			{!isMobileVersion && (
-				<Filter
-					name="addRandomEmoji"
-					icon={<BsEmojiLaughingFill />}
-					tooltip={`${addRandomEmoji ? 'Disable' : 'Enable'} random emoji at the start`}
-					checked={addRandomEmoji}
-					onChange={onToggleRandomEmoji}
-				/>
+				<div className={styles.inputBarRight}>
+					<Filter
+						name="addRandomEmoji"
+						icon={<BsEmojiLaughingFill />}
+						tooltip={`${addRandomEmoji ? 'Disable' : 'Enable'} random emoji at the start`}
+						checked={addRandomEmoji}
+						onChange={onToggleRandomEmoji}
+					/>
+
+					<span className={styles.separator}>|</span>
+
+					<Switcher
+						name="colorScheme"
+						iconLeft={<FaSun />}
+						activeLeftColor='#ffcc66'
+						tooltipLeft="Light scheme"
+						checkedLeft={colorScheme === 'light'}
+						onChangeLeft={() => onChangeScheme('light')}
+						iconRight={<FaMoon />}
+						activeRightColor='#bb88ff'
+						tooltipRight="Dark scheme"
+						checkedRight={colorScheme === 'dark'}
+						onChangeRight={() => onChangeScheme('dark')}
+					/>
+				</div>
 			)}
 		</motion.div>
 	);
