@@ -88,9 +88,9 @@
 	cursor: pointer;
 }
 
-.isCompleted {
-	color: var(--text-color-dimmed);
+.isCompleted .title {
 	text-decoration: line-through;
+	filter: saturate(0) opacity(0.25);
 }
 
 .isCurrent {
@@ -98,7 +98,7 @@
 }
 
 @media screen and (min-width: 577px) {
-	.todoItemWrapper::after {
+	/* .todoItemWrapper::after {
 		content: '';
 
 		position: absolute;
@@ -109,6 +109,10 @@
 		height: 1px;
 
 		background-color: var(--bg-color-secondary);
+	} */
+
+	.todoItemWrapper {
+		border-radius: 0;
 	}
 
 	.todoItemWrapper:hover {
@@ -129,6 +133,8 @@
 	.todoItemWrapper {
 		background-color: var(--bg-color-primary);
 		border-radius: var(--border-radius-secondary);
+		padding: 1rem 1rem;
+		padding: 1.4rem 1rem;
 		margin-bottom: 0.6rem;
 	}
 }

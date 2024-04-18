@@ -42,7 +42,8 @@
 
 	border-radius: var(--border-radius-secondary);
 	color: inherit;
-	font-weight: 700;
+	/* font-weight: 700; */
+	font-size: 1rem;
 
 	background-color: unset;
 	padding: 1rem;
@@ -64,8 +65,8 @@
 
 /* icons */
 .actionsList button svg {
-	width: 1rem;
-	height: 1rem;
+	width: 1.2rem;
+	height: 1.2rem;
 	transform: translateY(-1px);
 }
 

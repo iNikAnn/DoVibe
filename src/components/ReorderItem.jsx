@@ -53,7 +53,7 @@ function ReorderItem(props) {
 				touchAction: 'pan-y',
 				position: 'relative',
 				outline: isItemCurrentlyDragging ? '2px solid var(--accent-color)' : 'unset',
-				borderRadius: isDraggable ? '1.2rem' : 0,
+				// borderRadius: isDraggable ? '1.2rem' : 0,
 				cursor: isItemCurrentlyDragging ? 'grabbing' : isDraggable ? 'grab' : 'auto'
 			}}
 
