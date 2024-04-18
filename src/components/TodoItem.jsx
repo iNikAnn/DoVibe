@@ -73,18 +73,38 @@ function TodoItem(props) {
 		};
 	}, []);
 
+	// prevents menu invocation if pointer moved
 	let pressTimer = null;
+	let startCoordinates = null;
+	let isMoved = false;
 
 	const startPress = (e) => {
+		startCoordinates = { x: e.clientX, y: e.clientY };
+
 		pressTimer = setTimeout(() => {
-			onLongPress(bin, id, title);
-			navigator.vibrate?.([10]);
+			if (startCoordinates && !isMoved) {
+				onLongPress(bin, id, title);
+				navigator.vibrate?.([10]);
+			};
 		}, 200);
+	};
+
+	const handleMove = (e) => {
+		if (startCoordinates) {
+			const dx = Math.abs(e.clientX - startCoordinates.x);
+			const dy = Math.abs(e.clientY - startCoordinates.y);
+
+			if (dx > 5 || dy > 5) {
+				isMoved = true;
+			};
+		};
 	};
 
 	const endPress = () => {
 		if (pressTimer) {
 			clearTimeout(pressTimer);
+			startCoordinates = null;
+			isMoved = false;
 		};
 	};
 
@@ -98,8 +118,7 @@ function TodoItem(props) {
 
 			onPointerDown={startPress}
 			onPointerUp={endPress}
-			onPointerLeave={endPress}
-			onPointerMove={endPress}
+			onPointerMove={handleMove}
 
 			whileTap={tapStyle}
 		>
