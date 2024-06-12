@@ -2,17 +2,18 @@
 import highlightDuplicate from '../utils/highlightDuplicate';
 
 function isTodoDuplicate(array, input, id) {
-	if (!array) return;
+	let isDuplicate = false;
 
-	const duplicate = array.find((todo) => (todo.title === input) && (todo.id !== id));
+	const duplicate = (array || []).find(
+		(todo) => (todo.title === input) && (todo.id !== id)
+	);
 
 	if (duplicate) {
 		highlightDuplicate(duplicate);
-
-		return true;
+		isDuplicate = true;
 	};
 
-	return false;
+	return isDuplicate;
 }
 
 export default isTodoDuplicate;
